@@ -1,6 +1,8 @@
 package org.example.Controller;
 
 import javafx.stage.Stage;
+import org.example.View.GameSetting_View;
+
 
 public class Home_Controller {
 
@@ -10,12 +12,8 @@ public class Home_Controller {
         // Initialize any necessary data or dependencies
     }
 
-    public void openSettingsWindow(Stage primaryStage) {
-        // Close the current window
-        primaryStage.close();
-
-        // Open the GameSetting_View window
-        new GameSetting_View(new Stage());
+    public void openGameSettingWindow(Stage primaryStage) {
+        new GameSetting_View(primaryStage);
     }
 
     public void setSelectedGame(String gameNumber, String gameName) {

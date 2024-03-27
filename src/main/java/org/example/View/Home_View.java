@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.Controller.Home_Controller;
@@ -32,7 +31,7 @@ public class Home_View {
         Button enterButton = new Button("Enter");
         enterButton.setPrefSize(200, 100);
         enterButton.setStyle("-fx-font-size: 40px;");
-        enterButton.setOnAction(e -> controller.openSettingsWindow());
+        enterButton.setOnAction(e -> controller.openGameSettingWindow(primaryStage));
 
         // Layout
         VBox layout = new VBox(20);
