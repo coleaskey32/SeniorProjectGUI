@@ -13,7 +13,8 @@ public class Home_Controller {
     }
 
     public void openGameSettingWindow(Stage primaryStage) {
-        new GameSetting_View(primaryStage);
+
+        new GameSetting_View(primaryStage, selectedGame);
     }
 
     public void setSelectedGame(String gameNumber, String gameName) {

@@ -12,9 +12,9 @@ public class GameSetting_View {
 
     private GameSetting_Controller controller;
 
-    public GameSetting_View(Stage primaryStage) {
-        this.controller = new GameSetting_Controller();
 
+    public GameSetting_View(Stage primaryStage, String selectedGame) {
+        this.controller = new GameSetting_Controller(selectedGame);
         Stage settingsStage = new Stage();
         settingsStage.setTitle("Settings");
 

@@ -1,11 +1,6 @@
 package org.example.Controller;
 
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.example.View.Game_View;
 
 public class GameSetting_Controller {
 
@@ -18,8 +13,8 @@ public class GameSetting_Controller {
 
     private String selectedGame = ""; // Variable to keep track of the selected game
 
-    public GameSetting_Controller() {
-        // Initialize any necessary data or dependencies
+    public GameSetting_Controller(String selectedGame) {
+        this.selectedGame = selectedGame;
     }
 
     public void addPlayer() {
@@ -44,19 +39,15 @@ public class GameSetting_Controller {
         speedMode = mode;
     }
 
+
     public void openGameWindow(Stage primaryStage) {
-        new Game_View(primaryStage);
+        System.out.println("Selected Game: " + selectedGame);
+        new Game_Controller(primaryStage, selectedGame, totalPlayers, speedMode);
     }
 
     private void updatePlayerCircles() {
         // Implement updating player circles if needed
     }
 
-    private void openGame1Window() {
-        // Implement opening Game 1 window
-    }
 
-    private void openGame2Window() {
-        // Implement opening Game 2 window
-    }
 }
