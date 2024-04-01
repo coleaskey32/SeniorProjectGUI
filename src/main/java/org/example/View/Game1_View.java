@@ -2,10 +2,12 @@ package org.example.View;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button; // Import Button class
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox; // Import VBox layout
 import javafx.stage.Stage;
 
 import org.example.Model.Game_Model;
@@ -32,8 +34,25 @@ public class Game1_View {
         // Center the ImageView within the StackPane
         StackPane.setAlignment(imageView, Pos.CENTER);
 
-        // Set the StackPane as the root of the scene
-        Scene scene = new Scene(stackPane, 400, 300);
+        // Create a VBox layout for vertical arrangement
+        VBox vbox = new VBox();
+        vbox.getChildren().addAll(stackPane); // Add StackPane to VBox
+
+        // Create a button
+        Button highScoreButton = new Button("View High Scores");
+        highScoreButton.setOnAction(e -> {
+            // Create a new instance of HighScore_View
+            HighScore_View highScoreView = new HighScore_View(primaryStage);
+        });
+
+        // Add button to VBox
+        vbox.getChildren().add(highScoreButton);
+
+        // Set alignment of the VBox to bottom center
+        vbox.setAlignment(Pos.BOTTOM_CENTER);
+
+        // Set the VBox as the root of the scene
+        Scene scene = new Scene(vbox, 400, 300);
 
         // Set the scene on the primary stage
         primaryStage.setScene(scene);

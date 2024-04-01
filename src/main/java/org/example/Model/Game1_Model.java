@@ -1,6 +1,6 @@
 package org.example.Model;
 
-public class Game1_Model implements Game_Model {
+public class Game1_Model extends Game_Model {
     private int totalPlayers;
     private boolean speedMode;
 
