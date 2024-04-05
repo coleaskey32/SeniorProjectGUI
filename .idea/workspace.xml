@@ -4,14 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d901d274-a6d6-4bab-bfb9-079219d4d5ef" name="Changes" comment="Added more MVC layout and soccer image">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Main.cpp" afterDir="false" />
+    <list default="true" id="d901d274-a6d6-4bab-bfb9-079219d4d5ef" name="Changes" comment="Outlined the methods for the game">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/SoccerGoalPost2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/SoccerGoalPost4.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Controller/GameSetting_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Controller/GameSetting_Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Controller/Game_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Controller/Game_Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Model/Game1_Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Model/Game1_Model.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Model/Game2_Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Model/Game2_Model.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Model/Game_Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Model/Game_Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Model/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/View/Game1_View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/View/Game1_View.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/View/Game2_View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/View/Game2_View.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/View/HighScore_View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/View/HighScore_View.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/SoccerGoalPost.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/SoccerGoalPost.jpg" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,16 +50,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Users/colea/Downloads/SP/src/main/resources",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\colea\Downloads\SP\src\main\resources" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\colea\Downloads\SP\src\main\resources" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -91,7 +106,14 @@
       <option name="project" value="LOCAL" />
       <updated>1711753739383</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Outlined the methods for the game">
+      <created>1712005909729</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1712005909729</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -110,6 +132,7 @@
     <MESSAGE value="Created Files" />
     <MESSAGE value="Converted to MVC" />
     <MESSAGE value="Added more MVC layout and soccer image" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added more MVC layout and soccer image" />
+    <MESSAGE value="Outlined the methods for the game" />
+    <option name="LAST_COMMIT_MESSAGE" value="Outlined the methods for the game" />
   </component>
 </project>

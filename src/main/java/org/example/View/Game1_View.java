@@ -21,8 +21,12 @@ public class Game1_View {
         this.game = game;
 
         // Create an ImageView with the image
-        Image image = new Image("SoccerGoalPost.jpg");
+        Image image = new Image("SoccerGoalPost2.jpg");
         ImageView imageView = new ImageView(image);
+
+        // Set the size of the image view
+        imageView.setFitWidth(400); // Set width to 400 pixels
+        imageView.setFitHeight(400); // Set height to 400 pixels
 
         // Create a label
         Label startLabel = new Label("Game starting...");
@@ -52,7 +56,7 @@ public class Game1_View {
         vbox.setAlignment(Pos.BOTTOM_CENTER);
 
         // Set the VBox as the root of the scene
-        Scene scene = new Scene(vbox, 400, 300);
+        Scene scene = new Scene(vbox, 800, 800);
 
         // Set the scene on the primary stage
         primaryStage.setScene(scene);

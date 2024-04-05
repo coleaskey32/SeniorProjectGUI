@@ -5,9 +5,10 @@ public class Game2_Model extends Game_Model {
     private boolean speedMode;
 
     // Constructor to initialize totalPlayers and speedMode
-    public Game2_Model(int totalPlayers, boolean speedMode) {
-        this.totalPlayers = totalPlayers;
-        this.speedMode = speedMode;
+    public Game2_Model(int totalPlayers, String selectedGame, boolean speedMode, int rounds) {
+        super(totalPlayers, selectedGame, speedMode, rounds);
+
+        initializePlayers();
     }
 
     // Implement methods specific to Game2_Model
@@ -17,7 +18,14 @@ public class Game2_Model extends Game_Model {
     }
 
     @Override
-    public int playerTurn() {
-        return 0;
+    public void setGrid() {
+
     }
+
+    @Override
+    public void pointsGiven() {
+
+    }
+
+
 }

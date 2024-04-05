@@ -12,13 +12,16 @@ public abstract class Game_Model {
     protected Player[] players;
     protected String selectedGame;
     protected int totalPlayers;
+    protected int rounds;
     protected boolean speedMode;
 
-    public Game_Model(int totalPlayers, String selectedGame, boolean speedMode) {
+    public Game_Model(int totalPlayers, String selectedGame, boolean speedMode, int rounds) {
         this.selectedGame = selectedGame;
         this.totalPlayers = totalPlayers;
         this.speedMode = speedMode;
+        this.rounds = rounds;
         this.players = new Player[totalPlayers];
+
         initializePlayers();
     }
 
@@ -42,17 +45,22 @@ public abstract class Game_Model {
      * Each line of input is expected to contain a set of coordinates.
      * Coordinates are accumulated into a StringBuilder.
      **/
-    public void retrieveCoordinates() {
+    public static String retrieveCoordinates() {
         StringBuilder contentBuilder = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+        try {
+            // Execute the C++ program
+            Process process = new ProcessBuilder("./coordinates_generator").start();
+
+            // Read the output from the C++ program
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
-            while ((line = br.readLine()) != null) {
-                // Still need to convert to 6x4 coordinates
+            while ((line = reader.readLine()) != null) {
                 contentBuilder.append(line).append("\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return contentBuilder.toString().trim(); // Return coordinates as a formatted string
     }
 
     /** Opens the High Score Screen **/
@@ -62,7 +70,7 @@ public abstract class Game_Model {
     }
 
     /** Creates the amount of player objects asked in game setting **/
-    private void initializePlayers() {
+    void initializePlayers() {
         for (int i = 0; i < totalPlayers; i++) {
             players[i] = new Player("Player " + (i + 1));
         }

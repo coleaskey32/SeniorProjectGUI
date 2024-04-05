@@ -42,7 +42,7 @@ public class GameSetting_Controller {
 
     public void openGameWindow(Stage primaryStage) {
         System.out.println("Selected Game: " + selectedGame);
-        new Game_Controller(primaryStage, selectedGame, totalPlayers, speedMode);
+        new Game_Controller(primaryStage, selectedGame, totalPlayers, speedMode, rounds);
     }
 
     private void updatePlayerCircles() {
