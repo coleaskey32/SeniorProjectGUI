@@ -18,15 +18,10 @@ public class Game1_Model extends Game_Model {
     }
 
     @Override
-    public void setGrid() {
-
+    public int[] setGrid() {
+        return new int[0];
     }
+
 
     @Override
-    public void pointsGiven() {
-
-    }
-
-
-
-}
+    public void p

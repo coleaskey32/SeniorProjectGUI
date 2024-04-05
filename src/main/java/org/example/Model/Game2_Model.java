@@ -1,5 +1,7 @@
 package org.example.Model;
 
+import java.util.Random;
+
 public class Game2_Model extends Game_Model {
     private int totalPlayers;
     private boolean speedMode;
@@ -18,8 +20,13 @@ public class Game2_Model extends Game_Model {
     }
 
     @Override
-    public void setGrid() {
+    public int[] setGrid() {
 
+        Random random = new Random();
+        int randomColumn = random.nextInt(6);
+        int randomRow = random.nextInt(3);
+
+        return new int[]{randomColumn, randomRow};
     }
 
     @Override

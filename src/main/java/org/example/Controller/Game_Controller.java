@@ -12,7 +12,6 @@ public class Game_Controller {
     private Game_Model model;
     private Game1_View view1;
     private Game2_View view2;
-
     private String selectedGame;
 
     public Game_Controller(Stage primaryStage, String selectedGame, int totalPlayers, boolean speedMode, int rounds) {
@@ -37,9 +36,14 @@ public class Game_Controller {
 
     private void startGame() {
 
+        // If the game is Simon Says
         if (!selectedGame.equals("Game 1")) {
-            model.setGrid();
+
+            int[] randomGridIndex = model.setGrid();
+            System.out.print(randomGridIndex[0] + randomGridIndex[1]);
         }
+
+
     }
 
 
