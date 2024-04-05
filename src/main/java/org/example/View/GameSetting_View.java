@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.Controller.GameSetting_Controller;
 public class GameSetting_View {
-
+//
     private GameSetting_Controller controller;
 
 
