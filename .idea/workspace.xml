@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d901d274-a6d6-4bab-bfb9-079219d4d5ef" name="Changes" comment="Outlined the methods for the game">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/SoccerGoalPost2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/SoccerGoalPost4.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Controller/GameSetting_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Controller/GameSetting_Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Controller/Game_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Controller/Game_Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Model/Game1_Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Model/Game1_Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Model/Game2_Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Model/Game2_Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Model/Game_Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Model/Game_Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/View/Game1_View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/View/Game1_View.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/View/Game2_View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/View/Game2_View.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/View/HighScore_View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/View/HighScore_View.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/SoccerGoalPost.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/SoccerGoalPost.jpg" afterDir="false" />
-    </list>
+    <list default="true" id="d901d274-a6d6-4bab-bfb9-079219d4d5ef" name="Changes" comment="Outlined the methods for the game" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,13 +23,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="workspaceImportEnabled" value="true" />
-      </MavenImportingSettings>
-    </option>
-  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7
+}]]></component>
   <component name="ProjectId" id="2e9TVqew6j4j4OkvWW16AMVaYHV" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -52,9 +34,11 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Main.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/colea/Downloads/SP/src/main/resources",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
@@ -68,6 +52,13 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\colea\Downloads\SP\src\main\resources" />
     </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-1.8.0_402-corretto-1.8.0_402-4caba194b151-ae57be32" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
