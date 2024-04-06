@@ -1,6 +1,5 @@
 package org.example.Controller;
 
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import org.example.Model.Game_Model;
@@ -13,6 +12,7 @@ public class Game_Controller {
     private Game_Model model;
     private Game1_View view1;
     private Game2_View view2;
+
     private String selectedGame;
 
     public Game_Controller(Stage primaryStage, String selectedGame, int totalPlayers, boolean speedMode, int rounds) {
@@ -59,9 +59,31 @@ public class Game_Controller {
         }
 
 
-    }
-
-
 }
 
+    /*
+    private void startGame() {
 
+        while model.getRounds() > 0 && model.checkLives(){
+
+            //IF GAME 2 then
+            model.setGrid();
+
+            //
+            model.retrieveCoordinates();
+
+
+            // Playing Simon Says (Game 2)
+            if model.pointsGiven() < 0 {
+                //decrement lives
+            }
+
+            else {
+                //Display points
+            }
+
+
+
+        }
+    }
+*/
