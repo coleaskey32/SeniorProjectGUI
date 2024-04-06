@@ -18,7 +18,7 @@ public class Game1_Model extends Game_Model {
     }
 
     @Override
-    public void setGrid() {
+    public int[] setGrid() {
 
     }
 

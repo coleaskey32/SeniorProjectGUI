@@ -31,7 +31,7 @@ public abstract class Game_Model {
     /** Sets the grid view depending on the game. random box for simon says and point layout for shoot and score.
      *  Will be implemented in Game1_Model and Game2_Model
      **/
-    public abstract void setGrid();
+    public abstract int[] setGrid();
 
 
     /** Depending on the game will give certain amount of points to the player
