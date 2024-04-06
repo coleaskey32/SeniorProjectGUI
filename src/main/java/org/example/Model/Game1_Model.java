@@ -22,6 +22,9 @@ public class Game1_Model extends Game_Model {
         return new int[0];
     }
 
-
     @Override
-    public void p
+    public void pointsGiven() {
+
+    }
+}
+

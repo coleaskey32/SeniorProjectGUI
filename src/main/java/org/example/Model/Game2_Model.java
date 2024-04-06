@@ -1,6 +1,7 @@
 package org.example.Model;
 
-import java.util.Random;
+import java.lang.Math;
+
 
 public class Game2_Model extends Game_Model {
     private int totalPlayers;
@@ -21,12 +22,9 @@ public class Game2_Model extends Game_Model {
 
     @Override
     public int[] setGrid() {
-
-        Random random = new Random();
-        int randomColumn = random.nextInt(6);
-        int randomRow = random.nextInt(3);
-
-        return new int[]{randomColumn, randomRow};
+        int randomColumn = (int)(Math.random() * 5);
+        int randomRow = (int)(Math.random() * 2);
+        return new int[]{randomRow, randomColumn};
     }
 
     @Override

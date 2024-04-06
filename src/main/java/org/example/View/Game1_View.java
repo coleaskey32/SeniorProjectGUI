@@ -21,7 +21,7 @@ public class Game1_View {
         this.game = game;
 
         // Create an ImageView with the image
-        Image image = new Image("SoccerGoalPost2.jpg");
+        Image image = new Image("SoccerGoalPost.jpg");
         ImageView imageView = new ImageView(image);
 
         // Set the size of the image view

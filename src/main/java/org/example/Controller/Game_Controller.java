@@ -1,5 +1,6 @@
 package org.example.Controller;
 
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import org.example.Model.Game_Model;
@@ -23,7 +24,7 @@ public class Game_Controller {
             view1 = new Game1_View(primaryStage, model);
             //view1.display(primaryStage, model); // Display Game1 view
         } else if ("Game 2".equals(selectedGame)) {
-            model = new Game1_Model(totalPlayers, selectedGame, speedMode, rounds);
+            model = new Game2_Model(totalPlayers, selectedGame, speedMode, rounds);
             view2 = new Game2_View(primaryStage, model);
             //view2.display(primaryStage, model); // Display Game2 view
         }
@@ -36,11 +37,25 @@ public class Game_Controller {
 
     private void startGame() {
 
+        //Initialize all grid elements to be invisible
+        if (selectedGame.equals("Game 2")) {
+            for (int row = 0; row < 3; row++) {
+                for (int col = 0; col < 6; col++) {
+                    view2.setRectangleVisibility(row, col, false);
+                }
+            }
+        }
+
+        while (model.getRounds() > 0 )
         // If the game is Simon Says
-        if (!selectedGame.equals("Game 1")) {
+        if (selectedGame.equals("Game 2")) {
 
             int[] randomGridIndex = model.setGrid();
-            System.out.print(randomGridIndex[0] + randomGridIndex[1]);
+            System.out.print(randomGridIndex[0] + " " + randomGridIndex[1]);
+
+            // Show target Grid element
+            view2.setRectangleVisibility(randomGridIndex[0], randomGridIndex[1], true);
+            view2.setRectangleColor(randomGridIndex[0], randomGridIndex[1], Color.BLUE);
         }
 
 
@@ -49,29 +64,4 @@ public class Game_Controller {
 
 }
 
-    /*
-    private void startGame() {
 
-        while model.getRounds() > 0 && model.checkLives(){
-
-            //IF GAME 2 then
-            model.setGrid();
-
-            //
-            model.retrieveCoordinates();
-
-
-            // Playing Simon Says (Game 2)
-            if model.pointsGiven() < 0 {
-                //decrement lives
-            }
-
-            else {
-                //Display points
-            }
-
-
-
-        }
-    }
-*/

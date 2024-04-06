@@ -76,4 +76,8 @@ public abstract class Game_Model {
         }
     }
 
+    public int getRounds() {
+        return rounds;
+    }
+
 }
