@@ -1,0 +1,202 @@
+Index: src/main/java/org/example/Model/Game1_Model.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.Model;\r\n\r\npublic class Game1_Model extends Game_Model {\r\n    private int totalPlayers;\r\n    private boolean speedMode;\r\n\r\n    // Constructor to initialize totalPlayers and speedMode\r\n    public Game1_Model(int totalPlayers, String selectedGame, boolean speedMode, int rounds) {\r\n        super(totalPlayers, selectedGame, speedMode, rounds);\r\n\r\n        initializePlayers();\r\n    }\r\n\r\n    // Implement methods specific to Game2_Model\r\n    @Override\r\n    public void start() {\r\n        // Implementation for starting Game 2\r\n    }\r\n\r\n    @Override\r\n    public void setGrid() {\r\n\r\n    }\r\n\r\n    @Override\r\n    public void pointsGiven() {\r\n\r\n    }\r\n\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/Model/Game1_Model.java b/src/main/java/org/example/Model/Game1_Model.java
+--- a/src/main/java/org/example/Model/Game1_Model.java	(revision 4f547d87a357782151b05f5feb68ba07599176ea)
++++ b/src/main/java/org/example/Model/Game1_Model.java	(date 1712278091355)
+@@ -18,15 +18,10 @@
+     }
+ 
+     @Override
+-    public void setGrid() {
+-
++    public int[] setGrid() {
++        return new int[0];
+     }
++
+ 
+     @Override
+-    public void pointsGiven() {
+-
+-    }
+-
+-
+-
+-}
++    public void p
+\ No newline at end of file
+Index: src/main/java/org/example/Controller/Game_Controller.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.Controller;\r\n\r\nimport javafx.stage.Stage;\r\n\r\nimport org.example.Model.Game_Model;\r\nimport org.example.Model.Game1_Model;\r\nimport org.example.Model.Game2_Model;\r\nimport org.example.View.Game1_View;\r\nimport org.example.View.Game2_View;\r\n\r\npublic class Game_Controller {\r\n    private Game_Model model;\r\n    private Game1_View view1;\r\n    private Game2_View view2;\r\n\r\n    private String selectedGame;\r\n\r\n    public Game_Controller(Stage primaryStage, String selectedGame, int totalPlayers, boolean speedMode, int rounds) {\r\n\r\n        this.selectedGame = selectedGame;\r\n\r\n        if (\"Game 1\".equals(selectedGame)) {\r\n            model = new Game1_Model(totalPlayers, selectedGame, speedMode, rounds);\r\n            view1 = new Game1_View(primaryStage, model);\r\n            //view1.display(primaryStage, model); // Display Game1 view\r\n        } else if (\"Game 2\".equals(selectedGame)) {\r\n            model = new Game1_Model(totalPlayers, selectedGame, speedMode, rounds);\r\n            view2 = new Game2_View(primaryStage, model);\r\n            //view2.display(primaryStage, model); // Display Game2 view\r\n        }\r\n\r\n        startGame();\r\n    }\r\n\r\n\r\n\r\n\r\n    private void startGame() {\r\n\r\n        if (!selectedGame.equals(\"Game 1\")) {\r\n            model.setGrid();\r\n        }\r\n    }\r\n\r\n\r\n}\r\n\r\n    /*\r\n    private void startGame() {\r\n\r\n        while model.getRounds() > 0 && model.checkLives(){\r\n\r\n            //IF GAME 2 then\r\n            model.setGrid();\r\n\r\n            //\r\n            model.retrieveCoordinates();\r\n\r\n\r\n            // Playing Simon Says (Game 2)\r\n            if model.pointsGiven() < 0 {\r\n                //decrement lives\r\n            }\r\n\r\n            else {\r\n                //Display points\r\n            }\r\n\r\n\r\n\r\n        }\r\n    }\r\n*/\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/Controller/Game_Controller.java b/src/main/java/org/example/Controller/Game_Controller.java
+--- a/src/main/java/org/example/Controller/Game_Controller.java	(revision 4f547d87a357782151b05f5feb68ba07599176ea)
++++ b/src/main/java/org/example/Controller/Game_Controller.java	(date 1712278389444)
+@@ -12,7 +12,6 @@
+     private Game_Model model;
+     private Game1_View view1;
+     private Game2_View view2;
+-
+     private String selectedGame;
+ 
+     public Game_Controller(Stage primaryStage, String selectedGame, int totalPlayers, boolean speedMode, int rounds) {
+@@ -37,9 +36,14 @@
+ 
+     private void startGame() {
+ 
++        // If the game is Simon Says
+         if (!selectedGame.equals("Game 1")) {
+-            model.setGrid();
++
++            int[] randomGridIndex = model.setGrid();
++            System.out.print(randomGridIndex[0] + randomGridIndex[1]);
+         }
++
++
+     }
+ 
+ 
+Index: src/main/java/org/example/Model/Game_Model.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.Model;\r\n\r\nimport javafx.stage.Stage;\r\n\r\nimport org.example.Controller.HighScore_Controller;\r\n\r\nimport java.io.BufferedReader;\r\nimport java.io.IOException;\r\nimport java.io.InputStreamReader;\r\n\r\npublic abstract class Game_Model {\r\n    protected Player[] players;\r\n    protected String selectedGame;\r\n    protected int totalPlayers;\r\n    protected int rounds;\r\n    protected boolean speedMode;\r\n\r\n    public Game_Model(int totalPlayers, String selectedGame, boolean speedMode, int rounds) {\r\n        this.selectedGame = selectedGame;\r\n        this.totalPlayers = totalPlayers;\r\n        this.speedMode = speedMode;\r\n        this.rounds = rounds;\r\n        this.players = new Player[totalPlayers];\r\n\r\n        initializePlayers();\r\n    }\r\n\r\n    /** Not Sure if we need this method yet **/\r\n    public abstract void start();\r\n\r\n    /** Sets the grid view depending on the game. random box for simon says and point layout for shoot and score.\r\n     *  Will be implemented in Game1_Model and Game2_Model\r\n     **/\r\n    public abstract void setGrid();\r\n\r\n\r\n    /** Depending on the game will give certain amount of points to the player\r\n     *  Will be implemented in Game1_Model and Game2_Model\r\n     **/\r\n    public abstract void pointsGiven();\r\n\r\n    /**\r\n     * Retrieves coordinates from standard input (stdin) and processes them.\r\n     * Assumes input in the format of a 6x4 grid of coordinates.\r\n     * Each line of input is expected to contain a set of coordinates.\r\n     * Coordinates are accumulated into a StringBuilder.\r\n     **/\r\n    public static String retrieveCoordinates() {\r\n        StringBuilder contentBuilder = new StringBuilder();\r\n        try {\r\n            // Execute the C++ program\r\n            Process process = new ProcessBuilder(\"./coordinates_generator\").start();\r\n\r\n            // Read the output from the C++ program\r\n            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));\r\n            String line;\r\n            while ((line = reader.readLine()) != null) {\r\n                contentBuilder.append(line).append(\"\\n\");\r\n            }\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return contentBuilder.toString().trim(); // Return coordinates as a formatted string\r\n    }\r\n\r\n    /** Opens the High Score Screen **/\r\n    public void openHighScoreWindow(Stage primaryStage) {\r\n        System.out.println(\"Selected Game: \" + selectedGame);\r\n        new HighScore_Controller(primaryStage, selectedGame, speedMode, players);\r\n    }\r\n\r\n    /** Creates the amount of player objects asked in game setting **/\r\n    void initializePlayers() {\r\n        for (int i = 0; i < totalPlayers; i++) {\r\n            players[i] = new Player(\"Player \" + (i + 1));\r\n        }\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/Model/Game_Model.java b/src/main/java/org/example/Model/Game_Model.java
+--- a/src/main/java/org/example/Model/Game_Model.java	(revision 4f547d87a357782151b05f5feb68ba07599176ea)
++++ b/src/main/java/org/example/Model/Game_Model.java	(date 1712278091363)
+@@ -31,7 +31,7 @@
+     /** Sets the grid view depending on the game. random box for simon says and point layout for shoot and score.
+      *  Will be implemented in Game1_Model and Game2_Model
+      **/
+-    public abstract void setGrid();
++    public abstract int[] setGrid();
+ 
+ 
+     /** Depending on the game will give certain amount of points to the player
+Index: src/main/java/org/example/Model/Game2_Model.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example.Model;\r\n\r\npublic class Game2_Model extends Game_Model {\r\n    private int totalPlayers;\r\n    private boolean speedMode;\r\n\r\n    // Constructor to initialize totalPlayers and speedMode\r\n    public Game2_Model(int totalPlayers, String selectedGame, boolean speedMode, int rounds) {\r\n        super(totalPlayers, selectedGame, speedMode, rounds);\r\n\r\n        initializePlayers();\r\n    }\r\n\r\n    // Implement methods specific to Game2_Model\r\n    @Override\r\n    public void start() {\r\n        // Implementation for starting Game 2\r\n    }\r\n\r\n    @Override\r\n    public void setGrid() {\r\n\r\n    }\r\n\r\n    @Override\r\n    public void pointsGiven() {\r\n\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/Model/Game2_Model.java b/src/main/java/org/example/Model/Game2_Model.java
+--- a/src/main/java/org/example/Model/Game2_Model.java	(revision 4f547d87a357782151b05f5feb68ba07599176ea)
++++ b/src/main/java/org/example/Model/Game2_Model.java	(date 1712278215789)
+@@ -1,5 +1,7 @@
+ package org.example.Model;
+ 
++import java.util.Random;
++
+ public class Game2_Model extends Game_Model {
+     private int totalPlayers;
+     private boolean speedMode;
+@@ -18,8 +20,13 @@
+     }
+ 
+     @Override
+-    public void setGrid() {
++    public int[] setGrid() {
+ 
++        Random random = new Random();
++        int randomColumn = random.nextInt(6);
++        int randomRow = random.nextInt(3);
++
++        return new int[]{randomColumn, randomRow};
+     }
+ 
+     @Override
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"d901d274-a6d6-4bab-bfb9-079219d4d5ef\" name=\"Changes\" comment=\"Outlined the methods for the game\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/resources/SoccerGoalPost2.jpg\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/resources/SoccerGoalPost4.jpg\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/Controller/GameSetting_Controller.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/Controller/GameSetting_Controller.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/Controller/Game_Controller.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/Controller/Game_Controller.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/Model/Game1_Model.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/Model/Game1_Model.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/Model/Game2_Model.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/Model/Game2_Model.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/Model/Game_Model.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/Model/Game_Model.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/View/Game1_View.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/View/Game1_View.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/View/Game2_View.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/View/Game2_View.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/View/HighScore_View.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/View/HighScore_View.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/resources/Main.cpp\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/resources/Main.cpp\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/resources/SoccerGoalPost.jpg\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/resources/SoccerGoalPost.jpg\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"importingSettings\">\r\n      <MavenImportingSettings>\r\n        <option name=\"workspaceImportEnabled\" value=\"true\" />\r\n      </MavenImportingSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2e9TVqew6j4j4OkvWW16AMVaYHV\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/colea/Downloads/SP/src/main/resources\",\r\n    \"project.structure.last.edited\": \"Modules\",\r\n    \"project.structure.proportion\": \"0.0\",\r\n    \"project.structure.side.proportion\": \"0.0\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\colea\\Downloads\\SP\\src\\main\\resources\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\colea\\Downloads\\SP\\src\\main\\resources\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"d901d274-a6d6-4bab-bfb9-079219d4d5ef\" name=\"Changes\" comment=\"\" />\r\n      <created>1711315823123</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1711315823123</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"JavaFX inital test\">\r\n      <created>1711317082024</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1711317082024</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"Created Files\">\r\n      <created>1711570544738</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1711570544738</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"Converted to MVC\">\r\n      <created>1711574072173</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1711574072173</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"Added more MVC layout and soccer image\">\r\n      <created>1711753739383</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1711753739383</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"Outlined the methods for the game\">\r\n      <created>1712005909729</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1712005909729</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"6\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"JavaFX inital test\" />\r\n    <MESSAGE value=\"Created Files\" />\r\n    <MESSAGE value=\"Converted to MVC\" />\r\n    <MESSAGE value=\"Added more MVC layout and soccer image\" />\r\n    <MESSAGE value=\"Outlined the methods for the game\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Outlined the methods for the game\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 4f547d87a357782151b05f5feb68ba07599176ea)
++++ b/.idea/workspace.xml	(date 1712279199445)
+@@ -4,19 +4,12 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="d901d274-a6d6-4bab-bfb9-079219d4d5ef" name="Changes" comment="Outlined the methods for the game">
+-      <change afterPath="$PROJECT_DIR$/src/main/resources/SoccerGoalPost2.jpg" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/resources/SoccerGoalPost4.jpg" afterDir="false" />
++    <list default="true" id="d901d274-a6d6-4bab-bfb9-079219d4d5ef" name="Changes" comment="Latest Changes">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Controller/GameSetting_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Controller/GameSetting_Controller.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Controller/Game_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Controller/Game_Controller.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Model/Game1_Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Model/Game1_Model.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Model/Game2_Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Model/Game2_Model.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Model/Game_Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Model/Game_Model.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/View/Game1_View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/View/Game1_View.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/View/Game2_View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/View/Game2_View.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/View/HighScore_View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/View/HighScore_View.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/resources/Main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Main.cpp" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/resources/SoccerGoalPost.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/SoccerGoalPost.jpg" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -34,6 +27,19 @@
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
++  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
++  "lastFilter": {
++    "state": "OPEN"
++  }
++}]]></component>
++  <component name="GithubPullRequestsUISettings">
++    <option name="selectedUrlAndAccountId">
++      <UrlAndAccount>
++        <option name="accountId" value="b982e238-a614-4f6e-90ba-c08f6bb2a4f1" />
++        <option name="url" value="https://github.com/coleaskey32/SeniorProjectGUI.git" />
++      </UrlAndAccount>
++    </option>
++  </component>
+   <component name="MarkdownSettingsMigration">
+     <option name="stateVersion" value="1" />
+   </component>
+@@ -66,6 +72,7 @@
+       <recent name="C:\Users\colea\Downloads\SP\src\main\resources" />
+     </key>
+     <key name="MoveFile.RECENT_KEYS">
++      <recent name="C:\Users\colea\Downloads\SP\src\main\java\org\example\Model" />
+       <recent name="C:\Users\colea\Downloads\SP\src\main\resources" />
+     </key>
+   </component>
+@@ -113,7 +120,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1712005909729</updated>
+     </task>
+-    <option name="localTasksCounter" value="6" />
++    <task id="LOCAL-00006" summary="Latest Changes">
++      <created>1712277158495</created>
++      <option name="number" value="00006" />
++      <option name="presentableId" value="LOCAL-00006" />
++      <option name="project" value="LOCAL" />
++      <updated>1712277158495</updated>
++    </task>
++    <option name="localTasksCounter" value="7" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+@@ -133,6 +147,7 @@
+     <MESSAGE value="Converted to MVC" />
+     <MESSAGE value="Added more MVC layout and soccer image" />
+     <MESSAGE value="Outlined the methods for the game" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Outlined the methods for the game" />
++    <MESSAGE value="Latest Changes" />
++    <option name="LAST_COMMIT_MESSAGE" value="Latest Changes" />
+   </component>
+ </project>
+\ No newline at end of file
