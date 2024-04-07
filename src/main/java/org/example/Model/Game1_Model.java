@@ -11,15 +11,11 @@ public class Game1_Model extends Game_Model {
         initializePlayers();
     }
 
-    // Implement methods specific to Game2_Model
-    @Override
-    public void start() {
-        // Implementation for starting Game 2
-    }
+
 
     @Override
     public int[] setGrid() {
-
+        return new int[]{1, 2, 3, 4, 5};
     }
 
     @Override

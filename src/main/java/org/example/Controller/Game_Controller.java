@@ -1,5 +1,6 @@
 package org.example.Controller;
 
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import org.example.Model.Game_Model;
@@ -33,11 +34,9 @@ public class Game_Controller {
     }
 
 
-
-
     private void startGame() {
 
-        //Initialize all grid elements to be invisible
+        //Initialize all grid elements to be invisible in Simon Says
         if (selectedGame.equals("Game 2")) {
             for (int row = 0; row < 3; row++) {
                 for (int col = 0; col < 6; col++) {
@@ -46,7 +45,6 @@ public class Game_Controller {
             }
         }
 
-        while (model.getRounds() > 0 )
         // If the game is Simon Says
         if (selectedGame.equals("Game 2")) {
 
@@ -58,32 +56,10 @@ public class Game_Controller {
             view2.setRectangleColor(randomGridIndex[0], randomGridIndex[1], Color.BLUE);
         }
 
+        //Get the coordinates of the players kick
+        String coordinates = model.retrieveCoordinates();
 
+        //model.pointsGiven(coordinates);
+    }
 }
 
-    /*
-    private void startGame() {
-
-        while model.getRounds() > 0 && model.checkLives(){
-
-            //IF GAME 2 then
-            model.setGrid();
-
-            //
-            model.retrieveCoordinates();
-
-
-            // Playing Simon Says (Game 2)
-            if model.pointsGiven() < 0 {
-                //decrement lives
-            }
-
-            else {
-                //Display points
-            }
-
-
-
-        }
-    }
-*/

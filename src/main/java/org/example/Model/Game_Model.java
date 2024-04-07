@@ -25,8 +25,6 @@ public abstract class Game_Model {
         initializePlayers();
     }
 
-    /** Not Sure if we need this method yet **/
-    public abstract void start();
 
     /** Sets the grid view depending on the game. random box for simon says and point layout for shoot and score.
      *  Will be implemented in Game1_Model and Game2_Model
@@ -45,7 +43,7 @@ public abstract class Game_Model {
      * Each line of input is expected to contain a set of coordinates.
      * Coordinates are accumulated into a StringBuilder.
      **/
-    public static String retrieveCoordinates() {
+    public String retrieveCoordinates() {
         StringBuilder contentBuilder = new StringBuilder();
         try {
             // Execute the C++ program
@@ -76,8 +74,15 @@ public abstract class Game_Model {
         }
     }
 
-    public int getRounds() {
-        return rounds;
+    public int decrementRounds() {
+        return --rounds;
     }
 
+    public int decrementPlayerLives() {
+        return 1;
+    }
+
+    public boolean playersStillAlive() {
+        return true;
+    }
 }

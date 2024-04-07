@@ -14,11 +14,6 @@ public class Game2_Model extends Game_Model {
         initializePlayers();
     }
 
-    // Implement methods specific to Game2_Model
-    @Override
-    public void start() {
-        // Implementation for starting Game 2
-    }
 
     @Override
     public int[] setGrid() {
