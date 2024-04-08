@@ -107,8 +107,20 @@ public class Game2_View {
         targetSpeedBox.getChildren().addAll(targetSpeedLabel, targetSpeedTextField);
         targetSpeedBox.setAlignment(Pos.CENTER_LEFT); // Align the components to the left
 
+        // Label for player lives
+        Label livesLabel = new Label("Player Lives"); // Label indicating player lives
+        livesLabel.setStyle("-fx-font-size: 30px;"); // Set font size for the label
+
+        // Add buttons to an HBox for horizontal arrangement
+        HBox livesButtonBox = new HBox(20); // Set spacing between buttons
+        livesButtonBox.getChildren().addAll(livesLabel); // Add buttons to the HBox
+        livesButtonBox.setAlignment(Pos.BOTTOM_CENTER); // Center align the buttons
+
+        Region spacer6 = new Region();
+        VBox.setVgrow(spacer6, Priority.ALWAYS);
+
         VBox speedBox = new VBox(40);
-        speedBox.getChildren().addAll(trueSpeedBox, targetSpeedBox);
+        speedBox.getChildren().addAll(livesButtonBox, livesHBox, spacer6, trueSpeedBox, targetSpeedBox);
         speedBox.setAlignment(Pos.CENTER_LEFT); // Align the components to the left
 
         Region spacer = new Region();
@@ -116,6 +128,9 @@ public class Game2_View {
 
         Region spacer2 = new Region();
         HBox.setHgrow(spacer2, Priority.ALWAYS);
+
+        Region space = new Region();
+        HBox.setHgrow(space, Priority.ALWAYS);
 
         Region spacer3 = new Region();
         VBox.setVgrow(spacer3, Priority.ALWAYS);
@@ -127,19 +142,8 @@ public class Game2_View {
         VBox.setVgrow(spacer5, Priority.ALWAYS);
 
         HBox hlayout = new HBox(40);
-        hlayout.getChildren().addAll(speedBox, spacer, imageView, spacer2);
+        hlayout.getChildren().addAll(space, speedBox, spacer, imageView, spacer2);
         hlayout.setAlignment(Pos.CENTER); // Align the components to the left
-
-
-        // Label for player lives
-        Label livesLabel = new Label("Player Lives"); // Label indicating player lives
-        livesLabel.setStyle("-fx-font-size: 30px;"); // Set font size for the label
-
-        // Add buttons to an HBox for horizontal arrangement
-        HBox livesButtonBox = new HBox(20); // Set spacing between buttons
-        livesButtonBox.getChildren().addAll(livesLabel); // Add buttons to the HBox
-        livesButtonBox.setAlignment(Pos.BOTTOM_CENTER); // Center align the buttons
-
 
         // Create a button
         Button highScoreButton = new Button("View High Scores");
@@ -159,7 +163,7 @@ public class Game2_View {
         highScoreBox.setAlignment(Pos.BOTTOM_CENTER);
 
         VBox layoutFinal = new VBox(40);
-        layoutFinal.getChildren().addAll(layout, spacer3, hlayout, spacer4, livesButtonBox, livesHBox, spacer5, highScoreBox);
+        layoutFinal.getChildren().addAll(layout, spacer3, hlayout, spacer4, highScoreBox, spacer5);
         layoutFinal.setAlignment(Pos.CENTER_LEFT); // Align the components to the left
 
 
@@ -197,7 +201,7 @@ public class Game2_View {
 
 
         Scene scene;
-        scene = new Scene(layoutFinal, 1200, 900); // Set the scene size
+        scene = new Scene(layoutFinal, 1400, 900); // Set the scene size
         // Set the scene on the primary stage
         primaryStage.setScene(scene);
 
