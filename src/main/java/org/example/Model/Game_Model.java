@@ -1,5 +1,10 @@
 package org.example.Model;
 
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import org.example.Controller.HighScore_Controller;
@@ -24,6 +29,7 @@ public abstract class Game_Model {
 
         initializePlayers();
     }
+
 
 
     /** Sets the grid view depending on the game. random box for simon says and point layout for shoot and score.

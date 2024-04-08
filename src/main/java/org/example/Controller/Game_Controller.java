@@ -1,6 +1,8 @@
 package org.example.Controller;
 
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import org.example.Model.Game_Model;
@@ -8,6 +10,9 @@ import org.example.Model.Game1_Model;
 import org.example.Model.Game2_Model;
 import org.example.View.Game1_View;
 import org.example.View.Game2_View;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game_Controller {
     private Game_Model model;
@@ -20,6 +25,7 @@ public class Game_Controller {
 
         this.selectedGame = selectedGame;
 
+
         if ("Game 1".equals(selectedGame)) {
             model = new Game1_Model(totalPlayers, selectedGame, speedMode, rounds);
             view1 = new Game1_View(primaryStage, model);
@@ -27,6 +33,7 @@ public class Game_Controller {
         } else if ("Game 2".equals(selectedGame)) {
             model = new Game2_Model(totalPlayers, selectedGame, speedMode, rounds);
             view2 = new Game2_View(primaryStage, model);
+
             //view2.display(primaryStage, model); // Display Game2 view
         }
 
@@ -60,6 +67,9 @@ public class Game_Controller {
         String coordinates = model.retrieveCoordinates();
 
         //model.pointsGiven(coordinates);
+
+
     }
+
 }
 
