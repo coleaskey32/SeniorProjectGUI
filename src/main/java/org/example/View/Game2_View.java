@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -49,9 +50,9 @@ public class Game2_View {
         // Text Fields
         TextField playerNameTextField = new TextField();
         playerNameTextField.setPrefWidth(200); // Set preferred width
-        //playerNameTextField.setText(String.valueOf(currentPlayerIndex)); // Set the text field with the player name
+        playerNameTextField.setText(model.getPlayerName()); // Set the text field with the player name
 
-        TextField roundTextField = new TextField();
+        TextField roundTextField = new TextField(String.valueOf(this.model.getCurrentRound()));
         roundTextField.setPrefWidth(200); // Set preferred width
 
         // HBox for Player Name
@@ -151,10 +152,7 @@ public class Game2_View {
         highScoreButton.setStyle("-fx-font-size: 20px;"); // Increase font size
 
 
-        highScoreButton.setOnAction(e -> {
-            // Create a new instance of HighScore_View
-            HighScore_View highScoreView = new HighScore_View(primaryStage);
-        });
+        highScoreButton.setOnAction(e -> { model.openHighScoreWindow(); });
 
         HBox highScoreBox = new HBox(40);
         // Add button to HBox
@@ -169,7 +167,7 @@ public class Game2_View {
 
 
         // Get the screen dimensions
-      /*  double screenWidth = Screen.getPrimary().getBounds().getWidth();
+        double screenWidth = Screen.getPrimary().getBounds().getWidth();
         double screenHeight = Screen.getPrimary().getBounds().getHeight();
 
         // Calculate the desired width and height as a percentage of the screen size
@@ -178,12 +176,7 @@ public class Game2_View {
         double imageViewWidth = screenWidth * widthPercentage;
         double imageViewHeight = screenHeight * heightPercentage;
 
-        ImageView imageView = new ImageView(image);
 
-        // Set the size of the image view
-        imageView.setFitWidth(imageViewWidth);
-        imageView.setFitHeight(imageViewHeight);
-*/
         // Create a GridPane
         gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
@@ -199,9 +192,19 @@ public class Game2_View {
             }
         }
 
+        // Create a StackPane
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(imageView, gridPane, layoutFinal); // Add both image and gridPane to the stackPane
 
-        Scene scene;
-        scene = new Scene(layoutFinal, 1400, 900); // Set the scene size
+        // Center the ImageView within the StackPane
+        StackPane.setAlignment(gridPane, Pos.CENTER);
+
+        // Set white background color for the StackPane
+        stackPane.setStyle("-fx-background-color: white;");
+
+        // Set the StackPane as the root of the scene
+        Scene scene = new Scene(stackPane, screenWidth, screenHeight);
+
         // Set the scene on the primary stage
         primaryStage.setScene(scene);
 

@@ -17,7 +17,7 @@ public class Home_View {
 
     public Home_View(Stage primaryStage, Home_Controller controller) {
         this.controller = controller;
-        primaryStage.setTitle("Game Select"); // Name of window
+        primaryStage.setTitle("Home"); // Name of window
 
         // UI Components
         Label selectLabel = new Label("Select a Game!");

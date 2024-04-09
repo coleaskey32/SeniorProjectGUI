@@ -11,15 +11,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import org.example.Controller.HighScore_Controller;
 import org.example.Model.Game_Model;
 
 public class Game1_View {
 
-    private Game_Model game;
+    private Game_Model model;
 
-    public Game1_View(Stage primaryStage, Game_Model game) {
+    public Game1_View(Stage primaryStage, Game_Model model) {
 
-        this.game = game;
+        this.model = model;
 
         // Player Name Label
         Label playerNameLabel = new Label("  Player Name:");
@@ -57,7 +58,7 @@ public class Game1_View {
         layout.getChildren().addAll(playerlabelsBox, spacer, roundlabelsBox); // Add labelsBox to the layout
 
         // Load the image
-        String imagePath = "file:///C:/Users/Jtuch/OneDrive/Desktop/SeniorProjectGUI/goaltempgrid.jpg";
+        String imagePath = "SoccerGoalPost.jpg";
         Image image = new Image(imagePath);
 
         // Create an ImageView for the image
@@ -145,10 +146,7 @@ public class Game1_View {
         highScoreButton.setStyle("-fx-font-size: 20px;"); // Increase font size
 
 
-        highScoreButton.setOnAction(e -> {
-            // Create a new instance of HighScore_View
-            HighScore_View highScoreView = new HighScore_View(primaryStage);
-        });
+        highScoreButton.setOnAction(e -> { model.openHighScoreWindow(); });
 
         HBox highScoreBox = new HBox(40);
         // Add button to HBox

@@ -8,6 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import org.example.Controller.HighScore_Controller;
+import org.example.View.HighScore_View;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,15 +20,20 @@ public abstract class Game_Model {
     protected int totalPlayers;
     protected int rounds;
     protected boolean speedMode;
-
+    protected Stage primaryStage;
+    protected int totalRounds;
     int currentLives = 3;
+    protected int currentPlayer = 1;
 
-    public Game_Model(int totalPlayers, String selectedGame, boolean speedMode, int rounds) {
+
+    public Game_Model(int totalPlayers, String selectedGame, boolean speedMode, int rounds, Stage primaryStage) {
         this.selectedGame = selectedGame;
         this.totalPlayers = totalPlayers;
         this.speedMode = speedMode;
         this.rounds = rounds;
+        this.totalRounds = rounds;
         this.players = new Player[totalPlayers];
+        this.primaryStage = primaryStage;
 
         initializePlayers();
     }
@@ -70,9 +76,8 @@ public abstract class Game_Model {
     }
 
     /** Opens the High Score Screen **/
-    public void openHighScoreWindow(Stage primaryStage) {
-        System.out.println("Selected Game: " + selectedGame);
-        new HighScore_Controller(primaryStage, selectedGame, speedMode, players);
+    public Player[] getPlayers() {
+        return players;
     }
 
     /** Creates the amount of player objects asked in game setting **/
@@ -96,5 +101,17 @@ public abstract class Game_Model {
             return true;
         }
         return false;
+    }
+
+    public int getCurrentRound() {
+        return rounds;
+    }
+
+    public String getPlayerName() {
+        return "Player " + this.currentPlayer;
+    }
+
+    public void openHighScoreWindow() {
+        new HighScore_View(primaryStage, selectedGame, speedMode, totalRounds, players);
     }
 }

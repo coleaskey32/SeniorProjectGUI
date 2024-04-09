@@ -1,8 +1,6 @@
 package org.example.Controller;
 
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import org.example.Model.Game_Model;
@@ -10,6 +8,7 @@ import org.example.Model.Game1_Model;
 import org.example.Model.Game2_Model;
 import org.example.View.Game1_View;
 import org.example.View.Game2_View;
+import org.example.View.HighScore_View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,24 +20,28 @@ public class Game_Controller {
 
     private String selectedGame;
 
+    private boolean speedMode;
+    private int totalPlayers;
+    private Stage primaryStage;
+
     public Game_Controller(Stage primaryStage, String selectedGame, int totalPlayers, boolean speedMode, int rounds) {
 
         this.selectedGame = selectedGame;
-
+        this.primaryStage = primaryStage;
 
         if ("Game 1".equals(selectedGame)) {
-            model = new Game1_Model(totalPlayers, selectedGame, speedMode, rounds);
+            model = new Game1_Model(totalPlayers, selectedGame, speedMode, rounds, primaryStage);
             view1 = new Game1_View(primaryStage, model);
             //view1.display(primaryStage, model); // Display Game1 view
         } else if ("Game 2".equals(selectedGame)) {
-            model = new Game2_Model(totalPlayers, selectedGame, speedMode, rounds);
+            model = new Game2_Model(totalPlayers, selectedGame, speedMode, rounds, primaryStage);
             view2 = new Game2_View(primaryStage, model);
-
             //view2.display(primaryStage, model); // Display Game2 view
         }
 
         startGame();
     }
+
 
     private void startGame() {
 
@@ -62,8 +65,10 @@ public class Game_Controller {
             view2.setRectangleColor(randomGridIndex[0], randomGridIndex[1], Color.BLUE);
         }
 
+
+
         //Get the coordinates of the players kick
-        String coordinates = model.retrieveCoordinates();
+        //String coordinates = model.retrieveCoordinates();
 
         //model.pointsGiven(coordinates);
 
@@ -71,5 +76,5 @@ public class Game_Controller {
     }
 
 
-}
 
+}
