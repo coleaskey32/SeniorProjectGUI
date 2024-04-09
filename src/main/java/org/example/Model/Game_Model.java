@@ -20,6 +20,8 @@ public abstract class Game_Model {
     protected int rounds;
     protected boolean speedMode;
 
+    int currentLives = 3;
+
     public Game_Model(int totalPlayers, String selectedGame, boolean speedMode, int rounds) {
         this.selectedGame = selectedGame;
         this.totalPlayers = totalPlayers;
@@ -85,10 +87,14 @@ public abstract class Game_Model {
     }
 
     public int decrementPlayerLives() {
-        return 1;
+        return --currentLives;
     }
 
     public boolean playersStillAlive() {
-        return true;
+        if (currentLives > 0)
+        {
+            return true;
+        }
+        return false;
     }
 }

@@ -40,7 +40,6 @@ public class Game_Controller {
         startGame();
     }
 
-
     private void startGame() {
 
         //Initialize all grid elements to be invisible in Simon Says
@@ -70,6 +69,7 @@ public class Game_Controller {
 
 
     }
+
 
 }
 
