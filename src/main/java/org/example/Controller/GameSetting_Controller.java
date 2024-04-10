@@ -80,5 +80,9 @@ public class GameSetting_Controller {
         return this.totalPlayers;
     }
 
+    public boolean getSpeedMode() {
+        return speedMode;
+    }
+
 
 }

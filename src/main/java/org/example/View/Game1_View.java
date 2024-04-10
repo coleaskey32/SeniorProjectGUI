@@ -1,7 +1,9 @@
 package org.example.View;
 
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button; // Import Button class
 import javafx.scene.control.Label;
@@ -9,6 +11,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import org.example.Controller.HighScore_Controller;
@@ -17,6 +23,9 @@ import org.example.Model.Game_Model;
 public class Game1_View {
 
     private Game_Model model;
+
+    GridPane gridPane;
+
 
     public Game1_View(Stage primaryStage, Game_Model model) {
 
@@ -33,9 +42,9 @@ public class Game1_View {
         // Text Fields
         TextField playerNameTextField = new TextField();
         playerNameTextField.setPrefWidth(200); // Set preferred width
-        //playerNameTextField.setText(String.valueOf(currentPlayerIndex)); // Set the text field with the player name
+        playerNameTextField.setText(model.getPlayerName()); // Set the text field with the player name
 
-        TextField roundTextField = new TextField();
+        TextField roundTextField = new TextField(String.valueOf(this.model.getCurrentRound()));
         roundTextField.setPrefWidth(200); // Set preferred width
 
         // HBox for Player Name
@@ -63,8 +72,8 @@ public class Game1_View {
 
         // Create an ImageView for the image
         ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(600); // Set the ImageView size as needed
-        imageView.setFitWidth(600);
+        imageView.setFitHeight(800); // Set the ImageView size as needed
+        imageView.setFitWidth(800);
         imageView.setPreserveRatio(true);
 
         // Label for Ball Speed
@@ -166,14 +175,83 @@ public class Game1_View {
         Region spacer4 = new Region();
         VBox.setVgrow(spacer4, Priority.ALWAYS);
 
+
+
+        // Create a GridPane
+        gridPane = new GridPane();
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setHgap(10); // Horizontal gap between grid elements
+        gridPane.setVgap(10); // Vertical gap between grid elements
+
+        // Add colored rectangles to the GridPane
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 6; col++) {
+                Label scores = new Label(); // Label indicating player lives
+                scores.setStyle("-fx-font-size: 30px;"); // Set font size for the label
+
+
+                Rectangle rectangle = new Rectangle(125, 100); // Size of each rectangle
+                rectangle.setFill(new Color(1.0, 0, 0, 0.5)); // Set the initial color
+                gridPane.add(rectangle, col, row); // Add rectangle to GridPane
+                gridPane.add(scores, col, row); // Add rectangle to GridPane
+
+                String gridposition = row + "," + col;
+
+                switch (gridposition){
+                    case "0,0":
+                    case "0,5":
+                        scores.setText("      5"); // Set the text field with the player name
+                        break;
+                    case "0,1":
+                    case "0,4":
+                    case "1,0":
+                    case "1,5":
+                    case "2,0":
+                    case "2,5":
+                        scores.setText("      4"); // Set the text field with the player name
+                        break;
+                    case "1,2":
+                    case "1,3":
+                       scores.setText("      2"); // Set the text field with the player name
+                        break;
+                    case "1,1":
+                    case "1,4":
+                    case "2,1":
+                    case "2,4":
+                    case "0,2":
+                    case "0,3":
+                        scores.setText("      3"); // Set the text field with the player name
+                        break;
+                    case "2,2":
+                    case "2,3":
+                        scores.setText("      1"); // Set the text field with the player name
+                        break;
+                }
+            }
+        }
+
+        // Create a StackPane
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(imageView, gridPane); // Add both image and gridPane to the stackPane
+
+        // Center the ImageView within the StackPane
+        StackPane.setAlignment(gridPane, Pos.CENTER);
+
+        Region spacer5 = new Region();
+        HBox.setHgrow(spacer5, Priority.ALWAYS);
+
 // Add the left component, spacer, and right component
-        hlayout.getChildren().addAll(scoresBox, imageView, spacer2, rightSide);
+        hlayout.getChildren().addAll(scoresBox, spacer5, stackPane, spacer2, rightSide);
 
         VBox layoutFinal = new VBox(40); // Horizontal layout with spacing of 40
         layoutFinal.getChildren().addAll(layout, spacer3, hlayout, spacer4, highScoreBox); // Add scoring components to the layout
 
+        // Get the screen dimensions
+        double screenWidth = Screen.getPrimary().getBounds().getWidth();
+        double screenHeight = Screen.getPrimary().getBounds().getHeight();
+
         Scene scene;
-        scene = new Scene(layoutFinal, 1200, 900); // Set the scene size
+        scene = new Scene(layoutFinal, screenWidth, screenHeight); // Set the scene size
 
         // Set the scene on the primary stage
         primaryStage.setScene(scene);
@@ -181,7 +259,53 @@ public class Game1_View {
         // Show the primary stage
         primaryStage.show();
     }
+
+    public static void updateLivesCircles(HBox livesHBox) {
+        livesHBox.setAlignment(Pos.CENTER); // Align the components to the left
+
+        // Clear previous circles
+        livesHBox.getChildren().clear();
+
+        // Create circles for each player
+        for (int i = 0; i < 3; i++) {
+            Circle circle = new Circle(20); // Create a circle with radius
+            circle.setFill(i < 3 ? Color.GREEN : Color.LIGHTGRAY); // Fill the circle if it represents a player
+            circle.setStroke(Color.BLACK); // Set the border color
+            livesHBox.getChildren().add(circle); // Add the circle to the HBox
+        }
+    }
+
+    public void setRectangleVisibility(int row, int col, boolean isVisible) {
+        Node node = getNodeByRowColumnIndex(row, col, gridPane);
+        if (node != null && node instanceof Rectangle) {
+            node.setVisible(isVisible);
+        }
+    }
+
+    // Method to set the color of a specific rectangle
+    public void setRectangleColor(int row, int col, Color color) {
+        Node node = getNodeByRowColumnIndex(row, col, gridPane);
+        if (node != null && node instanceof Rectangle) {
+            ((Rectangle) node).setFill(color);
+        }
+    }
+
+    // Helper method to get node by row and column index
+    private Node getNodeByRowColumnIndex(final int row, final int column, GridPane gridPane) {
+        Node result = null;
+        ObservableList<Node> children = gridPane.getChildren();
+
+        for (Node node : children) {
+            if (gridPane.getRowIndex(node) == row && gridPane.getColumnIndex(node) == column) {
+                result = node;
+                break;
+            }
+        }
+
+        return result;
+    }
 }
+
 
 //FOR ALL GAMES
 

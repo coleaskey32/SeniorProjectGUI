@@ -15,20 +15,28 @@ public class Game2_Model extends Game_Model {
         super(totalPlayers, selectedGame, speedMode, rounds, primaryStage);
 
         initializePlayers();
+
     }
 
 
     @Override
     public int[] setGrid() {
-        int randomColumn = (int)(Math.random() * 5);
-        int randomRow = (int)(Math.random() * 2);
+        int randomColumn = (int)(Math.random() * 3);
+        int randomRow = (int)(Math.random() * 3);
+
         return new int[]{randomRow, randomColumn};
     }
 
     @Override
     public void pointsGiven() {
+        //needs a get position from main.cpp
+        String ballposition = "0,0";
 
-    }
 
+            //if position != randomRow + "," + randomColumn
+            //decrementLives
+
+
+        }
 
 }

@@ -84,6 +84,7 @@ public abstract class Game_Model {
     void initializePlayers() {
         for (int i = 0; i < totalPlayers; i++) {
             players[i] = new Player("Player " + (i + 1));
+
         }
     }
 
