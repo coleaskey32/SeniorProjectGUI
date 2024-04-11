@@ -8,12 +8,13 @@ public class Game1_Model extends Game_Model {
     private boolean speedMode;
 
     String ballposition = "0,0";
-    double ballspeed = 25;
 
     // Assuming currentPlayer is the index of the current player in the players array
     int scoreToAdd = 0; // Default score
 
     int multiplier = 1;
+
+    double ballSpeed = 0;
     private Stage primaryStage;
     // Constructor to initialize totalPlayers and speedMode
     public Game1_Model(int totalPlayers, String selectedGame, boolean speedMode, int rounds, Stage primaryStage) {
@@ -32,15 +33,16 @@ public class Game1_Model extends Game_Model {
         return this.multiplier = multiplier;
     }
 
-    public int updateMultiplier(int ballSpeed) {
-
-        if (ballspeed > 0 && ballspeed < 20) {
+    public int updateMultiplier() {
+double currentBallSpeed = calculateBallSpeed(ballSpeed);
+        if (currentBallSpeed > 0 && currentBallSpeed < 20) {
             multiplier = 1;
-        } else if (ballspeed > 20 && ballspeed < 30) {
+        } else if (currentBallSpeed > 20 && currentBallSpeed < 30) {
             multiplier = 2;
-        } else if (ballspeed > 30) {
+        } else if (currentBallSpeed > 30) {
             multiplier = 3;
         }
+        setMultiplier();
 
         return multiplier;
     }
@@ -53,6 +55,8 @@ public class Game1_Model extends Game_Model {
     @Override
     public void pointsGiven() {
         // Assume this is the position obtained somehow
+
+        getMultiplier();
 
         switch (ballposition) {
             case "0,0":
@@ -96,7 +100,28 @@ public class Game1_Model extends Game_Model {
             players[currentPlayer - 1].setCurrentScore(scoreToAdd);
         }
 
-        //updateScoreDisplays();
+
     }
+
+    @Override
+    public double calculateBallSpeed(double ballSpeed) {
+        setBallSpeed(ballSpeed);
+        // Logic to calculate the ball speed for Game 1
+        // For example, this could be a random speed, a speed based on game level, etc.
+        this.ballSpeed = ballSpeed/* some calculation */;
+        return  ballSpeed;
+    }
+
+    public void setBallSpeed() {
+        double newSpeed = calculateBallSpeed(ballSpeed);
+        super.setBallSpeed((int) newSpeed); // Updating the ballSpeed in the superclass (Game_Model)
+        updateMultiplier(); // Update the multiplier based on the new speed
+    }
+
+    public void setPosition(String position) {
+
+            this.ballposition = position; // Directly set if you're using a string
+
+        }
 
 }

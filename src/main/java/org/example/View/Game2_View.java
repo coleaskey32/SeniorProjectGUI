@@ -18,6 +18,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.example.Controller.Game_Controller;
+import org.example.Model.Game1_Model;
 import org.example.Model.Game_Model;
 import org.example.Controller.GameSetting_Controller;
 
@@ -32,11 +33,17 @@ public class Game2_View {
 
     List<Circle> livesCircles = new ArrayList<>(); // ArrayList to store Circle objects representing players
 
+    TextField playerNameTextField = new TextField();
+
+    TextField trueSpeedTextField = new TextField();
+
     public HBox livesHBox = new HBox(10);// HBox to hold player circles
 
     public Game2_View(Stage primaryStage, Game_Model model) {
 
         this.model = model;
+
+        ((Game1_Model) this.model).calculateBallSpeed(((Game1_Model) this.model).getBallSpeed());
 
         updateLivesCircles(livesHBox);
 
@@ -49,9 +56,7 @@ public class Game2_View {
         roundLabel.setStyle("-fx-font-size: 30px;"); // Increase font size
 
         // Text Fields
-        TextField playerNameTextField = new TextField();
         playerNameTextField.setPrefWidth(200); // Set preferred width
-        playerNameTextField.setText(model.getPlayerName()); // Set the text field with the player name
 
         TextField roundTextField = new TextField(String.valueOf(this.model.getCurrentRound()));
         roundTextField.setPrefWidth(200); // Set preferred width
@@ -85,7 +90,6 @@ public class Game2_View {
         trueSpeedLabel.setStyle("-fx-font-size: 20px;"); // Increase font size
 
 
-        TextField trueSpeedTextField = new TextField();
         trueSpeedTextField.setPrefWidth(100); // Set preferred width
 
         // HBox for true speed
@@ -293,5 +297,9 @@ public class Game2_View {
         }
 
         return result;
+    }
+
+    public void updatePlayerNameDisplay(String playerName) {
+        playerNameTextField.setText(playerName);
     }
 }

@@ -34,15 +34,39 @@ public class Game1_View {
 
     TextField multiplierTextField = new TextField();
 
+    TextField ballSpeedTextField = new TextField();
+
+    TextField playerNameTextField = new TextField();
+
+
 
     public Game1_View(Stage primaryStage, Game_Model model) {
 
         this.model = model;
 
-        ((Game1_Model) this.model).getMultiplier();
-        model.pointsGiven();
+        ((Game1_Model) this.model).calculateBallSpeed(((Game1_Model) this.model).getBallSpeed());
+        updateBallSpeedDisplay();
+        ((Game1_Model) this.model).updateMultiplier();
+        updatePlayerNameDisplay(((Game1_Model) this.model).getPlayerName());
+
         updateMultiplierDisplay();
+        updateBallSpeedDisplay();
+        model.pointsGiven();
         updateScoreDisplays();
+
+        ((Game1_Model) this.model).calculateBallSpeed(35);
+        ((Game1_Model) this.model).setPosition("1,0");
+        updatePlayerNameDisplay("Player 2");
+        ((Game1_Model) this.model).decrementRounds();
+
+        updateBallSpeedDisplay();
+        ((Game1_Model) this.model).updateMultiplier();
+        updateMultiplierDisplay();
+        model.pointsGiven();
+        updateScoreDisplays();
+
+
+
         /*
         model.pointsGiven();
         updateMultiplierDisplay();
@@ -58,9 +82,7 @@ public class Game1_View {
         roundLabel.setStyle("-fx-font-size: 30px;"); // Increase font size
 
         // Text Fields
-        TextField playerNameTextField = new TextField();
         playerNameTextField.setPrefWidth(200); // Set preferred width
-        playerNameTextField.setText(model.getPlayerName()); // Set the text field with the player name
 
         TextField roundTextField = new TextField(String.valueOf(this.model.getCurrentRound()));
         roundTextField.setPrefWidth(200); // Set preferred width
@@ -133,7 +155,6 @@ public class Game1_View {
         Label mphLabel = new Label("mph");
         mphLabel.setStyle("-fx-font-size: 20px;"); // Increase font size
 
-        TextField ballSpeedTextField = new TextField();
         ballSpeedTextField.setPrefWidth(50); // Set preferred width
 
         // HBox for ball speed
@@ -300,16 +321,12 @@ public class Game1_View {
     // Method to update the score displays
     public void updateScoreDisplays() {
         Player currentPlayer = model.getCurrentPlayer(); // Get current player model
-
+        ((Game1_Model) this.model).setBallSpeed();
+//update positon
         // Assuming you have getCurrentScore and getTotalScore or equivalent in your player model
         currentScoreTextField.setText(String.valueOf(currentPlayer.getCurrentScore()));
         totalScoreTextField.setText(String.valueOf(currentPlayer.getTotalScore()));
     }
-
-    public void updateMultiplierDisplay(int multiplier) {
-        multiplierTextField.setText(String.valueOf(multiplier));
-    }
-
 
     public void setRectangleVisibility(int row, int col, boolean isVisible) {
         Node node = getNodeByRowColumnIndex(row, col, gridPane);
@@ -343,9 +360,18 @@ public class Game1_View {
 
     public void updateMultiplierDisplay() {
         if (this.model instanceof Game1_Model) {
-            int multiplier = ((Game1_Model) this.model).getMultiplier(); // Cast to Game1_Model to access specific methods
+            int multiplier = ((Game1_Model) this.model).updateMultiplier(); // Cast to Game1_Model to access specific methods
             this.multiplierTextField.setText(String.valueOf(multiplier));
         }
+    }
+
+    public void updateBallSpeedDisplay() {
+        double currentBallSpeed = model.getBallSpeed(); // Assuming `model` is your Game_Model instance
+        ballSpeedTextField.setText(String.valueOf(currentBallSpeed));
+    }
+
+    public void updatePlayerNameDisplay(String playerName) {
+        playerNameTextField.setText(playerName);
     }
 
 }

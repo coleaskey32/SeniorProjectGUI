@@ -25,6 +25,12 @@ public abstract class Game_Model {
     int currentLives = 3;
     protected int currentPlayer = 1;
 
+    protected double ballSpeed; // Ball speed applicable across different game models
+
+    protected String ballPosition = "0,0"; // Default position as a string
+
+
+
 
     public Game_Model(int totalPlayers, String selectedGame, boolean speedMode, int rounds, Stage primaryStage) {
         this.selectedGame = selectedGame;
@@ -111,6 +117,25 @@ public abstract class Game_Model {
     public Player getCurrentPlayer() {
         // Ensure this does not go out of bounds; adjust logic as necessary for your application's flow
         return players[currentPlayer - 1]; // Assuming currentPlayer is 1-based index; adjust if 0-based
+    }
+
+    public double getBallSpeed() {
+        return ballSpeed;
+    }
+
+    public void setBallSpeed(double ballSpeed) {
+        this.ballSpeed = ballSpeed;
+    }
+
+    // Method to calculate or update the ball speed
+    public abstract double calculateBallSpeed(double ballSpeed);
+
+    // Method to set position; to be overridden in subclasses
+    public abstract void setPosition(String position);
+
+    // Method to get the current position
+    public String getBallPosition() {
+        return ballPosition;
     }
 
 }
