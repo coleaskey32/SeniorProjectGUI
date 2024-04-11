@@ -19,6 +19,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.example.Controller.Game_Controller;
 import org.example.Model.Game1_Model;
+import org.example.Model.Game2_Model;
 import org.example.Model.Game_Model;
 import org.example.Controller.GameSetting_Controller;
 
@@ -37,14 +38,27 @@ public class Game2_View {
 
     TextField trueSpeedTextField = new TextField();
 
+    TextField targetSpeedTextField = new TextField();
+
+
     public HBox livesHBox = new HBox(10);// HBox to hold player circles
 
     public Game2_View(Stage primaryStage, Game_Model model) {
 
         this.model = model;
 
-        ((Game1_Model) this.model).calculateBallSpeed(((Game1_Model) this.model).getBallSpeed());
+        ((Game2_Model) this.model).calculateBallSpeed(((Game2_Model) this.model).getBallSpeed());
+        updateBallSpeedDisplay();
+        updatePlayerNameDisplay(((Game2_Model) this.model).getPlayerName());
+        model.pointsGiven();
+        updateLivesCircles(livesHBox);
 
+        ((Game2_Model) this.model).calculateBallSpeed(35);
+        updatePlayerNameDisplay("Player 2");
+
+
+        updateBallSpeedDisplay();
+        model.pointsGiven();
         updateLivesCircles(livesHBox);
 
         // Player Name Label
@@ -105,7 +119,6 @@ public class Game2_View {
 
 
         // Text Fields
-        TextField targetSpeedTextField = new TextField();
         targetSpeedTextField.setPrefWidth(100); // Set preferred width
 
 
@@ -301,5 +314,10 @@ public class Game2_View {
 
     public void updatePlayerNameDisplay(String playerName) {
         playerNameTextField.setText(playerName);
+    }
+
+    public void updateBallSpeedDisplay() {
+        double currentBallSpeed = model.getBallSpeed(); // Assuming `model` is your Game_Model instance
+        trueSpeedTextField.setText(String.valueOf(currentBallSpeed));
     }
 }

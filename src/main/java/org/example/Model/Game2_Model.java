@@ -12,6 +12,9 @@ public class Game2_Model extends Game_Model {
 
     double ballSpeed = 0;
 
+    int randomColumn = (int)(Math.random() * 3);
+    int randomRow = (int)(Math.random() * 3);
+
     // Constructor to initialize totalPlayers and speedMode
     public Game2_Model(int totalPlayers, String selectedGame, boolean speedMode, int rounds, Stage primaryStage) {
         super(totalPlayers, selectedGame, speedMode, rounds, primaryStage);
@@ -23,8 +26,6 @@ public class Game2_Model extends Game_Model {
 
     @Override
     public int[] setGrid() {
-        int randomColumn = (int)(Math.random() * 3);
-        int randomRow = (int)(Math.random() * 3);
 
         return new int[]{randomRow, randomColumn};
     }
@@ -32,14 +33,15 @@ public class Game2_Model extends Game_Model {
     @Override
     public void pointsGiven() {
         //needs a get position from main.cpp
-        String ballposition = "0,0";
+        String newballposition = getBallPosition();
+        String targetPosition = randomRow + "," + randomColumn;
 
-
-            //if position != randomRow + "," + randomColumn
-            //decrementLives
-
-
+        if(newballposition.equals(targetPosition))
+        {
+            decrementPlayerLives();
         }
+
+    }
 
     @Override
     public double calculateBallSpeed(double ballSpeed) {
