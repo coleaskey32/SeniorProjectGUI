@@ -55,7 +55,7 @@ public abstract class Game_Model {
     /** Depending on the game will give certain amount of points to the player
      *  Will be implemented in Game1_Model and Game2_Model
      **/
-    public abstract void pointsGiven();
+    public abstract int pointsGiven();
 
     /**
      * Retrieves coordinates from standard input (stdin) and processes them.
@@ -100,6 +100,10 @@ public abstract class Game_Model {
 
     public int decrementPlayerLives() {
         return --currentLives;
+    }
+
+    public int getCurrentLives() {
+        return currentLives;
     }
 
     public int getCurrentRound() {

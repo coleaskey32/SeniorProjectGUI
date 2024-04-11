@@ -31,16 +31,17 @@ public class Game2_Model extends Game_Model {
     }
 
     @Override
-    public void pointsGiven() {
+    public int pointsGiven() {
         //needs a get position from main.cpp
         String newballposition = getBallPosition();
         String targetPosition = randomRow + "," + randomColumn;
 
-        if(newballposition.equals(targetPosition))
+        if(!newballposition.equals(targetPosition))
         {
-            decrementPlayerLives();
+            currentLives = decrementPlayerLives();
         }
 
+        return currentLives;
     }
 
     @Override
@@ -51,6 +52,7 @@ public class Game2_Model extends Game_Model {
         this.ballSpeed = ballSpeed/* some calculation */;
         return  ballSpeed;
     }
+
 
     public void setPosition(String position) {
 

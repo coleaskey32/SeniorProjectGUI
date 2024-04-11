@@ -32,6 +32,8 @@ public class Game2_View {
     Game_Model model;
     GridPane gridPane;
 
+    double targetSpeed = 0;
+
     List<Circle> livesCircles = new ArrayList<>(); // ArrayList to store Circle objects representing players
 
     TextField playerNameTextField = new TextField();
@@ -49,15 +51,20 @@ public class Game2_View {
 
         ((Game2_Model) this.model).calculateBallSpeed(((Game2_Model) this.model).getBallSpeed());
         updateBallSpeedDisplay();
+        updateTargetSpeedDisplay();
         updatePlayerNameDisplay(((Game2_Model) this.model).getPlayerName());
         model.pointsGiven();
         updateLivesCircles(livesHBox);
 
+if(targetSpeed != model.getBallSpeed()){
+    ((Game2_Model) this.model).decrementPlayerLives();
+}
         ((Game2_Model) this.model).calculateBallSpeed(35);
         updatePlayerNameDisplay("Player 2");
 
 
         updateBallSpeedDisplay();
+        updateTargetSpeedDisplay();
         model.pointsGiven();
         updateLivesCircles(livesHBox);
 
@@ -268,13 +275,14 @@ public class Game2_View {
     }
 
     public static void updateLivesCircles(HBox livesHBox) {
+
         livesHBox.setAlignment(Pos.CENTER); // Align the components to the left
 
         // Clear previous circles
         livesHBox.getChildren().clear();
 
         // Create circles for each player
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3/*((Game2_Model) this.model).getCurrentLives()*/; i++) {
             Circle circle = new Circle(20); // Create a circle with radius
             circle.setFill(i < 3 ? Color.GREEN : Color.LIGHTGRAY); // Fill the circle if it represents a player
             circle.setStroke(Color.BLACK); // Set the border color
@@ -319,5 +327,16 @@ public class Game2_View {
     public void updateBallSpeedDisplay() {
         double currentBallSpeed = model.getBallSpeed(); // Assuming `model` is your Game_Model instance
         trueSpeedTextField.setText(String.valueOf(currentBallSpeed));
+    }
+
+    public void updateTargetSpeedDisplay() {
+        targetSpeedTextField.setText(String.valueOf(calculateTargetSpeed()));
+    }
+
+    public String calculateTargetSpeed(){
+        double num1 = (Math.random() * 35);
+        long rounded = Math.round(num1);
+        String newTargetSpeed = rounded + "-" + (rounded + 10);
+        return newTargetSpeed;
     }
 }

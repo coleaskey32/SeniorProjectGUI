@@ -1,6 +1,7 @@
 package org.example.Model;
 
 import javafx.stage.Stage;
+import org.example.Controller.GameSetting_Controller;
 import org.example.View.Game1_View;
 
 public class Game1_Model extends Game_Model {
@@ -25,11 +26,20 @@ public class Game1_Model extends Game_Model {
     }
 
 
+    public boolean getSpeedMode() {
+        return speedMode;
+
+    }
+
+    public void setSpeedMode(boolean speedMode) {
+        this.speedMode = speedMode;
+
+    }
     public int getMultiplier() {
         return multiplier;
     }
 
-    public int setMultiplier() {
+    public int setMultiplier(int multiplier) {
         return this.multiplier = multiplier;
     }
 
@@ -42,7 +52,7 @@ double currentBallSpeed = calculateBallSpeed(ballSpeed);
         } else if (currentBallSpeed > 30) {
             multiplier = 3;
         }
-        setMultiplier();
+        setMultiplier(multiplier);
 
         return multiplier;
     }
@@ -53,10 +63,8 @@ double currentBallSpeed = calculateBallSpeed(ballSpeed);
     }
 
     @Override
-    public void pointsGiven() {
+    public int pointsGiven() {
         // Assume this is the position obtained somehow
-
-        getMultiplier();
 
         switch (ballposition) {
             case "0,0":
@@ -92,14 +100,24 @@ double currentBallSpeed = calculateBallSpeed(ballSpeed);
         }
 
         // Assuming currentPlayer - 1 gives the correct index for the player in the players array
-        if(speedMode)
+
+        boolean mode = getSpeedMode();
+        multiplier = setMultiplier(multiplier);
+
+
+        if(mode)
         {
-            players[currentPlayer - 1].setCurrentScore((multiplier * scoreToAdd));
+            System.out.println((getMultiplier() * scoreToAdd));
+            System.out.println("speedMode true");
+            players[currentPlayer - 1].setCurrentScore((getMultiplier() * scoreToAdd));
+            return getMultiplier() * scoreToAdd;
         }
         else{
+            System.out.println((scoreToAdd));
+            System.out.println("speedMode false");
             players[currentPlayer - 1].setCurrentScore(scoreToAdd);
+            return scoreToAdd;
         }
-
 
     }
 
