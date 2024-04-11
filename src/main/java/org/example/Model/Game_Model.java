@@ -96,14 +96,6 @@ public abstract class Game_Model {
         return --currentLives;
     }
 
-    public boolean playersStillAlive() {
-        if (currentLives > 0)
-        {
-            return true;
-        }
-        return false;
-    }
-
     public int getCurrentRound() {
         return rounds;
     }
@@ -115,4 +107,10 @@ public abstract class Game_Model {
     public void openHighScoreWindow() {
         new HighScore_View(primaryStage, selectedGame, speedMode, totalRounds, players);
     }
+
+    public Player getCurrentPlayer() {
+        // Ensure this does not go out of bounds; adjust logic as necessary for your application's flow
+        return players[currentPlayer - 1]; // Assuming currentPlayer is 1-based index; adjust if 0-based
+    }
+
 }

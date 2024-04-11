@@ -19,6 +19,8 @@ import javafx.stage.Stage;
 
 import org.example.Controller.HighScore_Controller;
 import org.example.Model.Game_Model;
+import org.example.Model.Game1_Model;
+import org.example.Model.Player;
 
 public class Game1_View {
 
@@ -26,10 +28,26 @@ public class Game1_View {
 
     GridPane gridPane;
 
+    // Text Fields
+    TextField totalScoreTextField = new TextField();
+    TextField currentScoreTextField = new TextField();
+
+    TextField multiplierTextField = new TextField();
+
 
     public Game1_View(Stage primaryStage, Game_Model model) {
 
         this.model = model;
+
+        ((Game1_Model) this.model).getMultiplier();
+        model.pointsGiven();
+        updateMultiplierDisplay();
+        updateScoreDisplays();
+        /*
+        model.pointsGiven();
+        updateMultiplierDisplay();
+        updateScoreDisplays();
+*/
 
         // Player Name Label
         Label playerNameLabel = new Label("  Player Name:");
@@ -90,9 +108,7 @@ public class Game1_View {
 
 
         // Text Fields
-        TextField totalScoreTextField = new TextField();
         totalScoreTextField.setPrefWidth(100); // Set preferred width
-        TextField currentScoreTextField = new TextField();
         currentScoreTextField.setPrefWidth(100); // Set preferred width
 
         // HBox for Total Score
@@ -131,7 +147,6 @@ public class Game1_View {
         Label multiplierLabel = new Label("Multiplier:");
         multiplierLabel.setStyle("-fx-font-size: 20px;"); // Increase font size
 
-        TextField multiplierTextField = new TextField();
         multiplierTextField.setPrefWidth(135); // Set preferred width
 
         // HBox for multiplier
@@ -250,6 +265,13 @@ public class Game1_View {
         double screenWidth = Screen.getPrimary().getBounds().getWidth();
         double screenHeight = Screen.getPrimary().getBounds().getHeight();
 
+        /*
+        model.pointsGiven();
+        updateScoreDisplays();
+        updateMultiplierDisplay();
+        */
+
+
         Scene scene;
         scene = new Scene(layoutFinal, screenWidth, screenHeight); // Set the scene size
 
@@ -274,6 +296,20 @@ public class Game1_View {
             livesHBox.getChildren().add(circle); // Add the circle to the HBox
         }
     }
+
+    // Method to update the score displays
+    public void updateScoreDisplays() {
+        Player currentPlayer = model.getCurrentPlayer(); // Get current player model
+
+        // Assuming you have getCurrentScore and getTotalScore or equivalent in your player model
+        currentScoreTextField.setText(String.valueOf(currentPlayer.getCurrentScore()));
+        totalScoreTextField.setText(String.valueOf(currentPlayer.getTotalScore()));
+    }
+
+    public void updateMultiplierDisplay(int multiplier) {
+        multiplierTextField.setText(String.valueOf(multiplier));
+    }
+
 
     public void setRectangleVisibility(int row, int col, boolean isVisible) {
         Node node = getNodeByRowColumnIndex(row, col, gridPane);
@@ -304,6 +340,14 @@ public class Game1_View {
 
         return result;
     }
+
+    public void updateMultiplierDisplay() {
+        if (this.model instanceof Game1_Model) {
+            int multiplier = ((Game1_Model) this.model).getMultiplier(); // Cast to Game1_Model to access specific methods
+            this.multiplierTextField.setText(String.valueOf(multiplier));
+        }
+    }
+
 }
 
 
