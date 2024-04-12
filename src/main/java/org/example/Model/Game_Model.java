@@ -25,6 +25,12 @@ public abstract class Game_Model {
     int currentLives = 3;
     protected int currentPlayer = 1;
 
+    protected double ballSpeed; // Ball speed applicable across different game models
+
+    protected String ballPosition = "0,0"; // Default position as a string
+
+
+
 
     public Game_Model(int totalPlayers, String selectedGame, boolean speedMode, int rounds, Stage primaryStage) {
         this.selectedGame = selectedGame;
@@ -49,7 +55,7 @@ public abstract class Game_Model {
     /** Depending on the game will give certain amount of points to the player
      *  Will be implemented in Game1_Model and Game2_Model
      **/
-    public abstract void pointsGiven();
+    public abstract int pointsGiven();
 
     /**
      * Retrieves coordinates from standard input (stdin) and processes them.
@@ -84,6 +90,7 @@ public abstract class Game_Model {
     void initializePlayers() {
         for (int i = 0; i < totalPlayers; i++) {
             players[i] = new Player("Player " + (i + 1));
+
         }
     }
 
@@ -95,12 +102,8 @@ public abstract class Game_Model {
         return --currentLives;
     }
 
-    public boolean playersStillAlive() {
-        if (currentLives > 0)
-        {
-            return true;
-        }
-        return false;
+    public int getCurrentLives() {
+        return currentLives;
     }
 
     public int getCurrentRound() {
@@ -114,4 +117,29 @@ public abstract class Game_Model {
     public void openHighScoreWindow() {
         new HighScore_View(primaryStage, selectedGame, speedMode, totalRounds, players);
     }
+
+    public Player getCurrentPlayer() {
+        // Ensure this does not go out of bounds; adjust logic as necessary for your application's flow
+        return players[currentPlayer - 1]; // Assuming currentPlayer is 1-based index; adjust if 0-based
+    }
+
+    public double getBallSpeed() {
+        return ballSpeed;
+    }
+
+    public void setBallSpeed(double ballSpeed) {
+        this.ballSpeed = ballSpeed;
+    }
+
+    // Method to calculate or update the ball speed
+    public abstract double calculateBallSpeed(double ballSpeed);
+
+    // Method to set position; to be overridden in subclasses
+    public abstract void setPosition(String position);
+
+    // Method to get the current position
+    public String getBallPosition() {
+        return ballPosition;
+    }
+
 }

@@ -1,7 +1,9 @@
 package org.example.View;
 
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button; // Import Button class
 import javafx.scene.control.Label;
@@ -9,18 +11,67 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import org.example.Controller.HighScore_Controller;
 import org.example.Model.Game_Model;
+import org.example.Model.Game1_Model;
+import org.example.Model.Player;
 
 public class Game1_View {
 
     private Game_Model model;
 
+    GridPane gridPane;
+
+    // Text Fields
+    TextField totalScoreTextField = new TextField();
+    TextField currentScoreTextField = new TextField();
+
+    TextField multiplierTextField = new TextField();
+
+    TextField ballSpeedTextField = new TextField();
+
+    TextField playerNameTextField = new TextField();
+
+
+
     public Game1_View(Stage primaryStage, Game_Model model) {
 
         this.model = model;
+
+        ((Game1_Model) this.model).calculateBallSpeed(((Game1_Model) this.model).getBallSpeed());
+        updateBallSpeedDisplay();
+        ((Game1_Model) this.model).updateMultiplier();
+        updatePlayerNameDisplay(((Game1_Model) this.model).getPlayerName());
+
+        updateMultiplierDisplay();
+        updateBallSpeedDisplay();
+        model.pointsGiven();
+        updateScoreDisplays();
+
+        ((Game1_Model) this.model).calculateBallSpeed(35);
+        ((Game1_Model) this.model).setPosition("1,0");
+        updatePlayerNameDisplay("Player 2");
+        ((Game1_Model) this.model).decrementRounds();
+
+        updateBallSpeedDisplay();
+        ((Game1_Model) this.model).updateMultiplier();
+        updateMultiplierDisplay();
+        model.pointsGiven();
+        updateScoreDisplays();
+
+
+
+        /*
+        model.pointsGiven();
+        updateMultiplierDisplay();
+        updateScoreDisplays();
+*/
 
         // Player Name Label
         Label playerNameLabel = new Label("  Player Name:");
@@ -31,11 +82,9 @@ public class Game1_View {
         roundLabel.setStyle("-fx-font-size: 30px;"); // Increase font size
 
         // Text Fields
-        TextField playerNameTextField = new TextField();
         playerNameTextField.setPrefWidth(200); // Set preferred width
-        //playerNameTextField.setText(String.valueOf(currentPlayerIndex)); // Set the text field with the player name
 
-        TextField roundTextField = new TextField();
+        TextField roundTextField = new TextField(String.valueOf(this.model.getCurrentRound()));
         roundTextField.setPrefWidth(200); // Set preferred width
 
         // HBox for Player Name
@@ -63,8 +112,8 @@ public class Game1_View {
 
         // Create an ImageView for the image
         ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(600); // Set the ImageView size as needed
-        imageView.setFitWidth(600);
+        imageView.setFitHeight(800); // Set the ImageView size as needed
+        imageView.setFitWidth(800);
         imageView.setPreserveRatio(true);
 
         // Label for Ball Speed
@@ -81,9 +130,7 @@ public class Game1_View {
 
 
         // Text Fields
-        TextField totalScoreTextField = new TextField();
         totalScoreTextField.setPrefWidth(100); // Set preferred width
-        TextField currentScoreTextField = new TextField();
         currentScoreTextField.setPrefWidth(100); // Set preferred width
 
         // HBox for Total Score
@@ -108,7 +155,6 @@ public class Game1_View {
         Label mphLabel = new Label("mph");
         mphLabel.setStyle("-fx-font-size: 20px;"); // Increase font size
 
-        TextField ballSpeedTextField = new TextField();
         ballSpeedTextField.setPrefWidth(50); // Set preferred width
 
         // HBox for ball speed
@@ -122,7 +168,6 @@ public class Game1_View {
         Label multiplierLabel = new Label("Multiplier:");
         multiplierLabel.setStyle("-fx-font-size: 20px;"); // Increase font size
 
-        TextField multiplierTextField = new TextField();
         multiplierTextField.setPrefWidth(135); // Set preferred width
 
         // HBox for multiplier
@@ -166,14 +211,90 @@ public class Game1_View {
         Region spacer4 = new Region();
         VBox.setVgrow(spacer4, Priority.ALWAYS);
 
+
+
+        // Create a GridPane
+        gridPane = new GridPane();
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setHgap(10); // Horizontal gap between grid elements
+        gridPane.setVgap(10); // Vertical gap between grid elements
+
+        // Add colored rectangles to the GridPane
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 6; col++) {
+                Label scores = new Label(); // Label indicating player lives
+                scores.setStyle("-fx-font-size: 30px;"); // Set font size for the label
+
+
+                Rectangle rectangle = new Rectangle(125, 100); // Size of each rectangle
+                rectangle.setFill(new Color(1.0, 0, 0, 0.5)); // Set the initial color
+                gridPane.add(rectangle, col, row); // Add rectangle to GridPane
+                gridPane.add(scores, col, row); // Add rectangle to GridPane
+
+                String gridposition = row + "," + col;
+
+                switch (gridposition){
+                    case "0,0":
+                    case "0,5":
+                        scores.setText("      5"); // Set the text field with the player name
+                        break;
+                    case "0,1":
+                    case "0,4":
+                    case "1,0":
+                    case "1,5":
+                    case "2,0":
+                    case "2,5":
+                        scores.setText("      4"); // Set the text field with the player name
+                        break;
+                    case "1,2":
+                    case "1,3":
+                       scores.setText("      2"); // Set the text field with the player name
+                        break;
+                    case "1,1":
+                    case "1,4":
+                    case "2,1":
+                    case "2,4":
+                    case "0,2":
+                    case "0,3":
+                        scores.setText("      3"); // Set the text field with the player name
+                        break;
+                    case "2,2":
+                    case "2,3":
+                        scores.setText("      1"); // Set the text field with the player name
+                        break;
+                }
+            }
+        }
+
+        // Create a StackPane
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(imageView, gridPane); // Add both image and gridPane to the stackPane
+
+        // Center the ImageView within the StackPane
+        StackPane.setAlignment(gridPane, Pos.CENTER);
+
+        Region spacer5 = new Region();
+        HBox.setHgrow(spacer5, Priority.ALWAYS);
+
 // Add the left component, spacer, and right component
-        hlayout.getChildren().addAll(scoresBox, imageView, spacer2, rightSide);
+        hlayout.getChildren().addAll(scoresBox, spacer5, stackPane, spacer2, rightSide);
 
         VBox layoutFinal = new VBox(40); // Horizontal layout with spacing of 40
         layoutFinal.getChildren().addAll(layout, spacer3, hlayout, spacer4, highScoreBox); // Add scoring components to the layout
 
+        // Get the screen dimensions
+        double screenWidth = Screen.getPrimary().getBounds().getWidth();
+        double screenHeight = Screen.getPrimary().getBounds().getHeight();
+
+        /*
+        model.pointsGiven();
+        updateScoreDisplays();
+        updateMultiplierDisplay();
+        */
+
+
         Scene scene;
-        scene = new Scene(layoutFinal, 1200, 900); // Set the scene size
+        scene = new Scene(layoutFinal, screenWidth, screenHeight); // Set the scene size
 
         // Set the scene on the primary stage
         primaryStage.setScene(scene);
@@ -181,7 +302,80 @@ public class Game1_View {
         // Show the primary stage
         primaryStage.show();
     }
+
+    public static void updateLivesCircles(HBox livesHBox) {
+        livesHBox.setAlignment(Pos.CENTER); // Align the components to the left
+
+        // Clear previous circles
+        livesHBox.getChildren().clear();
+
+        // Create circles for each player
+        for (int i = 0; i < 3; i++) {
+            Circle circle = new Circle(20); // Create a circle with radius
+            circle.setFill(i < 3 ? Color.GREEN : Color.LIGHTGRAY); // Fill the circle if it represents a player
+            circle.setStroke(Color.BLACK); // Set the border color
+            livesHBox.getChildren().add(circle); // Add the circle to the HBox
+        }
+    }
+
+    // Method to update the score displays
+    public void updateScoreDisplays() {
+        Player currentPlayer = model.getCurrentPlayer(); // Get current player model
+        ((Game1_Model) this.model).setBallSpeed();
+//update positon
+        // Assuming you have getCurrentScore and getTotalScore or equivalent in your player model
+        currentScoreTextField.setText(String.valueOf(currentPlayer.getCurrentScore()));
+        totalScoreTextField.setText(String.valueOf(currentPlayer.getTotalScore()));
+    }
+
+    public void setRectangleVisibility(int row, int col, boolean isVisible) {
+        Node node = getNodeByRowColumnIndex(row, col, gridPane);
+        if (node != null && node instanceof Rectangle) {
+            node.setVisible(isVisible);
+        }
+    }
+
+    // Method to set the color of a specific rectangle
+    public void setRectangleColor(int row, int col, Color color) {
+        Node node = getNodeByRowColumnIndex(row, col, gridPane);
+        if (node != null && node instanceof Rectangle) {
+            ((Rectangle) node).setFill(color);
+        }
+    }
+
+    // Helper method to get node by row and column index
+    private Node getNodeByRowColumnIndex(final int row, final int column, GridPane gridPane) {
+        Node result = null;
+        ObservableList<Node> children = gridPane.getChildren();
+
+        for (Node node : children) {
+            if (gridPane.getRowIndex(node) == row && gridPane.getColumnIndex(node) == column) {
+                result = node;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    public void updateMultiplierDisplay() {
+        if (this.model instanceof Game1_Model) {
+            int multiplier = ((Game1_Model) this.model).updateMultiplier(); // Cast to Game1_Model to access specific methods
+            this.multiplierTextField.setText(String.valueOf(multiplier));
+        }
+    }
+
+    public void updateBallSpeedDisplay() {
+        double currentBallSpeed = model.getBallSpeed(); // Assuming `model` is your Game_Model instance
+        ballSpeedTextField.setText(String.valueOf(currentBallSpeed));
+    }
+
+    public void updatePlayerNameDisplay(String playerName) {
+        playerNameTextField.setText(playerName);
+    }
+
 }
+
 
 //FOR ALL GAMES
 

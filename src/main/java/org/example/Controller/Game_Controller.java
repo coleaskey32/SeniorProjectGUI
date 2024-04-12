@@ -10,6 +10,7 @@ import org.example.View.Game1_View;
 import org.example.View.Game2_View;
 import org.example.View.HighScore_View;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class Game_Controller {
     private boolean speedMode;
     private int totalPlayers;
     private Stage primaryStage;
+
 
     public Game_Controller(Stage primaryStage, String selectedGame, int totalPlayers, boolean speedMode, int rounds) {
 
@@ -48,10 +50,19 @@ public class Game_Controller {
         //Initialize all grid elements to be invisible in Simon Says
         if (selectedGame.equals("Game 2")) {
             for (int row = 0; row < 3; row++) {
-                for (int col = 0; col < 6; col++) {
+                for (int col = 0; col < 3; col++) {
                     view2.setRectangleVisibility(row, col, false);
                 }
             }
+        } else if (selectedGame.equals("Game 1")) {
+            for (int row = 0; row < 3; row++) {
+                for (int col = 0; col < 6; col++) {
+                    view1.setRectangleVisibility(row, col, true);
+                }
+            }
+        }
+        else{
+
         }
 
         // If the game is Simon Says
@@ -63,6 +74,13 @@ public class Game_Controller {
             // Show target Grid element
             view2.setRectangleVisibility(randomGridIndex[0], randomGridIndex[1], true);
             view2.setRectangleColor(randomGridIndex[0], randomGridIndex[1], Color.BLUE);
+        }
+        else if (selectedGame.equals("Game 1"))
+        {
+
+        }
+        else {
+
         }
 
 
