@@ -1,9 +1,16 @@
 package org.example.Controller;
 
+
 import org.example.Model.Player;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
+
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -12,11 +19,12 @@ public class HighScore_Controller {
     private String selectedGame;
     private boolean speedMode;
     private Player[] players;
-
-    private float averageScore;
-    private int[] scoreList;
     private int rounds;
 
+    ArrayList<Integer> currentPlayerScores;
+    ArrayList<String> currentPlayerNames;
+    ArrayList<String> leaderBoardScores;
+    ArrayList<String> leaderBoardNames;
 
     public HighScore_Controller(String selectedGame, boolean speedMode, int rounds, Player[] players) {
         this.selectedGame = selectedGame;
@@ -30,12 +38,10 @@ public class HighScore_Controller {
 
     public void initializer() {
 
-        ArrayList<Integer> currentPlayerScores = new ArrayList<>();
-        ArrayList<String> currentPlayerNames = new ArrayList<>();
-        ArrayList<Integer> leaderBoardScores = new ArrayList<>();
-        ArrayList<String> leaderBoardNames = new ArrayList<>();
-
-        ArrayList<Map.Entry<Integer, String>> highScores = new ArrayList<>();
+        currentPlayerScores = new ArrayList<>();
+        currentPlayerNames = new ArrayList<>();
+        leaderBoardScores = new ArrayList<>();
+        leaderBoardNames = new ArrayList<>();
 
         for (Player player: this.players) {
             currentPlayerNames.add(player.getPlayerName());
@@ -44,21 +50,59 @@ public class HighScore_Controller {
 
         try {
 
+            JSONParser jsonParser = new JSONParser();
+            JSONArray jsonArray = (JSONArray) jsonParser.parse(new FileReader("C://Users/colea/Downloads/SP/src/main/resources/Data.Json"));
 
-            //Shoot and Score 5 rounds at [0]
-            //if (selectedGame.equals("Game 1") & rounds == 5) {}
+            // Determine the index based on selectedGame and rounds
+            int index = 0;
+            if (selectedGame.equals("Game 1")) {
+                if (rounds == 5)
+                    index = 0;
+                else if (rounds == 10)
+                    index = 1;
+                else if (rounds == 15)
+                    index = 2;
+            } else if (selectedGame.equals("Game 2")) {
+                if (rounds == 5)
+                    index = 3;
+                else if (rounds == 10)
+                    index = 4;
+            } else {
+                index = 5;
+            }
 
+            // Retrieve the JSONObject based on the determined index
+            JSONObject jsonObj = (JSONObject) jsonArray.get(index);
+
+
+            JSONArray entries = (JSONArray) jsonObj.get("entries");
+            long average_score = (long) jsonObj.get("average_score");
+            long total_entries = (long) jsonObj.get("total_entries");
+
+            // Iterate over each entry in the selected "entries" array
+            for (Object entryObj : entries) {
+                JSONObject entry = (JSONObject) entryObj;
+                leaderBoardNames.add(String.valueOf(entry.get("name")));
+                leaderBoardScores.add(String.valueOf(entry.get("score")));
+                System.out.println("Score: " + entry.get("score") + ", Name: " + entry.get("name"));
+            }
+            System.out.println("\n");
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
-
     }
+
     public int[] scoreList() {
         return new int[]{1};
     }
 
+    public String getLeaderBoardName(int i) {
+        System.out.println(leaderBoardNames);
+        return this.leaderBoardNames.get(i);
+    }
+    public String getLeaderBoardScore(int i) {
+        System.out.println(leaderBoardScores);
+        return this.leaderBoardScores.get(i);
+    }
 }
