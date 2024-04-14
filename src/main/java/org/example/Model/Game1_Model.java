@@ -107,14 +107,14 @@ double currentBallSpeed = calculateBallSpeed(ballSpeed);
 
         if(mode)
         {
-            System.out.println((getMultiplier() * scoreToAdd));
-            System.out.println("speedMode true");
+           // System.out.println((getMultiplier() * scoreToAdd));
+           // System.out.println("speedMode true");
             players[currentPlayer - 1].setCurrentScore((getMultiplier() * scoreToAdd));
             return getMultiplier() * scoreToAdd;
         }
         else{
-            System.out.println((scoreToAdd));
-            System.out.println("speedMode false");
+           // System.out.println((scoreToAdd));
+           // System.out.println("speedMode false");
             players[currentPlayer - 1].setCurrentScore(scoreToAdd);
             return scoreToAdd;
         }

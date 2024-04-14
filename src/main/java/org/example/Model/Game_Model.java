@@ -94,6 +94,18 @@ public abstract class Game_Model {
         }
     }
 
+    public int getTotalPlayers() {
+        return totalPlayers;
+    }
+
+    public void incrementPlayer(int currentPlayer) {
+        this.currentPlayer = currentPlayer++;
+    }
+
+    public void setCurrentPlayer(int currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
     public int decrementRounds() {
         return --rounds;
     }
@@ -111,7 +123,11 @@ public abstract class Game_Model {
     }
 
     public String getPlayerName() {
-        return "Player " + this.currentPlayer;
+            return "Player " + (this.currentPlayer);
+    }
+
+    public int getCurrentPlayerVar() {
+        return this.currentPlayer;
     }
 
     public void openHighScoreWindow() {

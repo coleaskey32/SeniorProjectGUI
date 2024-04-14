@@ -39,252 +39,239 @@ public class Game1_View {
     TextField playerNameTextField = new TextField();
 
 
-
     public Game1_View(Stage primaryStage, Game_Model model) {
 
         this.model = model;
 
-        ((Game1_Model) this.model).calculateBallSpeed(((Game1_Model) this.model).getBallSpeed());
-        updateBallSpeedDisplay();
-        ((Game1_Model) this.model).updateMultiplier();
-        updatePlayerNameDisplay(((Game1_Model) this.model).getPlayerName());
+        while(model.getCurrentRound() > 0) {
 
-        updateMultiplierDisplay();
-        updateBallSpeedDisplay();
-        model.pointsGiven();
-        updateScoreDisplays();
+            updatePlayerNameDisplay(((Game1_Model) this.model).getPlayerName());
 
-        ((Game1_Model) this.model).calculateBallSpeed(35);
-        ((Game1_Model) this.model).setPosition("1,0");
-        updatePlayerNameDisplay("Player 2");
-        ((Game1_Model) this.model).decrementRounds();
+            ((Game1_Model) this.model).calculateBallSpeed(((Game1_Model) this.model).getBallSpeed());
+            ((Game1_Model) this.model).updateMultiplier();
 
-        updateBallSpeedDisplay();
-        ((Game1_Model) this.model).updateMultiplier();
-        updateMultiplierDisplay();
-        model.pointsGiven();
-        updateScoreDisplays();
+            updateBallSpeedDisplay();
+            updateMultiplierDisplay();
 
+            model.pointsGiven();
+            updateScoreDisplays();
 
+            //((Game1_Model) this.model).calculateBallSpeed(35);
+            //((Game1_Model) this.model).setPosition("1,0");
 
-        /*
-        model.pointsGiven();
-        updateMultiplierDisplay();
-        updateScoreDisplays();
-*/
+            // Player Name Label
+            Label playerNameLabel = new Label("  Player Name:");
+            playerNameLabel.setStyle("-fx-font-size: 30px;"); // Increase font size
 
-        // Player Name Label
-        Label playerNameLabel = new Label("  Player Name:");
-        playerNameLabel.setStyle("-fx-font-size: 30px;"); // Increase font size
+            // Round Label
+            Label roundLabel = new Label("Round:");
+            roundLabel.setStyle("-fx-font-size: 30px;"); // Increase font size
 
-        // Round Label
-        Label roundLabel = new Label("Round:");
-        roundLabel.setStyle("-fx-font-size: 30px;"); // Increase font size
+            // Text Fields
+            playerNameTextField.setPrefWidth(200); // Set preferred width
 
-        // Text Fields
-        playerNameTextField.setPrefWidth(200); // Set preferred width
+            TextField roundTextField = new TextField(String.valueOf(this.model.getCurrentRound()));
+            roundTextField.setPrefWidth(200); // Set preferred width
 
-        TextField roundTextField = new TextField(String.valueOf(this.model.getCurrentRound()));
-        roundTextField.setPrefWidth(200); // Set preferred width
+            // HBox for Player Name
+            HBox playerlabelsBox = new HBox(40); // Horizontal layout with spacing of 40
+            playerlabelsBox.getChildren().addAll(playerNameLabel, playerNameTextField);
+            playerlabelsBox.setAlignment(Pos.TOP_LEFT); // Align the components to the left
 
-        // HBox for Player Name
-        HBox playerlabelsBox = new HBox(40); // Horizontal layout with spacing of 40
-        playerlabelsBox.getChildren().addAll(playerNameLabel, playerNameTextField);
-        playerlabelsBox.setAlignment(Pos.TOP_LEFT); // Align the components to the left
+            // HBox for Round
+            HBox roundlabelsBox = new HBox(40); // Horizontal layout with spacing of 40
+            roundlabelsBox.getChildren().addAll(roundLabel, roundTextField);
+            roundlabelsBox.setAlignment(Pos.TOP_RIGHT); // Align the components to the left
+            //VBox.setMargin(roundlabelsBox, new Insets(-45, 0, 0, 0)); // Add top margin of -10 pixels
 
-        // HBox for Round
-        HBox roundlabelsBox = new HBox(40); // Horizontal layout with spacing of 40
-        roundlabelsBox.getChildren().addAll(roundLabel, roundTextField);
-        roundlabelsBox.setAlignment(Pos.TOP_RIGHT); // Align the components to the left
-        //VBox.setMargin(roundlabelsBox, new Insets(-45, 0, 0, 0)); // Add top margin of -10 pixels
+            // Spacer to push elements to the left and right
+            Region spacer = new Region();
+            HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        // Spacer to push elements to the left and right
-        Region spacer = new Region();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
+            // Create a VBox to hold the player information
+            HBox layout = new HBox(40); // Vertical layout with spacing of 10
+            layout.getChildren().addAll(playerlabelsBox, spacer, roundlabelsBox); // Add labelsBox to the layout
 
-        // Create a VBox to hold the player information
-        HBox layout = new HBox(40); // Vertical layout with spacing of 10
-        layout.getChildren().addAll(playerlabelsBox, spacer, roundlabelsBox); // Add labelsBox to the layout
+            // Load the image
+            String imagePath = "SoccerGoalPost.jpg";
+            Image image = new Image(imagePath);
 
-        // Load the image
-        String imagePath = "SoccerGoalPost.jpg";
-        Image image = new Image(imagePath);
+            // Create an ImageView for the image
+            ImageView imageView = new ImageView(image);
+            imageView.setFitHeight(800); // Set the ImageView size as needed
+            imageView.setFitWidth(800);
+            imageView.setPreserveRatio(true);
 
-        // Create an ImageView for the image
-        ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(800); // Set the ImageView size as needed
-        imageView.setFitWidth(800);
-        imageView.setPreserveRatio(true);
+            // Label for Ball Speed
+            Label speedLabel = new Label("   Ball Speed:");
+            speedLabel.setStyle("-fx-font-size: 20px;"); // Increase font size
 
-        // Label for Ball Speed
-        Label speedLabel = new Label("   Ball Speed:");
-        speedLabel.setStyle("-fx-font-size: 20px;"); // Increase font size
+            // Total Score Label
+            Label totalScoreLabel = new Label("   Total Score:    ");
+            totalScoreLabel.setStyle("-fx-font-size: 20px;"); // Increase font size
 
-        // Total Score Label
-        Label totalScoreLabel = new Label("   Total Score:    ");
-        totalScoreLabel.setStyle("-fx-font-size: 20px;"); // Increase font size
-
-        // Current Score Label
-        Label currentScoreLabel = new Label("   Current Score:");
-        currentScoreLabel.setStyle("-fx-font-size: 20px;"); // Increase font size
+            // Current Score Label
+            Label currentScoreLabel = new Label("   Current Score:");
+            currentScoreLabel.setStyle("-fx-font-size: 20px;"); // Increase font size
 
 
-        // Text Fields
-        totalScoreTextField.setPrefWidth(100); // Set preferred width
-        currentScoreTextField.setPrefWidth(100); // Set preferred width
+            // Text Fields
+            totalScoreTextField.setPrefWidth(100); // Set preferred width
+            currentScoreTextField.setPrefWidth(100); // Set preferred width
 
-        // HBox for Total Score
-        HBox totalScoreBox = new HBox(40); // Horizontal layout with spacing of 40
-        totalScoreBox.getChildren().addAll(totalScoreLabel, totalScoreTextField);
-        totalScoreBox.setAlignment(Pos.CENTER_LEFT); // Align the components to the left
+            // HBox for Total Score
+            HBox totalScoreBox = new HBox(40); // Horizontal layout with spacing of 40
+            totalScoreBox.getChildren().addAll(totalScoreLabel, totalScoreTextField);
+            totalScoreBox.setAlignment(Pos.CENTER_LEFT); // Align the components to the left
 
-        // HBox for Current Score
-        HBox currentScoreBox = new HBox(40); // Horizontal layout with spacing of 40
-        currentScoreBox.getChildren().addAll(currentScoreLabel, currentScoreTextField);
-        currentScoreBox.setAlignment(Pos.CENTER_LEFT); // Align the components to the left
+            // HBox for Current Score
+            HBox currentScoreBox = new HBox(40); // Horizontal layout with spacing of 40
+            currentScoreBox.getChildren().addAll(currentScoreLabel, currentScoreTextField);
+            currentScoreBox.setAlignment(Pos.CENTER_LEFT); // Align the components to the left
 
-        VBox scoresBox = new VBox(40); // Horizontal layout with spacing of 40
-        scoresBox.getChildren().addAll(totalScoreBox, currentScoreBox); // Add scoring components to the layout
-        scoresBox.setAlignment(Pos.CENTER_LEFT); // Align the components to the left
+            VBox scoresBox = new VBox(40); // Horizontal layout with spacing of 40
+            scoresBox.getChildren().addAll(totalScoreBox, currentScoreBox); // Add scoring components to the layout
+            scoresBox.setAlignment(Pos.CENTER_LEFT); // Align the components to the left
 
-        // Ball speed Label
-        Label ballSpeedLabel = new Label("Ball Speed:");
-        ballSpeedLabel.setStyle("-fx-font-size: 20px;"); // Increase font size
+            // Ball speed Label
+            Label ballSpeedLabel = new Label("Ball Speed:");
+            ballSpeedLabel.setStyle("-fx-font-size: 20px;"); // Increase font size
 
-        // mph Label
-        Label mphLabel = new Label("mph");
-        mphLabel.setStyle("-fx-font-size: 20px;"); // Increase font size
+            // mph Label
+            Label mphLabel = new Label("mph");
+            mphLabel.setStyle("-fx-font-size: 20px;"); // Increase font size
 
-        ballSpeedTextField.setPrefWidth(50); // Set preferred width
+            ballSpeedTextField.setPrefWidth(50); // Set preferred width
 
-        // HBox for ball speed
-        HBox ballSpeedBox = new HBox(40); // Horizontal layout with spacing of 40
-        ballSpeedBox.getChildren().addAll(ballSpeedLabel, ballSpeedTextField, mphLabel);
-        ballSpeedBox.setAlignment(Pos.CENTER_RIGHT); // Align the components to the left
+            // HBox for ball speed
+            HBox ballSpeedBox = new HBox(40); // Horizontal layout with spacing of 40
+            ballSpeedBox.getChildren().addAll(ballSpeedLabel, ballSpeedTextField, mphLabel);
+            ballSpeedBox.setAlignment(Pos.CENTER_RIGHT); // Align the components to the left
 
-        //if (speedmode) {
+            //if (speedmode) {
 
-        // multiplier Label
-        Label multiplierLabel = new Label("Multiplier:");
-        multiplierLabel.setStyle("-fx-font-size: 20px;"); // Increase font size
+            // multiplier Label
+            Label multiplierLabel = new Label("Multiplier:");
+            multiplierLabel.setStyle("-fx-font-size: 20px;"); // Increase font size
 
-        multiplierTextField.setPrefWidth(135); // Set preferred width
+            multiplierTextField.setPrefWidth(135); // Set preferred width
 
-        // HBox for multiplier
-        HBox multiplierBox = new HBox(40); // Horizontal layout with spacing of 40
-        multiplierBox.getChildren().addAll(multiplierLabel, multiplierTextField);
-        multiplierBox.setAlignment(Pos.CENTER_RIGHT); // Align the components to the left
+            // HBox for multiplier
+            HBox multiplierBox = new HBox(40); // Horizontal layout with spacing of 40
+            multiplierBox.getChildren().addAll(multiplierLabel, multiplierTextField);
+            multiplierBox.setAlignment(Pos.CENTER_RIGHT); // Align the components to the left
 
-        VBox rightSide = new VBox(40); // Horizontal layout with spacing of 40
-        rightSide.getChildren().addAll(ballSpeedBox); // Add scoring components to the layout
-        rightSide.setAlignment(Pos.CENTER_RIGHT); // Align the components to the left
+            VBox rightSide = new VBox(40); // Horizontal layout with spacing of 40
+            rightSide.getChildren().addAll(ballSpeedBox); // Add scoring components to the layout
+            rightSide.setAlignment(Pos.CENTER_RIGHT); // Align the components to the left
 
-        rightSide.getChildren().addAll(multiplierBox); // Add scoring components to the layout
-
-
-        //}
+            rightSide.getChildren().addAll(multiplierBox); // Add scoring components to the layout
 
 
-        // Create a button
-        Button highScoreButton = new Button("View High Scores");
-        highScoreButton.setPrefSize(200, 50); // Set the preferred width and height
-        highScoreButton.setStyle("-fx-font-size: 20px;"); // Increase font size
+            //}
 
 
-        highScoreButton.setOnAction(e -> { model.openHighScoreWindow(); });
-
-        HBox highScoreBox = new HBox(40);
-        // Add button to HBox
-        highScoreBox.getChildren().add(highScoreButton);
-        // Set alignment of the VBox to bottom center
-        highScoreBox.setAlignment(Pos.BOTTOM_CENTER);
-
-        HBox hlayout = new HBox(); // Horizontal layout without specific spacing
-        hlayout.setAlignment(Pos.CENTER); // Center align items in the HBox
-
-        Region spacer2 = new Region();
-        HBox.setHgrow(spacer2, Priority.ALWAYS);
-
-        Region spacer3 = new Region();
-        VBox.setVgrow(spacer3, Priority.ALWAYS);
-
-        Region spacer4 = new Region();
-        VBox.setVgrow(spacer4, Priority.ALWAYS);
+            // Create a button
+            Button highScoreButton = new Button("View High Scores");
+            highScoreButton.setPrefSize(200, 50); // Set the preferred width and height
+            highScoreButton.setStyle("-fx-font-size: 20px;"); // Increase font size
 
 
+            highScoreButton.setOnAction(e -> {
+                model.openHighScoreWindow();
+            });
 
-        // Create a GridPane
-        gridPane = new GridPane();
-        gridPane.setAlignment(Pos.CENTER);
-        gridPane.setHgap(10); // Horizontal gap between grid elements
-        gridPane.setVgap(10); // Vertical gap between grid elements
+            HBox highScoreBox = new HBox(40);
+            // Add button to HBox
+            highScoreBox.getChildren().add(highScoreButton);
+            // Set alignment of the VBox to bottom center
+            highScoreBox.setAlignment(Pos.BOTTOM_CENTER);
 
-        // Add colored rectangles to the GridPane
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 6; col++) {
-                Label scores = new Label(); // Label indicating player lives
-                scores.setStyle("-fx-font-size: 30px;"); // Set font size for the label
+            HBox hlayout = new HBox(); // Horizontal layout without specific spacing
+            hlayout.setAlignment(Pos.CENTER); // Center align items in the HBox
+
+            Region spacer2 = new Region();
+            HBox.setHgrow(spacer2, Priority.ALWAYS);
+
+            Region spacer3 = new Region();
+            VBox.setVgrow(spacer3, Priority.ALWAYS);
+
+            Region spacer4 = new Region();
+            VBox.setVgrow(spacer4, Priority.ALWAYS);
 
 
-                Rectangle rectangle = new Rectangle(125, 100); // Size of each rectangle
-                rectangle.setFill(new Color(1.0, 0, 0, 0.5)); // Set the initial color
-                gridPane.add(rectangle, col, row); // Add rectangle to GridPane
-                gridPane.add(scores, col, row); // Add rectangle to GridPane
+            // Create a GridPane
+            gridPane = new GridPane();
+            gridPane.setAlignment(Pos.CENTER);
+            gridPane.setHgap(10); // Horizontal gap between grid elements
+            gridPane.setVgap(10); // Vertical gap between grid elements
 
-                String gridposition = row + "," + col;
+            // Add colored rectangles to the GridPane
+            for (int row = 0; row < 3; row++) {
+                for (int col = 0; col < 6; col++) {
+                    Label scores = new Label(); // Label indicating player lives
+                    scores.setStyle("-fx-font-size: 30px;"); // Set font size for the label
 
-                switch (gridposition){
-                    case "0,0":
-                    case "0,5":
-                        scores.setText("      5"); // Set the text field with the player name
-                        break;
-                    case "0,1":
-                    case "0,4":
-                    case "1,0":
-                    case "1,5":
-                    case "2,0":
-                    case "2,5":
-                        scores.setText("      4"); // Set the text field with the player name
-                        break;
-                    case "1,2":
-                    case "1,3":
-                       scores.setText("      2"); // Set the text field with the player name
-                        break;
-                    case "1,1":
-                    case "1,4":
-                    case "2,1":
-                    case "2,4":
-                    case "0,2":
-                    case "0,3":
-                        scores.setText("      3"); // Set the text field with the player name
-                        break;
-                    case "2,2":
-                    case "2,3":
-                        scores.setText("      1"); // Set the text field with the player name
-                        break;
+
+                    Rectangle rectangle = new Rectangle(125, 100); // Size of each rectangle
+                    rectangle.setFill(new Color(1.0, 0, 0, 0.5)); // Set the initial color
+                    gridPane.add(rectangle, col, row); // Add rectangle to GridPane
+                    gridPane.add(scores, col, row); // Add rectangle to GridPane
+
+                    String gridposition = row + "," + col;
+
+                    switch (gridposition) {
+                        case "0,0":
+                        case "0,5":
+                            scores.setText("      5"); // Set the text field with the player name
+                            break;
+                        case "0,1":
+                        case "0,4":
+                        case "1,0":
+                        case "1,5":
+                        case "2,0":
+                        case "2,5":
+                            scores.setText("      4"); // Set the text field with the player name
+                            break;
+                        case "1,2":
+                        case "1,3":
+                            scores.setText("      2"); // Set the text field with the player name
+                            break;
+                        case "1,1":
+                        case "1,4":
+                        case "2,1":
+                        case "2,4":
+                        case "0,2":
+                        case "0,3":
+                            scores.setText("      3"); // Set the text field with the player name
+                            break;
+                        case "2,2":
+                        case "2,3":
+                            scores.setText("      1"); // Set the text field with the player name
+                            break;
+                    }
                 }
             }
-        }
 
-        // Create a StackPane
-        StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(imageView, gridPane); // Add both image and gridPane to the stackPane
+            // Create a StackPane
+            StackPane stackPane = new StackPane();
+            stackPane.getChildren().addAll(imageView, gridPane); // Add both image and gridPane to the stackPane
 
-        // Center the ImageView within the StackPane
-        StackPane.setAlignment(gridPane, Pos.CENTER);
+            // Center the ImageView within the StackPane
+            StackPane.setAlignment(gridPane, Pos.CENTER);
 
-        Region spacer5 = new Region();
-        HBox.setHgrow(spacer5, Priority.ALWAYS);
+            Region spacer5 = new Region();
+            HBox.setHgrow(spacer5, Priority.ALWAYS);
 
 // Add the left component, spacer, and right component
-        hlayout.getChildren().addAll(scoresBox, spacer5, stackPane, spacer2, rightSide);
+            hlayout.getChildren().addAll(scoresBox, spacer5, stackPane, spacer2, rightSide);
 
-        VBox layoutFinal = new VBox(40); // Horizontal layout with spacing of 40
-        layoutFinal.getChildren().addAll(layout, spacer3, hlayout, spacer4, highScoreBox); // Add scoring components to the layout
+            VBox layoutFinal = new VBox(40); // Horizontal layout with spacing of 40
+            layoutFinal.getChildren().addAll(layout, spacer3, hlayout, spacer4, highScoreBox); // Add scoring components to the layout
 
-        // Get the screen dimensions
-        double screenWidth = Screen.getPrimary().getBounds().getWidth();
-        double screenHeight = Screen.getPrimary().getBounds().getHeight();
+            // Get the screen dimensions
+            double screenWidth = Screen.getPrimary().getBounds().getWidth();
+            double screenHeight = Screen.getPrimary().getBounds().getHeight();
 
         /*
         model.pointsGiven();
@@ -293,14 +280,30 @@ public class Game1_View {
         */
 
 
-        Scene scene;
-        scene = new Scene(layoutFinal, screenWidth, screenHeight); // Set the scene size
+            Scene scene;
+            scene = new Scene(layoutFinal, screenWidth, screenHeight); // Set the scene size
 
-        // Set the scene on the primary stage
-        primaryStage.setScene(scene);
+            // Set the scene on the primary stage
+            primaryStage.setScene(scene);
 
-        // Show the primary stage
-        primaryStage.show();
+            // Show the primary stage
+            primaryStage.show();
+
+            if(model.getCurrentPlayerVar() < model.getTotalPlayers()){
+                model.setCurrentPlayer(model.getCurrentPlayerVar() + 1);
+                System.out.println(model.getCurrentPlayerVar());
+                //System.out.println("if");
+            }
+            else{
+                model.setCurrentPlayer(1);
+                ((Game1_Model) this.model).decrementRounds();
+                System.out.println(model.getCurrentPlayerVar());
+                //System.out.println("else");
+            }
+
+            System.out.println(model.getCurrentRound());
+
+        }
     }
 
     public static void updateLivesCircles(HBox livesHBox) {
