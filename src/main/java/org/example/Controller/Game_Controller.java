@@ -47,52 +47,75 @@ public class Game_Controller {
 
     private void startGame() {
 
-        //Initialize all grid elements to be invisible in Simon Says
-        if (selectedGame.equals("Game 2")) {
-            for (int row = 0; row < 3; row++) {
-                for (int col = 0; col < 3; col++) {
-                    view2.setRectangleVisibility(row, col, false);
+
+        int[] randomGridIndex = new int[2];
+        int[] randomSpeedInterval = new int[2];
+        int earnedPoints;
+
+        // While there is still rounds left and someone is still alive if Simon Says
+        while (model.getCurrentRound() > 0)
+            System.out.println(model.getCurrentRound() + " " + model.getCurrentPlayerNum());
+
+            //Initialize all grid elements to be invisible in Simon Says and visible in shoot and score
+            if (selectedGame.equals("Game 2")) {
+                for (int row = 0; row < 3; row++) {
+                    for (int col = 0; col < 3; col++) {
+                        view2.setRectangleVisibility(row, col, false);
+                    }
                 }
             }
-        } else if (selectedGame.equals("Game 1")) {
-            for (int row = 0; row < 3; row++) {
-                for (int col = 0; col < 6; col++) {
-                    view1.setRectangleVisibility(row, col, true);
+            else {
+                for (int row = 0; row < 3; row++) {
+                    for (int col = 0; col < 6; col++) {
+                        view1.setRectangleVisibility(row, col, true);
+                    }
                 }
             }
-        }
-        else{
 
-        }
 
-        // If the game is Simon Says
+        // If the game is Simon Says display a random box to hit
         if (selectedGame.equals("Game 2")) {
 
-            int[] randomGridIndex = model.setGrid();
+            // Get random grid index
+            randomGridIndex = model.generateRandomCoordinates();
+
             System.out.print(randomGridIndex[0] + " " + randomGridIndex[1]);
 
-            // Show target Grid element
+            // Show target Grid element in view
             view2.setRectangleVisibility(randomGridIndex[0], randomGridIndex[1], true);
             view2.setRectangleColor(randomGridIndex[0], randomGridIndex[1], Color.BLUE);
         }
-        else if (selectedGame.equals("Game 1"))
-        {
 
+        // Generate and display target speed interval
+        if (speedMode) {
+            model.generateRandomSpeedRange();
+            randomSpeedInterval = model.getRandomSpeedInterval();
+
+            if (selectedGame.equals("Game 1"))
+                view1.setBallSpeedTextField(randomSpeedInterval[0] + "-" + randomSpeedInterval[1]);
+
+            //view2.setBallSpeedTextField(model.getRandomSpeedInterval());
         }
-        else {
 
+        //Runs cpp file (will wait to move on till process is finished)
+        model.retrieveCoordinate();
+
+        //Find how many points the player got
+        earnedPoints = model.pointsGiven();
+
+        //Implement points on view
+        if (selectedGame.equals("Game 1") ) {
+            view1.setCurrentScoreTextField(String.valueOf(earnedPoints));
         }
 
-
-
-        //Get the coordinates of the players kick
-        //String coordinates = model.retrieveCoordinates();
-
-        //model.pointsGiven(coordinates);
-
+        //Increment player
+        if (model.getCurrentPlayerNum() == totalPlayers) {
+            model.decrementRounds();
+            model.setCurrentPlayer(1);
+        }
+        else
+            model.incrementPlayer();
 
     }
-
-
 
 }

@@ -13,6 +13,7 @@ import org.example.View.HighScore_View;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Random;
 
 public abstract class Game_Model {
     protected Player[] players;
@@ -27,8 +28,9 @@ public abstract class Game_Model {
 
     protected double ballSpeed; // Ball speed applicable across different game models
 
-    protected String ballPosition = "0,0"; // Default position as a string
+    protected int[] coordinates;
 
+    protected int[] randomSpeedInterval;
 
 
 
@@ -49,13 +51,13 @@ public abstract class Game_Model {
     /** Sets the grid view depending on the game. random box for simon says and point layout for shoot and score.
      *  Will be implemented in Game1_Model and Game2_Model
      **/
-    public abstract int[] setGrid();
 
 
     /** Depending on the game will give certain amount of points to the player
      *  Will be implemented in Game1_Model and Game2_Model
      **/
     public abstract int pointsGiven();
+    public abstract int[] generateRandomCoordinates();
 
     /**
      * Retrieves coordinates from standard input (stdin) and processes them.
@@ -63,26 +65,43 @@ public abstract class Game_Model {
      * Each line of input is expected to contain a set of coordinates.
      * Coordinates are accumulated into a StringBuilder.
      **/
-    public String retrieveCoordinates() {
-        StringBuilder contentBuilder = new StringBuilder();
+    public void retrieveCoordinate() {
+
+        int[] coordinateAndSpeed = new int[3];
+
         try {
-            //
             // Execute the C++ program
-            Process process = new ProcessBuilder("./coordinates_generator").start();
+            Process process = new ProcessBuilder("./Main").start();
 
             // Read the output from the C++ program
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
-            while ((line = reader.readLine()) != null) {
-                contentBuilder.append(line).append("\n");
+
+            // Read each line of output and parse the values
+            int index = 0;
+            while ((line = reader.readLine()) != null && index < 3) {
+                coordinateAndSpeed[index] = Integer.parseInt(line.trim()); // Parse the value and store it
+                index++;
             }
-        } catch (IOException e) {
+
+            // Wait for the process to finish
+            int exitCode = process.waitFor();
+            if (exitCode != 0) {
+                System.err.println("Error: Process exited with non-zero status " + exitCode);
+            }
+
+        }
+
+        catch (IOException | InterruptedException | NumberFormatException e) {
             e.printStackTrace();
         }
-        return contentBuilder.toString().trim(); // Return coordinates as a formatted string
+        System.out.println("Coordinate and Speed " + coordinateAndSpeed);
+
+        this.ballSpeed = coordinateAndSpeed[2];
+        this.coordinates = new int[]{coordinateAndSpeed[0], coordinateAndSpeed[1]};
     }
 
-    /** Opens the High Score Screen **/
+
     public Player[] getPlayers() {
         return players;
     }
@@ -95,68 +114,54 @@ public abstract class Game_Model {
         }
     }
 
-    public int getTotalPlayers() {
-        return totalPlayers;
+    public void generateRandomSpeedRange() {
+        Random random = new Random();
+        int lowerBound = random.nextInt(35);
+        int higherBound = lowerBound + 10;
+        this.randomSpeedInterval = new int[]{lowerBound, higherBound};
     }
 
-    public void incrementPlayer(int currentPlayer) {
-        this.currentPlayer = currentPlayer++;
+    public int[] getRandomSpeedInterval() { return randomSpeedInterval; }
+
+    public int[] getCoordinates() { return this.coordinates; }
+
+    public void incrementPlayer() {
+        this.currentPlayer++;
     }
 
-    public void setCurrentPlayer(int currentPlayer) {
-        this.currentPlayer = currentPlayer;
+    public void setCurrentPlayer(int currentPlayer) { this.currentPlayer = currentPlayer; }
+
+    public void decrementRounds() {
+        System.out.println("Rounds Before: " + rounds);
+        rounds--;
+        System.out.println("Rounds After: " + rounds);
     }
 
-    public int decrementRounds() {
-        return --rounds;
-    }
+    public int decrementPlayerLives() { return --currentLives; }
 
-    public int decrementPlayerLives() {
-        return --currentLives;
-    }
+    public int getCurrentLives() { return currentLives; }
 
-    public int getCurrentLives() {
-        return currentLives;
-    }
+    public int getCurrentRound() { return rounds; }
 
-    public int getCurrentRound() {
-        return rounds;
-    }
+    public String getPlayerName() { return "Player " + (this.currentPlayer); }
 
-    public String getPlayerName() {
-            return "Player " + (this.currentPlayer);
-    }
+    public int getCurrentPlayerNum() { return this.currentPlayer; }
 
-    public int getCurrentPlayerVar() {
-        return this.currentPlayer;
-    }
-
-    public void openHighScoreWindow() {
-        new HighScore_View(primaryStage, selectedGame, speedMode, totalRounds, players);
-    }
+    public void openHighScoreWindow() { new HighScore_View(primaryStage, selectedGame, speedMode, totalRounds, players); }
 
     public Player getCurrentPlayer() {
         // Ensure this does not go out of bounds; adjust logic as necessary for your application's flow
         return players[currentPlayer - 1]; // Assuming currentPlayer is 1-based index; adjust if 0-based
     }
 
-    public double getBallSpeed() {
-        return ballSpeed;
-    }
+    public double getBallSpeed() { return ballSpeed; }
 
-    public void setBallSpeed(double ballSpeed) {
-        this.ballSpeed = ballSpeed;
-    }
-
-    // Method to calculate or update the ball speed
-    public abstract double calculateBallSpeed(double ballSpeed);
+    public int getPlayerScore() { return players[currentPlayer].getCurrentScore(); }
 
     // Method to set position; to be overridden in subclasses
     public abstract void setPosition(String position);
 
     // Method to get the current position
-    public String getBallPosition() {
-        return ballPosition;
-    }
+
 
 }

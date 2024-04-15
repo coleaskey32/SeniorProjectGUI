@@ -49,7 +49,7 @@ public class Game2_View {
 
         this.model = model;
 
-        ((Game2_Model) this.model).calculateBallSpeed(((Game2_Model) this.model).getBallSpeed());
+        //((Game2_Model) this.model).calculateBallSpeed(((Game2_Model) this.model).getBallSpeed());
         updateBallSpeedDisplay();
         updateTargetSpeedDisplay();
         updatePlayerNameDisplay(((Game2_Model) this.model).getPlayerName());
@@ -60,8 +60,6 @@ public class Game2_View {
             ((Game2_Model) this.model).decrementPlayerLives();
         }
 
-        ((Game2_Model) this.model).calculateBallSpeed(35);
-        updatePlayerNameDisplay("Player 2");
 
 
         updateBallSpeedDisplay();
@@ -340,4 +338,6 @@ public class Game2_View {
         String newTargetSpeed = rounded + "-" + (rounded + 10);
         return newTargetSpeed;
     }
+
+    //public void setBallSpeedTextField(String randomSpeedInterval) { this.bal}
 }

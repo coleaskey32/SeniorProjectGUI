@@ -3,16 +3,13 @@ package org.example.Controller;
 
 import org.example.Model.Player;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class HighScore_Controller {
 
