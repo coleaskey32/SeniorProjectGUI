@@ -66,6 +66,7 @@ public abstract class Game_Model {
     public String retrieveCoordinates() {
         StringBuilder contentBuilder = new StringBuilder();
         try {
+            //
             // Execute the C++ program
             Process process = new ProcessBuilder("./coordinates_generator").start();
 

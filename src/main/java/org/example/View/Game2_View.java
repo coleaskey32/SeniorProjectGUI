@@ -56,9 +56,10 @@ public class Game2_View {
         model.pointsGiven();
         updateLivesCircles(livesHBox);
 
-if(targetSpeed != model.getBallSpeed()){
-    ((Game2_Model) this.model).decrementPlayerLives();
-}
+        if(targetSpeed != model.getBallSpeed()){
+            ((Game2_Model) this.model).decrementPlayerLives();
+        }
+
         ((Game2_Model) this.model).calculateBallSpeed(35);
         updatePlayerNameDisplay("Player 2");
 

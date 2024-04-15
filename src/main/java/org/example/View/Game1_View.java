@@ -47,7 +47,7 @@ public class Game1_View {
 
             updatePlayerNameDisplay(((Game1_Model) this.model).getPlayerName());
 
-            ((Game1_Model) this.model).calculateBallSpeed(((Game1_Model) this.model).getBallSpeed());
+            this.model.calculateBallSpeed(((Game1_Model) this.model).getBallSpeed());
             ((Game1_Model) this.model).updateMultiplier();
 
             updateBallSpeedDisplay();
@@ -263,7 +263,7 @@ public class Game1_View {
             Region spacer5 = new Region();
             HBox.setHgrow(spacer5, Priority.ALWAYS);
 
-// Add the left component, spacer, and right component
+            // Add the left component, spacer, and right component
             hlayout.getChildren().addAll(scoresBox, spacer5, stackPane, spacer2, rightSide);
 
             VBox layoutFinal = new VBox(40); // Horizontal layout with spacing of 40
@@ -289,6 +289,7 @@ public class Game1_View {
             // Show the primary stage
             primaryStage.show();
 
+            //Changing what player is up and if to subtract round
             if(model.getCurrentPlayerVar() < model.getTotalPlayers()){
                 model.setCurrentPlayer(model.getCurrentPlayerVar() + 1);
                 System.out.println(model.getCurrentPlayerVar());
@@ -335,14 +336,6 @@ public class Game1_View {
         Node node = getNodeByRowColumnIndex(row, col, gridPane);
         if (node != null && node instanceof Rectangle) {
             node.setVisible(isVisible);
-        }
-    }
-
-    // Method to set the color of a specific rectangle
-    public void setRectangleColor(int row, int col, Color color) {
-        Node node = getNodeByRowColumnIndex(row, col, gridPane);
-        if (node != null && node instanceof Rectangle) {
-            ((Rectangle) node).setFill(color);
         }
     }
 

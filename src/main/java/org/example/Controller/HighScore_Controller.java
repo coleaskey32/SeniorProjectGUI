@@ -6,10 +6,10 @@ import org.example.Model.Player;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-//import org.json.simple.JSONArray;
-//import org.json.simple.JSONObject;
-//import org.json.simple.JSONValue;
-// org.json.simple.parser.JSONParser;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -50,8 +50,8 @@ public class HighScore_Controller {
 
         try {
 
-            //JSONParser jsonParser = new JSONParser();
-            //JSONArray jsonArray = (JSONArray) jsonParser.parse(new FileReader("C://Users/colea/Downloads/SP/src/main/resources/Data.Json"));
+            JSONParser jsonParser = new JSONParser();
+            JSONArray jsonArray = (JSONArray) jsonParser.parse(new FileReader("C://Users/colea/Downloads/SP/src/main/resources/Data.Json"));
 
             // Determine the index based on selectedGame and rounds
             int index = 0;
@@ -71,21 +71,20 @@ public class HighScore_Controller {
                 index = 5;
             }
 
-            // Retrieve the JSONObject based on the determined index
-            //JSONObject jsonObj = (JSONObject) jsonArray.get(index);
+            JSONObject jsonObj = (JSONObject) jsonArray.get(index);
 
 
-           // JSONArray entries = (JSONArray) jsonObj.get("entries");
-           // long average_score = (long) jsonObj.get("average_score");
-           // long total_entries = (long) jsonObj.get("total_entries");
+           JSONArray entries = (JSONArray) jsonObj.get("entries");
+           long average_score = (long) jsonObj.get("average_score");
+           long total_entries = (long) jsonObj.get("total_entries");
 
-            // Iterate over each entry in the selected "entries" array
-           // for (Object entryObj : entries) {
-           //     JSONObject entry = (JSONObject) entryObj;
-           //     leaderBoardNames.add(String.valueOf(entry.get("name")));
-            //    leaderBoardScores.add(String.valueOf(entry.get("score")));
-            //    System.out.println("Score: " + entry.get("score") + ", Name: " + entry.get("name"));
-           // }
+
+           for (Object entryObj : entries) {
+                  JSONObject entry = (JSONObject) entryObj;
+                  leaderBoardNames.add(String.valueOf(entry.get("name")));
+                  leaderBoardScores.add(String.valueOf(entry.get("score")));
+                  System.out.println("Score: " + entry.get("score") + ", Name: " + entry.get("name"));
+           }
             System.out.println("\n");
         }
         catch (Exception e) {

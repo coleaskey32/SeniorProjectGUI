@@ -2,6 +2,7 @@
 #include <random>
 
 int main() {
+
     // Initialize random number generator
     std::random_device rd;
     std::mt19937 gen(rd());
