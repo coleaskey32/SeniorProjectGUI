@@ -25,13 +25,6 @@ public class Player {
         return currentScore;
     }
 
-    public void setCurrentScore(int currentScore) {
-        this.currentScore = currentScore;
-        // Optionally, every time current score is set, you might want to update total score
-        // This depends on your game's scoring logic
-        this.totalScore += currentScore; // Update total score
-    }
-
     // Getter for totalScore
     public int getTotalScore() {
         return totalScore;

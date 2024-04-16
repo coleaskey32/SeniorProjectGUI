@@ -28,10 +28,6 @@ public class Game2_Model extends Game_Model {
         return this.randomCoordinate;
     }
 
-    @Override
-    public void setPosition(String position) {
-
-    }
 
     @Override
     public int pointsGiven() {

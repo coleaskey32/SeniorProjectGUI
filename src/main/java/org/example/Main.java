@@ -12,7 +12,6 @@ public class Main extends Application {
         Home_Controller controller = new Home_Controller();
         new Home_View(primaryStage, controller);
     }
-
     public static void main(String[] args) {
         launch(args);
     }

@@ -49,24 +49,6 @@ public class Game2_View {
 
         this.model = model;
 
-        //((Game2_Model) this.model).calculateBallSpeed(((Game2_Model) this.model).getBallSpeed());
-        updateBallSpeedDisplay();
-        updateTargetSpeedDisplay();
-        updatePlayerNameDisplay(((Game2_Model) this.model).getPlayerName());
-        model.pointsGiven();
-        updateLivesCircles(livesHBox);
-
-        if(targetSpeed != model.getBallSpeed()){
-            ((Game2_Model) this.model).decrementPlayerLives();
-        }
-
-
-
-        updateBallSpeedDisplay();
-        updateTargetSpeedDisplay();
-        model.pointsGiven();
-        updateLivesCircles(livesHBox);
-
         // Player Name Label
         Label playerNameLabel = new Label("  Player Name:");
         playerNameLabel.setStyle("-fx-font-size: 30px;"); // Increase font size
@@ -176,50 +158,12 @@ public class Game2_View {
         // Add colored rectangles to the GridPane
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
-
-                Label positions = new Label(); // Label indicating player lives
-                positions.setStyle("-fx-font-size: 30px;"); // Set font size for the label
-
                 Rectangle rectangle = new Rectangle(250, 100); // Size of each rectangle
                 rectangle.setFill(Color.BLUE); // Set the initial color
                 gridPane.add(rectangle, col, row); // Add rectangle to GridPane
-                gridPane.add(positions, col, row); // Add rectangle to GridPane
-
-
-                String gridposition = row + "," + col;
-
-                switch (gridposition){
-                    case "0,0":
-                        positions.setText("       Top Left"); // Set the text field with the player name
-                        break;
-                    case "0,1":
-                        positions.setText("       Top Center"); // Set the text field with the player name
-                        break;
-                    case "0,2":
-                        positions.setText("      Top Right"); // Set the text field with the player name
-                        break;
-                    case "1,0":
-                        positions.setText("     Center Left"); // Set the text field with the player name
-                        break;
-                    case "1,1":
-                        positions.setText("          Center"); // Set the text field with the player name
-                        break;
-                    case "1,2":
-                        positions.setText("     Center Right"); // Set the text field with the player name
-                        break;
-                    case "2,0":
-                        positions.setText("     Bottom Left"); // Set the text field with the player name
-                        break;
-                    case "2,1":
-                        positions.setText("   Bottom Center"); // Set the text field with the player name
-                        break;
-                    case "2,2":
-                        positions.setText("    Bottom Right"); // Set the text field with the player name
-                        break;
-
-                }
             }
         }
+
 
         // Create a StackPane
         StackPane stackPane = new StackPane();
@@ -253,8 +197,7 @@ public class Game2_View {
         // Calculate the desired width and height as a percentage of the screen size
         double widthPercentage = 0.75; // 75% of screen width
         double heightPercentage = 0.75; // 75% of screen height
-        double imageViewWidth = screenWidth * widthPercentage;
-        double imageViewHeight = screenHeight * heightPercentage;
+
 
         VBox layoutFinal = new VBox(40);
         layoutFinal.getChildren().addAll(layout, spacer3, hlayout, spacer4, highScoreBox, spacer5);
@@ -280,7 +223,7 @@ public class Game2_View {
         livesHBox.getChildren().clear();
 
         // Base URL for random soccer ball images from Unsplash
-        String baseUrl = "file:///C:/Users/Jtuch/Downloads/clipart8681.png/";
+        String baseUrl = "clipart8681.png";
 
         // Create nodes for each life
         for (int i = 0; i < 3; i++) { // Assuming a fixed number of lives (3)
@@ -298,6 +241,7 @@ public class Game2_View {
     public void setRectangleVisibility(int row, int col, boolean isVisible) {
         Node node = getNodeByRowColumnIndex(row, col, gridPane);
         if (node != null && node instanceof Rectangle) {
+            System.out.println("Visible: " + isVisible);
             node.setVisible(isVisible);
         }
     }
@@ -345,5 +289,6 @@ public class Game2_View {
         return newTargetSpeed;
     }
 
-    //public void setBallSpeedTextField(String randomSpeedInterval) { this.bal}
+    public void setTrueSpeedTextField(String targetBallSpeedInterval) { this.trueSpeedTextField.setText(targetBallSpeedInterval); }
+    //public void setCurrentScoreTextField(String pointsEarned) { this.currentScoreTextField.setText(pointsEarned); }
 }

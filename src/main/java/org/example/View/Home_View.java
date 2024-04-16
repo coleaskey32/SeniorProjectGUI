@@ -40,8 +40,8 @@ public class Home_View {
 
 
         // Paths for images
-        String game1ImagePath = "file:///C:/Users/Jtuch/OneDrive/Desktop/SeniorProjectGUI/game1.png";
-        String game2ImagePath = "file:///C:/Users/Jtuch/OneDrive/Desktop/SeniorProjectGUI/game2.png";
+        String game1ImagePath = "game1.png";
+        String game2ImagePath = "game2.png";
 
         Button game1Button = createButton(game1ImagePath, "Game 1", "Shoot 'n' Score");
         Button game2Button = createButton(game2ImagePath, "Game 2", "Simon Says");

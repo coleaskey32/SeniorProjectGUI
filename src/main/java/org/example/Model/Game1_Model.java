@@ -8,7 +8,6 @@ public class Game1_Model extends Game_Model {
     private int totalPlayers;
     private boolean speedMode;
 
-    String ballposition = "0,0";
     // Assuming currentPlayer is the index of the current player in the players array
     int scoreToAdd = 0; // Default score
     int multiplier = 1;
@@ -52,8 +51,9 @@ public class Game1_Model extends Game_Model {
     @Override
     public int pointsGiven() {
         // Assume this is the position obtained somehow
+        String coordinateString = coordinates[0] + "," + coordinates[1];
 
-        switch (ballposition) {
+        switch (coordinateString) {
             case "0,0":
             case "0,5":
             case "2,0":
@@ -107,15 +107,6 @@ public class Game1_Model extends Game_Model {
         }
 
     }
-
-
-
-    public void setPosition(String position) {
-
-            this.ballposition = position; // Directly set if you're using a string
-
-        }
-
     @Override
     public int[] generateRandomCoordinates() {
         return new int[0];

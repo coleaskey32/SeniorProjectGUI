@@ -2,7 +2,7 @@ package org.example.Controller;
 
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
+import javafx.application.Platform;
 import org.example.Model.Game_Model;
 import org.example.Model.Game1_Model;
 import org.example.Model.Game2_Model;
@@ -48,83 +48,95 @@ public class Game_Controller {
 
 
     private void startGame() {
+        Thread gameThread = new Thread(() -> {
+            int earnedPoints;
 
+            // While there are still rounds left and someone is still alive
+            while (model.getCurrentRound() > 0) {
 
-        int[] randomGridIndex = new int[2];
-        int[] randomSpeedInterval = new int[2];
-        int earnedPoints;
+                if (selectedGame.equals("Game 1")) {
+                    view1.setRoundTextField(String.valueOf(model.getCurrentRound()));
+                    view1.setPlayerNameTextField(String.valueOf(model.getCurrentPlayerNum()));
+                }
+                else {
 
-        // While there is still rounds left and someone is still alive if Simon Says
-        while (model.getCurrentRound() > 0) {
+                }
+                System.out.println("Round: " + model.getCurrentRound() + "  Player: " + model.getCurrentPlayerNum());
 
-
-            System.out.println(model.getCurrentRound() + "  " + model.getCurrentPlayerNum());
-
-            //Initialize all grid elements to be invisible in Simon Says and visible in shoot and score
-            if (selectedGame.equals("Game 2")) {
-                for (int row = 0; row < 3; row++) {
-                    for (int col = 0; col < 3; col++) {
-                        view2.setRectangleVisibility(row, col, false);
+                // Update UI visibility based on selected game
+                if (selectedGame.equals("Game 2")) {
+                    for (int row = 0; row < 3; row++) {
+                        for (int col = 0; col < 3; col++) {
+                            view2.setRectangleVisibility(row, col, false);
+                        }
                     }
                 }
-            } else {
-                for (int row = 0; row < 3; row++) {
-                    for (int col = 0; col < 6; col++) {
-                        view1.setRectangleVisibility(row, col, true);
+                else {
+                    for (int row = 0; row < 3; row++) {
+                        for (int col = 0; col < 6; col++) {
+                            view1.setRectangleVisibility(row, col, true);
+                        }
                     }
                 }
+
+                // Display random box in "Simon Says" game
+                if (selectedGame.equals("Game 2")) {
+                    int[] randomGridIndex = model.generateRandomCoordinates();
+                    view2.setRectangleVisibility(randomGridIndex[0], randomGridIndex[1], true);
+                    view2.setRectangleColor(randomGridIndex[0], randomGridIndex[1], Color.BLUE);
+                }
+
+                // Generate and display target speed interval for "Simon Says" game
+                if (speedMode && selectedGame.equals("Game 2")) {
+                    model.generateRandomSpeedRange();
+                    //view2.setBallSpeedTextField(); // Update ball speed text field
+                }
+
+                // Retrieve coordinate from C++ program
+                model.retrieveCoordinate();
+
+                // Calculate earned points
+                earnedPoints = model.pointsGiven();
+                final int currentScore = earnedPoints;
+
+                // Add points to players total score
+                model.addToPlayerScore(earnedPoints);
+                final int playerTotalScore = model.getCurrentPlayer().getTotalScore();
+
+                System.out.println("Player Score: " + model.getCurrentPlayer().getTotalScore());
+                System.out.println("Player Speed: " + model.getBallSpeed());
+
+                // Implement player's kicked ball speed on view and score they received
+                Platform.runLater(() -> {
+                    if (selectedGame.equals("Game 1")) {
+                        view1.setBallSpeedTextField(String.valueOf(model.getBallSpeed()));
+                        view1.setCurrentScoreTextField(String.valueOf(currentScore));
+                        view1.setTotalScoreTextField(String.valueOf(playerTotalScore));
+                    }
+                    else {
+                        view2.setTrueSpeedTextField(String.valueOf(model.getBallSpeed()));
+                    }
+                });
+
+                // Increment player
+                if (model.getCurrentPlayerNum() == totalPlayers) {
+                    model.decrementRounds();
+                    model.setCurrentPlayer(1);
+                }
+                else {
+                    model.setCurrentPlayer(model.getCurrentPlayerNum() + 1);
+                }
+
+                // Add a short delay to prevent CPU consumption and allow UI responsiveness
+                try {
+                    Thread.sleep(100); // Adjust sleep duration as needed
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+        });
 
-
-            // If the game is Simon Says display a random box to hit
-            if (selectedGame.equals("Game 2")) {
-
-                // Get random grid index
-                randomGridIndex = model.generateRandomCoordinates();
-
-                System.out.print(randomGridIndex[0] + " " + randomGridIndex[1]);
-
-                // Show target Grid element in view
-                view2.setRectangleVisibility(randomGridIndex[0], randomGridIndex[1], true);
-                view2.setRectangleColor(randomGridIndex[0], randomGridIndex[1], Color.BLUE);
-            }
-
-            // Generate and display target speed interval
-            if (speedMode) {
-                model.generateRandomSpeedRange();
-                randomSpeedInterval = model.getRandomSpeedInterval();
-
-                if (selectedGame.equals("Game 1"))
-                    view1.setBallSpeedTextField(randomSpeedInterval[0] + "-" + randomSpeedInterval[1]);
-
-                //view2.setBallSpeedTextField(model.getRandomSpeedInterval());
-            }
-
-            //Runs cpp file (will wait to move on till process is finished)
-            model.retrieveCoordinate();
-
-            //Find how many points the player got
-            earnedPoints = model.pointsGiven();
-
-            //Add points to players score
-            model.addToPlayerScore(earnedPoints);
-
-            //Implement points on view
-            if (selectedGame.equals("Game 1")) {
-                view1.setCurrentScoreTextField(String.valueOf(earnedPoints));
-            }
-
-            //Increment player
-            System.out.println("Current Player: " + model.getCurrentPlayerNum() + " Total Players " + totalPlayers);
-            if (model.getCurrentPlayerNum() == totalPlayers) {
-                System.out.println("Putting Player to 1");
-                model.decrementRounds();
-                model.setCurrentPlayer(1);
-            } else {
-                System.out.println("Incrementing player");
-                model.setCurrentPlayer(model.getCurrentPlayerNum() + 1);
-            }
-
-        }
+        gameThread.start();
     }
+
 }

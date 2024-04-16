@@ -33,7 +33,7 @@ public class Game1_View {
     TextField multiplierTextField = new TextField();
     TextField ballSpeedTextField = new TextField();
     TextField playerNameTextField = new TextField();
-
+    TextField roundTextField = new TextField();
 
     public Game1_View(Stage primaryStage, Game_Model model) {
 
@@ -49,10 +49,7 @@ public class Game1_View {
 
         // Text Fields
         this.playerNameTextField.setPrefWidth(200); // Set preferred width
-        this.playerNameTextField.setText(model.getPlayerName());
-
-        TextField roundTextField = new TextField(String.valueOf(this.model.getCurrentRound()));
-        roundTextField.setPrefWidth(200); // Set preferred width
+        this.roundTextField.setPrefWidth(200); // Set preferred width
 
         // HBox for Player Name
         HBox playerlabelsBox = new HBox(40); // Horizontal layout with spacing of 40
@@ -98,8 +95,6 @@ public class Game1_View {
         // Text Fields
         totalScoreTextField.setPrefWidth(100); // Set preferred width
         currentScoreTextField.setPrefWidth(100); // Set preferred width
-
-        totalScoreTextField.setText(String.valueOf(model.getPlayerScore()));
 
         // HBox for Total Score
         HBox totalScoreBox = new HBox(40); // Horizontal layout with spacing of 40
@@ -320,11 +315,15 @@ public class Game1_View {
         }
     }
 
-    public void setBallSpeedTextField(String targetBallSpeedInterval) {
-        this.ballSpeedTextField.setText(targetBallSpeedInterval);
-    }
+
+    public void setBallSpeedTextField(String targetBallSpeedInterval) { this.ballSpeedTextField.setText(targetBallSpeedInterval); }
     public void setCurrentScoreTextField(String pointsEarned) {
+        System.out.println("\nAdding Current Score to view 1" );
         this.currentScoreTextField.setText(pointsEarned);
     }
+    public void setRoundTextField(String round) { this.roundTextField.setText(round); }
+    public void setPlayerNameTextField(String name) { this.playerNameTextField.setText(name); }
+    public void setTotalScoreTextField(String score) { this.totalScoreTextField.setText(score); }
+
 }
 

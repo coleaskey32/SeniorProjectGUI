@@ -69,6 +69,7 @@ public abstract class Game_Model {
     public void retrieveCoordinate() {
         int[] coordinateAndSpeed = new int[3];
 
+        /*
         try {
             // Execute the C++ program
             ProcessBuilder processBuilder = new ProcessBuilder("C:\\Users\\colea\\OneDrive - The Pennsylvania State University\\Desktop\\Main.exe");
@@ -105,6 +106,28 @@ public abstract class Game_Model {
         // Assign values to instance variables
         this.ballSpeed = coordinateAndSpeed[2];
         this.coordinates = new int[]{coordinateAndSpeed[0], coordinateAndSpeed[1]};
+        */
+        Random random = new Random();
+        int x;
+        int y;
+        if (selectedGame.equals("Game 1")) {
+            x = random.nextInt(3);
+            y = random.nextInt(6);
+        }
+        else {
+            x = random.nextInt(3);
+            y = random.nextInt(3);
+        }
+        this.coordinates = new int[]{x, y};
+        this.ballSpeed = random.nextInt(71);
+
+        // Sleep for 3 seconds
+        try {
+            Thread.sleep(3000); // 3000 milliseconds = 3 seconds
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -137,15 +160,11 @@ public abstract class Game_Model {
     }
 
     public void setCurrentPlayer(int currentPlayer) {
-        System.out.println("Current Player Num Before: " + rounds);
         this.currentPlayer = currentPlayer;
-        System.out.println("Current Player Num After: " + rounds);
     }
 
     public void decrementRounds() {
-        System.out.println("Rounds Before: " + rounds);
         rounds--;
-        System.out.println("Rounds After: " + rounds);
     }
 
     public int decrementPlayerLives() { return --currentLives; }
@@ -156,9 +175,7 @@ public abstract class Game_Model {
 
     public String getPlayerName() { return "Player " + (this.currentPlayer); }
 
-    public int getCurrentPlayerNum() {
-        return this.currentPlayer;
-    }
+    public int getCurrentPlayerNum() { return this.currentPlayer; }
 
     public void openHighScoreWindow() { new HighScore_View(primaryStage, selectedGame, speedMode, totalRounds, players); }
 
@@ -169,16 +186,12 @@ public abstract class Game_Model {
 
     public double getBallSpeed() { return ballSpeed; }
 
-    public int getPlayerScore() { return players[currentPlayer].getCurrentScore(); }
+    public int getPlayerScore() {
+        System.out.println("Players Total Score: " + players[currentPlayer - 1].getCurrentScore());
+        return players[currentPlayer - 1].getCurrentScore();
+    }
 
     public void addToPlayerScore(int points) {
         this.players[currentPlayer - 1].addToTotalScore(points);
     }
-
-    // Method to set position; to be overridden in subclasses
-    public abstract void setPosition(String position);
-
-    // Method to get the current position
-
-
 }
