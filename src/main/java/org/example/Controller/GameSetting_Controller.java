@@ -1,5 +1,7 @@
 package org.example.Controller;
 //
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -60,15 +62,23 @@ public class GameSetting_Controller {
     }
 
     public void updatePlayerCircles(int totalPlayers, HBox playersHBox) {
-        // Clear previous circles
+        // Clear previous nodes
         playersHBox.getChildren().clear();
 
-        // Create circles for each player
+        // Base URL for random soccer ball images from Unsplash
+        String baseUrl = "file:///C:/Users/Jtuch/Downloads/clipart841748.png/";
+
+        // Create nodes for each player
         for (int i = 0; i < MAX_PLAYERS; i++) {
-            Circle circle = new Circle(20); // Create a circle with radius
-            circle.setFill(i < totalPlayers ? Color.GREEN : Color.LIGHTGRAY); // Fill the circle if it represents a player
-            circle.setStroke(Color.BLACK); // Set the border color
-            playersHBox.getChildren().add(circle); // Add the circle to the HBox
+            Image image = new Image(baseUrl);
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(100); // Set width of image
+            imageView.setFitHeight(100); // Set height of image
+            imageView.setPreserveRatio(true); // Preserve aspect ratio
+            imageView.setSmooth(true); // Enable smooth scaling
+            imageView.setCache(true); // Cache image for performance
+            imageView.setVisible(i < totalPlayers); // Show image if it represents a player
+            playersHBox.getChildren().add(imageView); // Add image view to the HBox
         }
     }
 

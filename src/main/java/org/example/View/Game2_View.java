@@ -181,7 +181,7 @@ public class Game2_View {
                 positions.setStyle("-fx-font-size: 30px;"); // Set font size for the label
 
                 Rectangle rectangle = new Rectangle(250, 100); // Size of each rectangle
-                rectangle.setFill(Color.RED); // Set the initial color
+                rectangle.setFill(Color.BLUE); // Set the initial color
                 gridPane.add(rectangle, col, row); // Add rectangle to GridPane
                 gridPane.add(positions, col, row); // Add rectangle to GridPane
 
@@ -274,18 +274,24 @@ public class Game2_View {
     }
 
     public static void updateLivesCircles(HBox livesHBox) {
+        livesHBox.setAlignment(Pos.CENTER); // Align the components to the center
 
-        livesHBox.setAlignment(Pos.CENTER); // Align the components to the left
-
-        // Clear previous circles
+        // Clear previous nodes
         livesHBox.getChildren().clear();
 
-        // Create circles for each player
-        for (int i = 0; i < 3/*((Game2_Model) this.model).getCurrentLives()*/; i++) {
-            Circle circle = new Circle(20); // Create a circle with radius
-            circle.setFill(i < 3 ? Color.GREEN : Color.LIGHTGRAY); // Fill the circle if it represents a player
-            circle.setStroke(Color.BLACK); // Set the border color
-            livesHBox.getChildren().add(circle); // Add the circle to the HBox
+        // Base URL for random soccer ball images from Unsplash
+        String baseUrl = "file:///C:/Users/Jtuch/Downloads/clipart8681.png/";
+
+        // Create nodes for each life
+        for (int i = 0; i < 3; i++) { // Assuming a fixed number of lives (3)
+            Image image = new Image(baseUrl);
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(75); // Set width of image
+            imageView.setFitHeight(75); // Set height of image
+            imageView.setPreserveRatio(true); // Preserve aspect ratio
+            imageView.setSmooth(true); // Enable smooth scaling
+            imageView.setCache(true); // Cache image for performance
+            livesHBox.getChildren().add(imageView); // Add image view to the HBox
         }
     }
 

@@ -30,6 +30,8 @@ public class Game_Controller {
 
         this.selectedGame = selectedGame;
         this.primaryStage = primaryStage;
+        this.totalPlayers = totalPlayers;
+        this.speedMode = speedMode;
 
         if ("Game 1".equals(selectedGame)) {
             model = new Game1_Model(totalPlayers, selectedGame, speedMode, rounds, primaryStage);
@@ -104,6 +106,8 @@ public class Game_Controller {
             //Find how many points the player got
             earnedPoints = model.pointsGiven();
 
+            //Add points to players score
+            model.addToPlayerScore(earnedPoints);
 
             //Implement points on view
             if (selectedGame.equals("Game 1")) {
@@ -111,6 +115,7 @@ public class Game_Controller {
             }
 
             //Increment player
+            System.out.println("Current Player: " + model.getCurrentPlayerNum() + " Total Players " + totalPlayers);
             if (model.getCurrentPlayerNum() == totalPlayers) {
                 System.out.println("Putting Player to 1");
                 model.decrementRounds();

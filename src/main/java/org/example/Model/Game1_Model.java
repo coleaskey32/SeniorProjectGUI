@@ -103,7 +103,6 @@ public class Game1_Model extends Game_Model {
         else{
            // System.out.println((scoreToAdd));
            // System.out.println("speedMode false");
-            players[currentPlayer - 1].setCurrentScore(scoreToAdd);
             return scoreToAdd;
         }
 

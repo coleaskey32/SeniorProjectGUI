@@ -171,6 +171,10 @@ public abstract class Game_Model {
 
     public int getPlayerScore() { return players[currentPlayer].getCurrentScore(); }
 
+    public void addToPlayerScore(int points) {
+        this.players[currentPlayer - 1].addToTotalScore(points);
+    }
+
     // Method to set position; to be overridden in subclasses
     public abstract void setPosition(String position);
 
