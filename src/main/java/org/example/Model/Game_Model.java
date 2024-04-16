@@ -11,6 +11,7 @@ import org.example.Controller.HighScore_Controller;
 import org.example.View.HighScore_View;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Random;
@@ -66,12 +67,15 @@ public abstract class Game_Model {
      * Coordinates are accumulated into a StringBuilder.
      **/
     public void retrieveCoordinate() {
-
         int[] coordinateAndSpeed = new int[3];
 
         try {
             // Execute the C++ program
-            Process process = new ProcessBuilder("./Main").start();
+            ProcessBuilder processBuilder = new ProcessBuilder("C:\\Users\\colea\\OneDrive - The Pennsylvania State University\\Desktop\\Main.exe");
+            processBuilder.directory(new File("C:\\Users\\colea\\OneDrive - The Pennsylvania State University\\Desktop"));
+
+            // Start the process
+            Process process = processBuilder.start();
 
             // Read the output from the C++ program
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -90,16 +94,19 @@ public abstract class Game_Model {
                 System.err.println("Error: Process exited with non-zero status " + exitCode);
             }
 
-        }
-
-        catch (IOException | InterruptedException | NumberFormatException e) {
+        } catch (IOException | InterruptedException | NumberFormatException e) {
             e.printStackTrace();
         }
-        System.out.println("Coordinate and Speed " + coordinateAndSpeed);
 
+        // Print the coordinate and speed values
+        System.out.println("Coordinate: " + coordinateAndSpeed[0] + ", " + coordinateAndSpeed[1]);
+        System.out.println("Speed: " + coordinateAndSpeed[2]);
+
+        // Assign values to instance variables
         this.ballSpeed = coordinateAndSpeed[2];
         this.coordinates = new int[]{coordinateAndSpeed[0], coordinateAndSpeed[1]};
     }
+
 
 
     public Player[] getPlayers() {
@@ -129,7 +136,11 @@ public abstract class Game_Model {
         this.currentPlayer++;
     }
 
-    public void setCurrentPlayer(int currentPlayer) { this.currentPlayer = currentPlayer; }
+    public void setCurrentPlayer(int currentPlayer) {
+        System.out.println("Current Player Num Before: " + rounds);
+        this.currentPlayer = currentPlayer;
+        System.out.println("Current Player Num After: " + rounds);
+    }
 
     public void decrementRounds() {
         System.out.println("Rounds Before: " + rounds);
@@ -145,7 +156,9 @@ public abstract class Game_Model {
 
     public String getPlayerName() { return "Player " + (this.currentPlayer); }
 
-    public int getCurrentPlayerNum() { return this.currentPlayer; }
+    public int getCurrentPlayerNum() {
+        return this.currentPlayer;
+    }
 
     public void openHighScoreWindow() { new HighScore_View(primaryStage, selectedGame, speedMode, totalRounds, players); }
 

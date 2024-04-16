@@ -96,8 +96,9 @@ public class Game1_Model extends Game_Model {
         {
            // System.out.println((getMultiplier() * scoreToAdd));
            // System.out.println("speedMode true");
-            players[currentPlayer - 1].setCurrentScore((getMultiplier() * scoreToAdd));
-            return getMultiplier() * scoreToAdd;
+            // players[currentPlayer - 1].setCurrentScore((getMultiplier() * scoreToAdd));
+            // return getMultiplier() * scoreToAdd;
+            return scoreToAdd;
         }
         else{
            // System.out.println((scoreToAdd));
