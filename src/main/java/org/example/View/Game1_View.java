@@ -317,10 +317,7 @@ public class Game1_View {
 
 
     public void setBallSpeedTextField(String targetBallSpeedInterval) { this.ballSpeedTextField.setText(targetBallSpeedInterval); }
-    public void setCurrentScoreTextField(String pointsEarned) {
-        System.out.println("\nAdding Current Score to view 1" );
-        this.currentScoreTextField.setText(pointsEarned);
-    }
+    public void setCurrentScoreTextField(String pointsEarned) { this.currentScoreTextField.setText(pointsEarned); }
     public void setRoundTextField(String round) { this.roundTextField.setText(round); }
     public void setPlayerNameTextField(String name) { this.playerNameTextField.setText(name); }
     public void setTotalScoreTextField(String score) { this.totalScoreTextField.setText(score); }

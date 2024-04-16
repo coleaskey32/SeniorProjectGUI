@@ -59,8 +59,10 @@ public class Game_Controller {
                     view1.setPlayerNameTextField(String.valueOf(model.getCurrentPlayerNum()));
                 }
                 else {
-
+                    view2.setRoundTextField(String.valueOf(model.getCurrentRound()));
+                    view2.setPlayerNameTextField(String.valueOf(model.getCurrentPlayerNum()));
                 }
+
                 System.out.println("Round: " + model.getCurrentRound() + "  Player: " + model.getCurrentPlayerNum());
 
                 // Update UI visibility based on selected game
@@ -89,7 +91,7 @@ public class Game_Controller {
                 // Generate and display target speed interval for "Simon Says" game
                 if (speedMode && selectedGame.equals("Game 2")) {
                     model.generateRandomSpeedRange();
-                    //view2.setBallSpeedTextField(); // Update ball speed text field
+                    view2.setTargetSpeedTextField(model.getRandomSpeedInterval()[0] + " - " + model.getRandomSpeedInterval()[1]);
                 }
 
                 // Retrieve coordinate from C++ program
@@ -114,7 +116,9 @@ public class Game_Controller {
                         view1.setTotalScoreTextField(String.valueOf(playerTotalScore));
                     }
                     else {
+                        System.out.println("Lives Left: " + model.getCurrentLives());
                         view2.setTrueSpeedTextField(String.valueOf(model.getBallSpeed()));
+                        view2.updateLivesCircles(model.getCurrentLives());
                     }
                 });
 

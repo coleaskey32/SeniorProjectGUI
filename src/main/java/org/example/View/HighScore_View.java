@@ -43,7 +43,7 @@ public class HighScore_View {
         this.rounds = rounds;
         primaryStage.setTitle("Highscore");
 
-        this.highScoreController = new HighScore_Controller(selectedGame, speedMode, rounds, players);
+        this.highScoreController = new HighScore_Controller(selectedGame, speedMode, rounds, players, primaryStage);
 
         VBox back = new VBox(20); // Create a vertical layout
         // Here, you would add components to 'layout' that make up your high score screen.

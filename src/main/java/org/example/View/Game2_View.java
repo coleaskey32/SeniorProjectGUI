@@ -37,11 +37,11 @@ public class Game2_View {
     List<Circle> livesCircles = new ArrayList<>(); // ArrayList to store Circle objects representing players
 
     TextField playerNameTextField = new TextField();
-
     TextField trueSpeedTextField = new TextField();
-
     TextField targetSpeedTextField = new TextField();
-
+    TextField roundTextField = new TextField();
+    TextField totalScoreTextField = new TextField();
+    TextField currentScoreTextField = new TextField();
 
     public HBox livesHBox = new HBox(10);// HBox to hold player circles
 
@@ -59,8 +59,6 @@ public class Game2_View {
 
         // Text Fields
         playerNameTextField.setPrefWidth(200); // Set preferred width
-
-        TextField roundTextField = new TextField(String.valueOf(this.model.getCurrentRound()));
         roundTextField.setPrefWidth(200); // Set preferred width
 
         // HBox for Player Name
@@ -164,7 +162,6 @@ public class Game2_View {
             }
         }
 
-
         // Create a StackPane
         StackPane stackPane = new StackPane();
         stackPane.getChildren().addAll(imageView, gridPane); // Add both image and gridPane to the stackPane
@@ -216,7 +213,8 @@ public class Game2_View {
         primaryStage.show();
     }
 
-    public static void updateLivesCircles(HBox livesHBox) {
+    public void updateLivesCircles(int lives) {
+
         livesHBox.setAlignment(Pos.CENTER); // Align the components to the center
 
         // Clear previous nodes
@@ -226,7 +224,7 @@ public class Game2_View {
         String baseUrl = "clipart8681.png";
 
         // Create nodes for each life
-        for (int i = 0; i < 3; i++) { // Assuming a fixed number of lives (3)
+        for (int i = 0; i < lives; i++) { // Assuming a fixed number of lives (3)
             Image image = new Image(baseUrl);
             ImageView imageView = new ImageView(image);
             imageView.setFitWidth(75); // Set width of image
@@ -289,6 +287,9 @@ public class Game2_View {
         return newTargetSpeed;
     }
 
-    public void setTrueSpeedTextField(String targetBallSpeedInterval) { this.trueSpeedTextField.setText(targetBallSpeedInterval); }
-    //public void setCurrentScoreTextField(String pointsEarned) { this.currentScoreTextField.setText(pointsEarned); }
+    public void setTrueSpeedTextField(String speed) { this.trueSpeedTextField.setText(speed); }
+    public void setTargetSpeedTextField(String targetBallSpeedInterval) {this.targetSpeedTextField.setText(targetBallSpeedInterval); }
+    public void setPlayerNameTextField(String name) { this.playerNameTextField.setText(name); }
+    public void setRoundTextField(String round) { this.roundTextField.setText(round); }
+
 }
