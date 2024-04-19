@@ -5,6 +5,8 @@ public class Player {
     private int currentScore;
     private int totalScore; // Additional attribute to hold the total score
 
+    private int lives = 3;
+
     public Player(String playerName) {
         this.playerName = playerName;
         this.currentScore = 0; // Initialize current score to 0
@@ -25,6 +27,9 @@ public class Player {
         return currentScore;
     }
 
+    public int getLives() { return this.lives; }
+
+    public void decrementLives() { this.lives--; }
     // Getter for totalScore
     public int getTotalScore() {
         return totalScore;

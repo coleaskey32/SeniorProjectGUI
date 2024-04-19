@@ -54,16 +54,21 @@ public class Game_Controller {
             // While there are still rounds left and someone is still alive
             while (model.getCurrentRound() > 0) {
 
-                if (selectedGame.equals("Game 1")) {
-                    view1.setRoundTextField(String.valueOf(model.getCurrentRound()));
-                    view1.setPlayerNameTextField(String.valueOf(model.getCurrentPlayerNum()));
-                }
-                else {
-                    view2.setRoundTextField(String.valueOf(model.getCurrentRound()));
-                    view2.setPlayerNameTextField(String.valueOf(model.getCurrentPlayerNum()));
-                }
+                Platform.runLater(() -> {
+                    if (selectedGame.equals("Game 1")) {
+                        view1.setRoundTextField(String.valueOf(model.getCurrentRound()));
+                        view1.setPlayerNameTextField(String.valueOf(model.getCurrentPlayerNum()));
+                        view1.setTotalScoreTextField(String.valueOf(model.getCurrentPlayer().getTotalScore()));
+                        view1.setCurrentScoreTextField(" ");
+                    }
+                    else {
+                        view2.setRoundTextField(String.valueOf(model.getCurrentRound()));
+                        view2.setPlayerNameTextField(String.valueOf(model.getCurrentPlayerNum()));
+                        view2.updateLivesCircles(model.getPlayerLives());
+                    }
+                });
 
-                System.out.println("Round: " + model.getCurrentRound() + "  Player: " + model.getCurrentPlayerNum());
+                System.out.println("Round: " + model.getCurrentRound() + "  Player: " + model.getCurrentPlayerNum() + "  Lives: " + model.getPlayerLives());
 
                 // Update UI visibility based on selected game
                 if (selectedGame.equals("Game 2")) {
@@ -97,18 +102,19 @@ public class Game_Controller {
                 // Retrieve coordinate from C++ program
                 model.retrieveCoordinate();
 
+                System.out.println("\nPlayer lives Before: " + this.model.getPlayerLives());
                 // Calculate earned points
                 earnedPoints = model.pointsGiven();
+                System.out.println("Player lives After: " + this.model.getPlayerLives());
+                final int playerLives = this.model.getPlayerLives();
                 final int currentScore = earnedPoints;
 
                 // Add points to players total score
                 model.addToPlayerScore(earnedPoints);
                 final int playerTotalScore = model.getCurrentPlayer().getTotalScore();
 
-                System.out.println("Player Score: " + model.getCurrentPlayer().getTotalScore());
-                System.out.println("Player Speed: " + model.getBallSpeed());
 
-                // Implement player's kicked ball speed on view and score they received
+                // Implement player's kicked ball speed on view and score they received or lives lost
                 Platform.runLater(() -> {
                     if (selectedGame.equals("Game 1")) {
                         view1.setBallSpeedTextField(String.valueOf(model.getBallSpeed()));
@@ -116,9 +122,9 @@ public class Game_Controller {
                         view1.setTotalScoreTextField(String.valueOf(playerTotalScore));
                     }
                     else {
-                        System.out.println("Lives Left: " + model.getCurrentLives());
+                        System.out.println("Lives Left: " + model.getPlayerLives());
                         view2.setTrueSpeedTextField(String.valueOf(model.getBallSpeed()));
-                        view2.updateLivesCircles(model.getCurrentLives());
+                        view2.updateLivesCircles(playerLives);
                     }
                 });
 
@@ -133,7 +139,7 @@ public class Game_Controller {
 
                 // Add a short delay to prevent CPU consumption and allow UI responsiveness
                 try {
-                    Thread.sleep(100); // Adjust sleep duration as needed
+                    Thread.sleep(3000); // Adjust sleep duration as needed
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

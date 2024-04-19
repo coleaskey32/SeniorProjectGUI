@@ -5,12 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d901d274-a6d6-4bab-bfb9-079219d4d5ef" name="Changes" comment="Game 1 functionality">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/hearts.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Controller/GameSetting_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Controller/GameSetting_Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Controller/Game_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Controller/Game_Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Controller/HighScore_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Controller/HighScore_Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Model/Game2_Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Model/Game2_Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Model/Game_Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Model/Game_Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Model/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/View/Game1_View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/View/Game1_View.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/View/Game2_View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/View/Game2_View.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/View/HighScore_View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/View/HighScore_View.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/clipart841748.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/clipart8681.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +169,14 @@
       <option name="project" value="LOCAL" />
       <updated>1713257264296</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Game 1 functionality">
+      <created>1713265986596</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1713265986596</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

@@ -36,12 +36,10 @@ public class Game2_View {
 
     List<Circle> livesCircles = new ArrayList<>(); // ArrayList to store Circle objects representing players
 
-    TextField playerNameTextField = new TextField();
-    TextField trueSpeedTextField = new TextField();
-    TextField targetSpeedTextField = new TextField();
-    TextField roundTextField = new TextField();
-    TextField totalScoreTextField = new TextField();
-    TextField currentScoreTextField = new TextField();
+    Label playerNameTextField = new Label();
+    Label trueSpeedTextField = new Label();
+    Label targetSpeedTextField = new Label();
+    Label roundTextField = new Label();
 
     public HBox livesHBox = new HBox(10);// HBox to hold player circles
 
@@ -221,7 +219,7 @@ public class Game2_View {
         livesHBox.getChildren().clear();
 
         // Base URL for random soccer ball images from Unsplash
-        String baseUrl = "clipart8681.png";
+        String baseUrl = "hearts.png";
 
         // Create nodes for each life
         for (int i = 0; i < lives; i++) { // Assuming a fixed number of lives (3)
@@ -239,7 +237,6 @@ public class Game2_View {
     public void setRectangleVisibility(int row, int col, boolean isVisible) {
         Node node = getNodeByRowColumnIndex(row, col, gridPane);
         if (node != null && node instanceof Rectangle) {
-            System.out.println("Visible: " + isVisible);
             node.setVisible(isVisible);
         }
     }

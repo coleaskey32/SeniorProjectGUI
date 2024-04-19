@@ -8,9 +8,7 @@ import java.util.Random;
 
 public class Game2_Model extends Game_Model {
 
-
     private double ballSpeed = 0;
-
     private int[] randomCoordinate;
 
 
@@ -32,7 +30,7 @@ public class Game2_Model extends Game_Model {
     @Override
     public int pointsGiven() {
         if(!(this.coordinates == randomCoordinate)) {
-            currentLives = decrementPlayerLives();
+            this.players[currentPlayer - 1].decrementLives();
             return 0;
         }
 

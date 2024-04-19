@@ -28,12 +28,12 @@ public class Game1_View {
     GridPane gridPane;
 
     // Text Fields
-    TextField totalScoreTextField = new TextField();
-    TextField currentScoreTextField = new TextField();
-    TextField multiplierTextField = new TextField();
-    TextField ballSpeedTextField = new TextField();
-    TextField playerNameTextField = new TextField();
-    TextField roundTextField = new TextField();
+    Label totalScoreTextField = new Label();
+    Label currentScoreTextField = new Label();
+    Label multiplierTextField = new Label();
+    Label ballSpeedTextField = new Label();
+    Label playerNameTextField = new Label();
+    Label roundTextField = new Label();
 
     public Game1_View(Stage primaryStage, Game_Model model) {
 

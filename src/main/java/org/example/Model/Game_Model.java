@@ -24,7 +24,6 @@ public abstract class Game_Model {
     protected boolean speedMode;
     protected Stage primaryStage;
     protected int totalRounds;
-    int currentLives = 3;
     protected int currentPlayer = 1;
 
     protected double ballSpeed; // Ball speed applicable across different game models
@@ -107,6 +106,13 @@ public abstract class Game_Model {
         this.ballSpeed = coordinateAndSpeed[2];
         this.coordinates = new int[]{coordinateAndSpeed[0], coordinateAndSpeed[1]};
         */
+        // Sleep for 3 seconds
+        try {
+            Thread.sleep(3000); // 3000 milliseconds = 3 seconds
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         Random random = new Random();
         int x;
         int y;
@@ -163,13 +169,9 @@ public abstract class Game_Model {
         this.currentPlayer = currentPlayer;
     }
 
-    public void decrementRounds() {
-        rounds--;
-    }
+    public void decrementRounds() { rounds--; }
 
-    public int decrementPlayerLives() { return --currentLives; }
-
-    public int getCurrentLives() { return currentLives; }
+    public int getPlayerLives() { return this.players[currentPlayer - 1].getLives(); }
 
     public int getCurrentRound() { return rounds; }
 
