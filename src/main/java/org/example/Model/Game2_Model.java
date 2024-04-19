@@ -22,7 +22,7 @@ public class Game2_Model extends Game_Model {
 
     public int[] generateRandomCoordinates() {
         Random random = new Random();
-        this.randomCoordinate = new int[]{random.nextInt(3), random.nextInt(6)};
+        this.randomCoordinate = new int[]{random.nextInt(3), random.nextInt(3)};
         return this.randomCoordinate;
     }
 

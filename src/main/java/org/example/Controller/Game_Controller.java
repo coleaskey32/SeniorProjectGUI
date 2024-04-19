@@ -54,6 +54,8 @@ public class Game_Controller {
             // While there are still rounds left and someone is still alive
             while (model.getCurrentRound() > 0) {
 
+                final int[] randomGridIndex = model.generateRandomCoordinates();
+
                 Platform.runLater(() -> {
                     if (selectedGame.equals("Game 1")) {
                         view1.setRoundTextField(String.valueOf(model.getCurrentRound()));
@@ -62,36 +64,18 @@ public class Game_Controller {
                         view1.setCurrentScoreTextField(" ");
                     }
                     else {
+                        for (int row = 0; row < 3; row++) { for (int col = 0; col < 3; col++) { view2.setRectangleVisibility(row, col, false);}}
                         view2.setRoundTextField(String.valueOf(model.getCurrentRound()));
                         view2.setPlayerNameTextField(String.valueOf(model.getCurrentPlayerNum()));
                         view2.updateLivesCircles(model.getPlayerLives());
+                        view2.setRectangleVisibility(randomGridIndex[0], randomGridIndex[1], true);
+                        view2.setRectangleColor(randomGridIndex[0], randomGridIndex[1], Color.BLUE);
                     }
                 });
 
                 System.out.println("Round: " + model.getCurrentRound() + "  Player: " + model.getCurrentPlayerNum() + "  Lives: " + model.getPlayerLives());
 
-                // Update UI visibility based on selected game
-                if (selectedGame.equals("Game 2")) {
-                    for (int row = 0; row < 3; row++) {
-                        for (int col = 0; col < 3; col++) {
-                            view2.setRectangleVisibility(row, col, false);
-                        }
-                    }
-                }
-                else {
-                    for (int row = 0; row < 3; row++) {
-                        for (int col = 0; col < 6; col++) {
-                            view1.setRectangleVisibility(row, col, true);
-                        }
-                    }
-                }
 
-                // Display random box in "Simon Says" game
-                if (selectedGame.equals("Game 2")) {
-                    int[] randomGridIndex = model.generateRandomCoordinates();
-                    view2.setRectangleVisibility(randomGridIndex[0], randomGridIndex[1], true);
-                    view2.setRectangleColor(randomGridIndex[0], randomGridIndex[1], Color.BLUE);
-                }
 
                 // Generate and display target speed interval for "Simon Says" game
                 if (speedMode && selectedGame.equals("Game 2")) {
@@ -125,6 +109,7 @@ public class Game_Controller {
                         System.out.println("Lives Left: " + model.getPlayerLives());
                         view2.setTrueSpeedTextField(String.valueOf(model.getBallSpeed()));
                         view2.updateLivesCircles(playerLives);
+                        //view2.soccerball(this.model.getCoordinates())
                     }
                 });
 
@@ -144,6 +129,8 @@ public class Game_Controller {
                     e.printStackTrace();
                 }
             }
+
+            //End of Game code and UI
         });
 
         gameThread.start();

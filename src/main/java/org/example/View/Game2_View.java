@@ -235,6 +235,8 @@ public class Game2_View {
     }
 
     public void setRectangleVisibility(int row, int col, boolean isVisible) {
+        if (isVisible)
+            System.out.println("Box to hit: " + row + " " + col);
         Node node = getNodeByRowColumnIndex(row, col, gridPane);
         if (node != null && node instanceof Rectangle) {
             node.setVisible(isVisible);
