@@ -182,6 +182,37 @@ public class Game1_View {
                 scores.setStyle("-fx-font-size: 30px;"); // Set font size for the label
 
 
+
+                     HBox coordIndicator = new HBox(10);// HBox to hold player circles
+
+
+                    coordIndicator.setAlignment(Pos.CENTER); // Align the components to the center
+
+                    // Clear previous nodes
+                    coordIndicator.getChildren().clear();
+
+                    // Base URL for random soccer ball images from Unsplash
+                    String baseUrl = "hearts.png";
+
+                    // Create nodes for each life
+
+                    Image image2 = new Image(baseUrl);
+                    ImageView imageView2 = new ImageView(image2);
+                    imageView2.setFitWidth(75); // Set width of image
+                    imageView2.setFitHeight(75); // Set height of image
+                    imageView2.setPreserveRatio(true); // Preserve aspect ratio
+                    imageView2.setSmooth(true); // Enable smooth scaling
+                    imageView2.setCache(true); // Cache image for performance
+                    coordIndicator.getChildren().add(imageView2); // Add image view to the HBox
+
+
+
+                model.getCoordinates();
+                int newcol = 2;//model.getCoordinates()[0];
+                int newrow = 2;//model.getCoordinates()[1];
+                gridPane.add(coordIndicator, newcol, newrow); // Add rectangle to GridPane
+
+
                 Rectangle rectangle = new Rectangle(125, 100); // Size of each rectangle
                 rectangle.setFill(new Color(1.0, 0, 0, 0.5)); // Set the initial color
                 gridPane.add(rectangle, col, row); // Add rectangle to GridPane
@@ -222,34 +253,34 @@ public class Game1_View {
             }
         }
 
-            // Create a StackPane
-            StackPane stackPane = new StackPane();
-            stackPane.getChildren().addAll(imageView, gridPane); // Add both image and gridPane to the stackPane
+        // Create a StackPane
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(imageView, gridPane); // Add both image and gridPane to the stackPane
 
-            // Center the ImageView within the StackPane
-            StackPane.setAlignment(gridPane, Pos.CENTER);
+        // Center the ImageView within the StackPane
+        StackPane.setAlignment(gridPane, Pos.CENTER);
 
-            Region spacer5 = new Region();
-            HBox.setHgrow(spacer5, Priority.ALWAYS);
+        Region spacer5 = new Region();
+        HBox.setHgrow(spacer5, Priority.ALWAYS);
 
-            // Add the left component, spacer, and right component
-            hlayout.getChildren().addAll(scoresBox, spacer5, stackPane, spacer2, rightSide);
+        // Add the left component, spacer, and right component
+        hlayout.getChildren().addAll(scoresBox, spacer5, stackPane, spacer2, rightSide);
 
-            VBox layoutFinal = new VBox(40); // Horizontal layout with spacing of 40
-            layoutFinal.getChildren().addAll(layout, spacer3, hlayout, spacer4, highScoreBox); // Add scoring components to the layout
+        VBox layoutFinal = new VBox(40); // Horizontal layout with spacing of 40
+        layoutFinal.getChildren().addAll(layout, spacer3, hlayout, spacer4, highScoreBox); // Add scoring components to the layout
 
-            // Get the screen dimensions
-            double screenWidth = Screen.getPrimary().getBounds().getWidth();
-            double screenHeight = Screen.getPrimary().getBounds().getHeight();
+        // Get the screen dimensions
+        double screenWidth = Screen.getPrimary().getBounds().getWidth();
+        double screenHeight = Screen.getPrimary().getBounds().getHeight();
 
 
-            Scene scene = new Scene(layoutFinal, screenWidth, screenHeight); // Set the scene size
+        Scene scene = new Scene(layoutFinal, screenWidth, screenHeight); // Set the scene size
 
-            // Set the scene on the primary stage
-            primaryStage.setScene(scene);
+        // Set the scene on the primary stage
+        primaryStage.setScene(scene);
 
-            // Show the primary stage
-            primaryStage.show();
+        // Show the primary stage
+        primaryStage.show();
 
 
     }
@@ -308,19 +339,19 @@ public class Game1_View {
         return result;
     }
 
+
     public void updateMultiplierDisplay() {
-        if (this.model instanceof Game1_Model) {
-            int multiplier = ((Game1_Model) this.model).updateMultiplier(); // Cast to Game1_Model to access specific methods
-            this.multiplierTextField.setText(String.valueOf(multiplier));
-        }
+        //multiplierTextField.setText(String.valueOf(Game1_Model.setMultiplier()));
     }
 
 
     public void setBallSpeedTextField(String targetBallSpeedInterval) { this.ballSpeedTextField.setText(targetBallSpeedInterval); }
+
+    public void setMultiplierTextField(String mult) { this.multiplierTextField.setText(mult); }
     public void setCurrentScoreTextField(String pointsEarned) { this.currentScoreTextField.setText(pointsEarned); }
     public void setRoundTextField(String round) { this.roundTextField.setText(round); }
     public void setPlayerNameTextField(String name) { this.playerNameTextField.setText(name); }
     public void setTotalScoreTextField(String score) { this.totalScoreTextField.setText(score); }
 
-}
 
+}

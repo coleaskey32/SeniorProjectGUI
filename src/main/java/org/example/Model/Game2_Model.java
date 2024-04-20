@@ -37,6 +37,9 @@ public class Game2_Model extends Game_Model {
         return 1;
     }
 
+    public int getMultiplier() {
 
+        return 1;
+    }
 
 }

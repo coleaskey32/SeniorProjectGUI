@@ -16,6 +16,7 @@ import java.util.List;
 
 public class Game_Controller {
     private Game_Model model;
+
     private Game1_View view1;
     private Game2_View view2;
 
@@ -60,8 +61,10 @@ public class Game_Controller {
                     if (selectedGame.equals("Game 1")) {
                         view1.setRoundTextField(String.valueOf(model.getCurrentRound()));
                         view1.setPlayerNameTextField(String.valueOf(model.getCurrentPlayerNum()));
-                        view1.setTotalScoreTextField(String.valueOf(model.getCurrentPlayer().getTotalScore()));
                         view1.setCurrentScoreTextField(" ");
+                        view1.setBallSpeedTextField(" ");
+                        view1.setMultiplierTextField(" ");
+
                     }
                     else {
                         for (int row = 0; row < 3; row++) { for (int col = 0; col < 3; col++) { view2.setRectangleVisibility(row, col, false);}}
@@ -70,18 +73,18 @@ public class Game_Controller {
                         view2.updateLivesCircles(model.getPlayerLives());
                         view2.setRectangleVisibility(randomGridIndex[0], randomGridIndex[1], true);
                         view2.setRectangleColor(randomGridIndex[0], randomGridIndex[1], Color.BLUE);
+                        if (speedMode) {
+                            model.generateRandomSpeedRange();
+                            view2.setTargetSpeedTextField(model.getRandomSpeedInterval()[0] + " - " + model.getRandomSpeedInterval()[1]);
+                        }
+                        //view2.setTargetSpeedTextField(" ");
+                        view2.setTrueSpeedTextField(" ");
+
                     }
                 });
 
                 System.out.println("Round: " + model.getCurrentRound() + "  Player: " + model.getCurrentPlayerNum() + "  Lives: " + model.getPlayerLives());
 
-
-
-                // Generate and display target speed interval for "Simon Says" game
-                if (speedMode && selectedGame.equals("Game 2")) {
-                    model.generateRandomSpeedRange();
-                    view2.setTargetSpeedTextField(model.getRandomSpeedInterval()[0] + " - " + model.getRandomSpeedInterval()[1]);
-                }
 
                 // Retrieve coordinate from C++ program
                 model.retrieveCoordinate();
@@ -102,6 +105,7 @@ public class Game_Controller {
                 Platform.runLater(() -> {
                     if (selectedGame.equals("Game 1")) {
                         view1.setBallSpeedTextField(String.valueOf(model.getBallSpeed()));
+                        view1.setMultiplierTextField(String.valueOf(model.getMultiplier()));
                         view1.setCurrentScoreTextField(String.valueOf(currentScore));
                         view1.setTotalScoreTextField(String.valueOf(playerTotalScore));
                     }

@@ -5,13 +5,11 @@ import org.example.Controller.GameSetting_Controller;
 import org.example.View.Game1_View;
 
 public class Game1_Model extends Game_Model {
-    private int totalPlayers;
-    private boolean speedMode;
 
     // Assuming currentPlayer is the index of the current player in the players array
     int scoreToAdd = 0; // Default score
-    int multiplier = 1;
-    double ballSpeed = 0;
+
+    int multiplier = 0;
 
 
     public Game1_Model(int totalPlayers, String selectedGame, boolean speedMode, int rounds, Stage primaryStage) {
@@ -20,33 +18,27 @@ public class Game1_Model extends Game_Model {
         initializePlayers();
     }
 
-    public boolean getSpeedMode() {
-        return speedMode;
+    public boolean getSpeedMode(boolean speedMode) {
+        return this.speedMode = speedMode;
 
     }
 
     public int getMultiplier() {
+
+        if (getBallSpeed() > 0 && getBallSpeed() < 30) {
+            multiplier = 1;
+        } else if (getBallSpeed() > 30 && getBallSpeed() < 40) {
+            multiplier = 2;
+        } else if (getBallSpeed() > 40) {
+            multiplier = 3;
+        }
+
         return multiplier;
     }
 
     public int setMultiplier(int multiplier) {
         return this.multiplier = multiplier;
     }
-
-    public int updateMultiplier() {
-
-        if (this.ballSpeed > 0 && this.ballSpeed < 20) {
-            multiplier = 1;
-        } else if (this.ballSpeed > 20 && this.ballSpeed < 30) {
-            multiplier = 2;
-        } else if (this.ballSpeed > 30) {
-            multiplier = 3;
-        }
-        setMultiplier(multiplier);
-
-        return multiplier;
-    }
-
 
     @Override
     public int pointsGiven() {
@@ -88,21 +80,16 @@ public class Game1_Model extends Game_Model {
 
         // Assuming currentPlayer - 1 gives the correct index for the player in the players array
 
-        boolean mode = getSpeedMode();
-        multiplier = setMultiplier(multiplier);
-
-
-        if(mode)
+        if(getSpeedMode(speedMode))
         {
-           // System.out.println((getMultiplier() * scoreToAdd));
-           // System.out.println("speedMode true");
-            // players[currentPlayer - 1].setCurrentScore((getMultiplier() * scoreToAdd));
-            // return getMultiplier() * scoreToAdd;
-            return scoreToAdd;
+
+            System.out.println("speed:" + getBallSpeed() + "mult:" + getMultiplier() + "score" +  scoreToAdd + "multiplied" + getMultiplier()*scoreToAdd);
+
+            return getMultiplier() * scoreToAdd;
+
         }
         else{
-           // System.out.println((scoreToAdd));
-           // System.out.println("speedMode false");
+            System.out.println("reg" + scoreToAdd);
             return scoreToAdd;
         }
 
