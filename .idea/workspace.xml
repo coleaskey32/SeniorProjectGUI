@@ -4,19 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d901d274-a6d6-4bab-bfb9-079219d4d5ef" name="Changes" comment="Game 1 functionality">
+    <list default="true" id="d901d274-a6d6-4bab-bfb9-079219d4d5ef" name="Changes" comment="Multiplier and shot location indicator for game 1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Controller/GameSetting_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Controller/GameSetting_Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Controller/Game_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Controller/Game_Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Controller/HighScore_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Controller/HighScore_Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Model/Game1_Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Model/Game1_Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Model/Game2_Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Model/Game2_Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Model/Game_Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Model/Game_Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Model/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/View/Game1_View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/View/Game1_View.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/View/Game2_View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/View/Game2_View.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/View/GameSetting_View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/View/GameSetting_View.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/View/Home_View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/View/Home_View.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +27,10 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 0
+}]]></component>
   <component name="ProjectId" id="2e9TVqew6j4j4OkvWW16AMVaYHV" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -49,6 +44,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/colea/.jdks/corretto-1.8.0_352/lib/json-simple-1.1.1.jar",
     "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.15",
@@ -64,6 +60,13 @@
       <recent name="C:\Users\colea\Downloads\SP\src\main\resources" />
       <recent name="C:\Users\colea\Downloads\SP\src\main\java\org\example" />
     </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-1.8.0_402-corretto-1.8.0_402-4caba194b151-ae57be32" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -165,7 +168,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713257264296</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Multiplier and shot location indicator for game 1">
+      <option name="closed" value="true" />
+      <created>1713653543743</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1713653543743</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -192,6 +203,7 @@
     <MESSAGE value="Moved to Game Controller" />
     <MESSAGE value="Last Commit" />
     <MESSAGE value="Game 1 functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="Game 1 functionality" />
+    <MESSAGE value="Multiplier and shot location indicator for game 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Multiplier and shot location indicator for game 1" />
   </component>
 </project>
