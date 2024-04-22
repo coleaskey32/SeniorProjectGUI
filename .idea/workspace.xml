@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d901d274-a6d6-4bab-bfb9-079219d4d5ef" name="Changes" comment="Multiplier and shot location indicator for game 1">
+    <list default="true" id="d901d274-a6d6-4bab-bfb9-079219d4d5ef" name="Changes" comment="ball indicator but still hearts">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Controller/GameSetting_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Controller/GameSetting_Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Controller/Game_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Controller/Game_Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/View/Game1_View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/View/Game1_View.java" afterDir="false" />
     </list>
@@ -176,7 +177,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713653543743</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="ball indicator but still hearts">
+      <option name="closed" value="true" />
+      <created>1713731160767</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1713731160767</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -204,6 +213,7 @@
     <MESSAGE value="Last Commit" />
     <MESSAGE value="Game 1 functionality" />
     <MESSAGE value="Multiplier and shot location indicator for game 1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Multiplier and shot location indicator for game 1" />
+    <MESSAGE value="ball indicator but still hearts" />
+    <option name="LAST_COMMIT_MESSAGE" value="ball indicator but still hearts" />
   </component>
 </project>

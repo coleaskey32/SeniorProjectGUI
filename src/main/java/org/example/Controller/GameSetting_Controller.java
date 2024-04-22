@@ -66,7 +66,7 @@ public class GameSetting_Controller {
         playersHBox.getChildren().clear();
 
         // Base URL for random soccer ball images from Unsplash
-        String baseUrl = "SoccerGoalPost.jpg";
+        String baseUrl = "ball.png";
 
         // Create nodes for each player
         for (int i = 0; i < MAX_PLAYERS; i++) {

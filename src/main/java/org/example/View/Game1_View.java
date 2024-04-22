@@ -184,6 +184,16 @@ public class Game1_View {
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 6; col++) {
 
+                Label outOfBounds = new Label(); // Label indicating player lives
+                outOfBounds.setAlignment(Pos.CENTER); // Align the components to the center
+                outOfBounds.setStyle("-fx-font-size: 100px;"); // Set font size for the label
+                outOfBounds.setText("  Out of bounds!");
+
+                Label gameOver = new Label(); // Label indicating player lives
+                gameOver.setAlignment(Pos.CENTER); // Align the components to the center
+                gameOver.setStyle("-fx-font-size: 100px;"); // Set font size for the label
+                gameOver.setText("  Game Over!");
+
                 Label scores = new Label(); // Label indicating player lives
                 scores.setStyle("-fx-font-size: 30px;"); // Set font size for the label
 
@@ -193,7 +203,7 @@ public class Game1_View {
                 coordIndicator.getChildren().clear();
 
                 // Base URL for random soccer ball images from Unsplash
-                String baseUrl = "hearts.png";
+                String baseUrl = "ball.png";
 
                 // Create nodes for each life
 
@@ -206,12 +216,18 @@ public class Game1_View {
                 imageView2.setCache(true); // Cache image for performance
                 coordIndicator.getChildren().add(imageView2); // Add image view to the HBox
 
+
                 gridPane.add(coordIndicator, col, row); // Add rectangle to GridPane
 
                 Rectangle rectangle = new Rectangle(125, 100); // Size of each rectangle
                 rectangle.setFill(new Color(1.0, 0, 0, 0.5)); // Set the initial color
                 gridPane.add(rectangle, col, row); // Add rectangle to GridPane
+
                 gridPane.add(scores, col, row); // Add rectangle to GridPane
+                //gridPane.add(gameOver, col, row); // Add rectangle to GridPane
+                //gridPane.add(outOfBounds, col, row); // Add rectangle to GridPane
+
+
 
 
                 String gridposition = row + "," + col;
@@ -313,26 +329,38 @@ public class Game1_View {
     }
 
 
-    public void setSoccerBallVisibility(int row, int col, boolean isVisable) {
+    public void setSoccerBallVisibility(int row, int col, boolean isVisible) {
+        //row = -1;
+        //col = -1;
         System.out.println("Row: " + model.getCoordinates()[0] + "Col: " +  model.getCoordinates()[1]);
-        //if (row != -1 & col != -1 & isVisable ) {
+        //if (row == -1 && col == -1 ) {
+           // outOfBoundsVisibility(true);}
+        //else {
             Node node = getNodeByRowColumnIndex(row, col, gridPane);
             if (node != null && node instanceof HBox) {
-                node.setVisible(isVisable);
+                node.setVisible(isVisible);
             }
-       // }
-        //else {
-            //OutOfBoundsLabel.isvisble(true)
         //}
+    }
 
-        //if (!isVisble)
-        //OutOfBoundsLabel.isvisble(false)
+    public void outOfBoundsVisibility(boolean isVisible) {
+        Node node = getNodeByRowColumnIndex(2, 3, gridPane);
+        if (node != null && node instanceof Label) {
+            node.setVisible(isVisible);
 
+        }
+    }
 
+    public void gameOverVisibility(boolean isVisible) {
+            Node node = getNodeByRowColumnIndex(2, 3, gridPane);
+            if (node != null && node instanceof Label) {
+                node.setVisible(isVisible);
+
+        }
     }
 
 
-    public void setRectangleColor(int row, int col, boolean isVisible) {
+        public void setRectangleColor(int row, int col, boolean isVisible) {
         Node node = getNodeByRowColumnIndex(row, col, gridPane);
         if (node != null && node instanceof Rectangle) {
             Rectangle rectangle = (Rectangle) node; // Cast the Node to Rectangle

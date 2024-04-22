@@ -137,6 +137,8 @@ public class Game_Controller {
                 }
             }
 
+            view1.gameOverVisibility(true);
+
             //End of Game code and UI
         });
 
