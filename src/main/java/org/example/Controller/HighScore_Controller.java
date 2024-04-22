@@ -44,6 +44,11 @@ public class HighScore_Controller {
         currentPlayerNames = new ArrayList<>();
         leaderBoardScores = new ArrayList<>();
         leaderBoardNames = new ArrayList<>();
+        long average_score = 0;
+        long total_entries = 0;
+        JSONArray entries = null;
+        JSONObject jsonObj;
+        int index = 0;
 
         for (Player player : this.players) {
             currentPlayerNames.add(player.getPlayerName());
@@ -56,7 +61,7 @@ public class HighScore_Controller {
             JSONArray jsonArray = (JSONArray) jsonParser.parse(new FileReader("C://Users/colea/Downloads/SP/src/main/resources/Data.Json"));
 
             // Determine the index based on selectedGame and rounds
-            int index = 0;
+
             if (selectedGame.equals("Game 1")) {
                 if (rounds == 5)
                     index = 0;
@@ -73,14 +78,14 @@ public class HighScore_Controller {
                 index = 5;
             }
 
-            JSONObject jsonObj = (JSONObject) jsonArray.get(index);
+            jsonObj = (JSONObject) jsonArray.get(index);
 
 
-            JSONArray entries = (JSONArray) jsonObj.get("entries");
-            long average_score = (long) jsonObj.get("average_score");
-            long total_entries = (long) jsonObj.get("total_entries");
+            entries = (JSONArray) jsonObj.get("entries");
+            average_score = (long) jsonObj.get("average_score");
+            total_entries = (long) jsonObj.get("total_entries");
 
-
+            // assign entries to leaderboard
             for (Object entryObj : entries) {
                 JSONObject entry = (JSONObject) entryObj;
                 leaderBoardNames.add(String.valueOf(entry.get("name")));
@@ -88,41 +93,56 @@ public class HighScore_Controller {
                 System.out.println("Score: " + entry.get("score") + ", Name: " + entry.get("name"));
             }
             System.out.println("\n");
+
+            // Check if a player will be on global leaderboard
+            for (int i = 0; i < currentPlayerScores.size(); i++) {
+                int currentPlayerScore = currentPlayerScores.get(i);
+
+                for (int j = leaderBoardScores.size() - 1; j > 0; j--) {
+                    int leaderBoardScore = Integer.parseInt(leaderBoardScores.get(j));
+
+                    // Player made it on leaderboard
+                    System.out.println("CurrentPlayer Score: " + currentPlayerScore + "  LeaderBoard Score: " + leaderBoardScore);
+                    if (currentPlayerScore > leaderBoardScore) {
+                        // Display a window to prompt the player to enter their name
+                        String playerName = promptForPlayerName(primaryStage);
+
+                        // Shift the elements down
+                        for (int k = leaderBoardScores.size() - 1; k > j; k--) {
+                            leaderBoardScores.set(k, leaderBoardScores.get(k - 1));
+                            leaderBoardNames.set(k, leaderBoardNames.get(k - 1));
+                        }
+
+                        // Insert the new entry at index j
+                        leaderBoardScores.set(j, String.valueOf(currentPlayerScore));
+                        leaderBoardNames.set(j, playerName);
+
+                        break;
+                    }
+                }
+            }
+
+            // Update json file to have new LeaderBoard
+            // Create a JSON object for the updated leaderboard data
+            JSONArray updatedEntries = new JSONArray();
+            for (int i = 0; i < leaderBoardNames.size(); i++) {
+                JSONObject entry = new JSONObject();
+                entry.put("name", leaderBoardNames.get(i));
+                entry.put("score", leaderBoardScores.get(i));
+                updatedEntries.add(entry);
+            }
+
+            // Update the JSON object at the specified index
+            jsonObj.put("entries", updatedEntries);
+            jsonObj.put("average_score", calculateAverageScore(average_score, total_entries));
+            jsonObj.put("total_entries", total_entries + players.length);
+
+            // Now you can write the updated JSON object back to the JSON array
+            entries.set(index, jsonObj);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        // Check if a player will be on global leaderboard
-        for (int i = 0; i < currentPlayerScores.size(); i++) {
-            int currentPlayerScore = currentPlayerScores.get(i);
-
-            for (int j = leaderBoardScores.size() - 1; j > 0; j--) {
-                int leaderBoardScore = Integer.parseInt(leaderBoardScores.get(j));
-
-                // Player made it on leaderboard
-                System.out.println("CurrentPlayer Score: " + currentPlayerScore + "  LeaderBoard Score: " + leaderBoardScore);
-                if (currentPlayerScore > leaderBoardScore) {
-                    // Display a window to prompt the player to enter their name
-                    String playerName = promptForPlayerName(primaryStage);
-
-                    // Shift the elements down
-                    for (int k = leaderBoardScores.size() - 1; k > j; k--) {
-                        leaderBoardScores.set(k, leaderBoardScores.get(k - 1));
-                        leaderBoardNames.set(k, leaderBoardNames.get(k - 1));
-                    }
-
-                    // Insert the new entry at index j
-                    leaderBoardScores.set(j, String.valueOf(currentPlayerScore));
-                    leaderBoardNames.set(j, playerName);
-
-                    break;
-                }
-            }
-        }
-
-        // Update json file to have new LeaderBoard
-
-
     }
 
     public int[] scoreList() {
@@ -139,6 +159,20 @@ public class HighScore_Controller {
         return this.leaderBoardScores.get(i);
     }
 
+    public double calculateAverageScore(double oldAverage, long oldTotalEntries) {
+        double newAverage = 0;
+        int numberOfNewEntries = 0;
+        double newTotalScore = 0;
+        for(int score: currentPlayerScores){
+            newTotalScore += score;
+            numberOfNewEntries += 1;
+        }
+        newAverage = newTotalScore / numberOfNewEntries;
+
+        long newTotalEntries = oldTotalEntries + numberOfNewEntries;
+        double newAverageScore = ((oldAverage * oldTotalEntries) + (newAverage * numberOfNewEntries)) / newTotalEntries;
+        return newAverageScore;
+    }
     public String promptForPlayerName(Stage primaryStage) {
         // Create a TextInputDialog
         TextInputDialog dialog = new TextInputDialog();
