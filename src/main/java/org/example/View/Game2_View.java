@@ -40,12 +40,23 @@ public class Game2_View {
     Label trueSpeedTextField = new Label();
     Label targetSpeedTextField = new Label();
     Label roundTextField = new Label();
-
+    Label outOfBounds = new Label();
+    Label gameOver = new Label();
+    Button highScoreButton = new Button("View High Scores");
     public HBox livesHBox = new HBox(10);// HBox to hold player circles
 
     public Game2_View(Stage primaryStage, Game_Model model) {
 
         this.model = model;
+
+        outOfBounds.setAlignment(Pos.TOP_CENTER); // Align the components to the center
+        outOfBounds.setStyle("-fx-font-size: 100px;"); // Set font size for the label
+        outOfBounds.setText("  Out of bounds!");
+
+
+        gameOver.setAlignment(Pos.TOP_CENTER); // Align the components to the center
+        gameOver.setStyle("-fx-font-size: 100px;"); // Set font size for the label
+        gameOver.setText("  Game Over!");
 
         // Player Name Label
         Label playerNameLabel = new Label("  Player Name:");
@@ -154,6 +165,30 @@ public class Game2_View {
         // Add colored rectangles to the GridPane
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
+
+
+
+                Label scores = new Label(); // Label indicating player lives
+                scores.setStyle("-fx-font-size: 30px;"); // Set font size for the label
+
+                HBox coordIndicator = new HBox(10);// HBox to hold player circles
+                coordIndicator.setAlignment(Pos.CENTER); // Align the components to the center
+                // Clear previous nodes
+                coordIndicator.getChildren().clear();
+
+                // Base URL for random soccer ball images from Unsplash
+                String baseUrl = "ball.png";
+                // Create soccer ball images
+                Image image2 = new Image(baseUrl);
+                ImageView imageView2 = new ImageView(image2);
+                imageView2.setFitWidth(75); // Set width of image
+                imageView2.setFitHeight(75); // Set height of image
+                imageView2.setPreserveRatio(true); // Preserve aspect ratio
+                imageView2.setSmooth(true); // Enable smooth scaling
+                imageView2.setCache(true); // Cache image for performance
+                coordIndicator.getChildren().add(imageView2); // Add image view to the HBox
+                gridPane.add(coordIndicator, col, row); // Add rectangle to GridPane
+
                 Rectangle rectangle = new Rectangle(250, 100); // Size of each rectangle
                 rectangle.setFill(Color.BLUE); // Set the initial color
                 gridPane.add(rectangle, col, row); // Add rectangle to GridPane
@@ -172,11 +207,8 @@ public class Game2_View {
         hlayout.setAlignment(Pos.CENTER); // Align the components to the left
 
         // Create a button
-        Button highScoreButton = new Button("View High Scores");
         highScoreButton.setPrefSize(200, 50); // Set the preferred width and height
         highScoreButton.setStyle("-fx-font-size: 20px;"); // Increase font size
-
-
         highScoreButton.setOnAction(e -> { model.openHighScoreWindow(); });
 
         HBox highScoreBox = new HBox(40);
@@ -286,9 +318,26 @@ public class Game2_View {
         return newTargetSpeed;
     }
 
+    public void setSoccerBallVisibility(int row, int col, boolean isVisible) {
+        //row = -1;
+        //col = -1;
+        System.out.println("Row: " + model.getCoordinates()[0] + "Col: " +  model.getCoordinates()[1]);
+        //if (row == -1 && col == -1 ) {
+        // outOfBoundsVisibility(true);}
+        //else {
+        Node node = getNodeByRowColumnIndex(row, col, gridPane);
+        if (node != null && node instanceof HBox) {
+            node.setVisible(isVisible);
+        }
+        //}
+    }
+
     public void setTrueSpeedTextField(String speed) { this.trueSpeedTextField.setText(speed); }
     public void setTargetSpeedTextField(String targetBallSpeedInterval) {this.targetSpeedTextField.setText(targetBallSpeedInterval); }
     public void setPlayerNameTextField(String name) { this.playerNameTextField.setText(name); }
     public void setRoundTextField(String round) { this.roundTextField.setText(round); }
+    public void setGameOverVisibility(boolean visibility) {this.gameOver.setVisible(visibility); }
+    public void setOutOfBoundsVisibility(boolean visibility) {this.outOfBounds.setVisible(visibility); }
+    public void setHighScoreButtonVisibility(boolean visibility) {this.highScoreButton.setVisible(visibility);}
 
 }

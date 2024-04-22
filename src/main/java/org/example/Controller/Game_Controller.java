@@ -52,8 +52,17 @@ public class Game_Controller {
         Thread gameThread = new Thread(() -> {
             int earnedPoints;
 
+            if ("Game 1".equals(selectedGame)) {
+                view1.setGameOverVisibility(true);
+                view1.setHighScoreButtonVisibility(false);
+            }
+            else {
+                view2.setGameOverVisibility(true);
+                view2.setHighScoreButtonVisibility(false);
+            }
+
             // While there are still rounds left and someone is still alive
-            while (model.getCurrentRound() > 0) {
+            while (model.getCurrentRound() > 0  ) {
 
                 final int[] randomGridIndex = model.generateRandomCoordinates();
 
@@ -66,6 +75,7 @@ public class Game_Controller {
                         view1.setCurrentScoreTextField(" ");
                         view1.setBallSpeedTextField(" ");
                         view1.setMultiplierTextField(" ");
+                        view1.setOutOfBoundsVisibility(true);
                     }
                     else {
                         for (int row = 0; row < 3; row++) { for (int col = 0; col < 3; col++) { view2.setRectangleVisibility(row, col, false);}}
@@ -112,6 +122,7 @@ public class Game_Controller {
                         System.out.println("Lives Left: " + model.getPlayerLives());
                         view2.setTrueSpeedTextField(String.valueOf(model.getBallSpeed()));
                         view2.updateLivesCircles(playerLives);
+                        view2.setSoccerBallVisibility(model.getCoordinates()[0], model.getCoordinates()[1], true);
                         if (speedMode) {
                             model.generateRandomSpeedRange();
                             view2.setTargetSpeedTextField(model.getRandomSpeedInterval()[0] + " - " + model.getRandomSpeedInterval()[1]);
@@ -137,12 +148,21 @@ public class Game_Controller {
                 }
             }
 
-            view1.gameOverVisibility(true);
+            if ("Game 1".equals(selectedGame)) {
+                view1.setHighScoreButtonVisibility(true);
+                view1.setGameOverVisibility(true);
+            }
+            else {
+                view2.setHighScoreButtonVisibility(true);
+                view2.setGameOverVisibility(true);
+            }
 
             //End of Game code and UI
         });
 
         gameThread.start();
+
+
     }
 
 }

@@ -37,6 +37,13 @@ public class Game2_Model extends Game_Model {
         return 1;
     }
 
+    public boolean playerStillAlive() {
+        for (Player player : players) {
+            if(player.getLives() > 0)
+                return true;
+        }
+        return false;
+    }
     public int getMultiplier() {
 
         return 1;

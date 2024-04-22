@@ -6,7 +6,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button; // Import Button class
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -16,9 +15,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-import org.example.Controller.HighScore_Controller;
 import org.example.Model.Game_Model;
-import org.example.Model.Game1_Model;
 import org.example.Model.Player;
 
 public class Game1_View {
@@ -34,13 +31,25 @@ public class Game1_View {
     Label ballSpeedTextField = new Label();
     Label playerNameTextField = new Label();
     Label roundTextField = new Label();
-
+    Label outOfBounds = new Label();
+    Label gameOver = new Label();
+    Button highScoreButton = new Button("View High Scores");
     HBox coordIndicator = new HBox(10);// HBox to hold player circles
 
 
     public Game1_View(Stage primaryStage, Game_Model model) {
 
         this.model = model;
+
+        outOfBounds = new Label(); // Label indicating player lives
+        outOfBounds.setAlignment(Pos.CENTER); // Align the components to the center
+        outOfBounds.setStyle("-fx-font-size: 100px;"); // Set font size for the label
+        outOfBounds.setText("  Out of bounds!");
+
+        gameOver = new Label(); // Label indicating player lives
+        gameOver.setAlignment(Pos.CENTER); // Align the components to the center
+        gameOver.setStyle("-fx-font-size: 100px;"); // Set font size for the label
+        gameOver.setText("  Game Over!");
 
         // Player Name Label
         Label playerNameLabel = new Label("  Player Name:");
@@ -148,7 +157,7 @@ public class Game1_View {
 
 
         // Create a button
-        Button highScoreButton = new Button("View High Scores");
+
         highScoreButton.setPrefSize(200, 50); // Set the preferred width and height
         highScoreButton.setStyle("-fx-font-size: 20px;"); // Increase font size
         highScoreButton.setOnAction(e -> {
@@ -183,16 +192,6 @@ public class Game1_View {
         // Add colored rectangles to the GridPane
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 6; col++) {
-
-                Label outOfBounds = new Label(); // Label indicating player lives
-                outOfBounds.setAlignment(Pos.CENTER); // Align the components to the center
-                outOfBounds.setStyle("-fx-font-size: 100px;"); // Set font size for the label
-                outOfBounds.setText("  Out of bounds!");
-
-                Label gameOver = new Label(); // Label indicating player lives
-                gameOver.setAlignment(Pos.CENTER); // Align the components to the center
-                gameOver.setStyle("-fx-font-size: 100px;"); // Set font size for the label
-                gameOver.setText("  Game Over!");
 
                 Label scores = new Label(); // Label indicating player lives
                 scores.setStyle("-fx-font-size: 30px;"); // Set font size for the label
@@ -412,4 +411,9 @@ public class Game1_View {
     public void setTotalScoreTextField(String score) {
         this.totalScoreTextField.setText(score);
     }
+
+    public void setGameOverVisibility(boolean visibility) {this.gameOver.setVisible(visibility); }
+    public void setOutOfBoundsVisibility(boolean visibility) {this.outOfBounds.setVisible(visibility); }
+    public void setHighScoreButtonVisibility(boolean visibility) {this.highScoreButton.setVisible(visibility);}
+
 }
