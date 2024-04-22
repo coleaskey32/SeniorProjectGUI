@@ -16,6 +16,7 @@ import java.util.List;
 
 public class Game_Controller {
     private Game_Model model;
+
     private Game1_View view1;
     private Game2_View view2;
 
@@ -56,12 +57,15 @@ public class Game_Controller {
 
                 final int[] randomGridIndex = model.generateRandomCoordinates();
 
+                // Implements BEFORE ball is kicked
                 Platform.runLater(() -> {
                     if (selectedGame.equals("Game 1")) {
+                        for (int row = 0; row < 3; row++) { for (int col = 0; col < 6; col++) { view1.setSoccerBallVisibility(row, col, false);}}
                         view1.setRoundTextField(String.valueOf(model.getCurrentRound()));
                         view1.setPlayerNameTextField(String.valueOf(model.getCurrentPlayerNum()));
-                        view1.setTotalScoreTextField(String.valueOf(model.getCurrentPlayer().getTotalScore()));
                         view1.setCurrentScoreTextField(" ");
+                        view1.setBallSpeedTextField(" ");
+                        view1.setMultiplierTextField(" ");
                     }
                     else {
                         for (int row = 0; row < 3; row++) { for (int col = 0; col < 3; col++) { view2.setRectangleVisibility(row, col, false);}}
@@ -70,18 +74,15 @@ public class Game_Controller {
                         view2.updateLivesCircles(model.getPlayerLives());
                         view2.setRectangleVisibility(randomGridIndex[0], randomGridIndex[1], true);
                         view2.setRectangleColor(randomGridIndex[0], randomGridIndex[1], Color.BLUE);
+
+                        //view2.setTargetSpeedTextField(" ");
+                        view2.setTrueSpeedTextField(" ");
+
                     }
                 });
 
                 System.out.println("Round: " + model.getCurrentRound() + "  Player: " + model.getCurrentPlayerNum() + "  Lives: " + model.getPlayerLives());
 
-
-
-                // Generate and display target speed interval for "Simon Says" game
-                if (speedMode && selectedGame.equals("Game 2")) {
-                    model.generateRandomSpeedRange();
-                    view2.setTargetSpeedTextField(model.getRandomSpeedInterval()[0] + " - " + model.getRandomSpeedInterval()[1]);
-                }
 
                 // Retrieve coordinate from C++ program
                 model.retrieveCoordinate();
@@ -98,18 +99,24 @@ public class Game_Controller {
                 final int playerTotalScore = model.getCurrentPlayer().getTotalScore();
 
 
-                // Implement player's kicked ball speed on view and score they received or lives lost
+                // Implements AFTER ball is kicked
                 Platform.runLater(() -> {
                     if (selectedGame.equals("Game 1")) {
                         view1.setBallSpeedTextField(String.valueOf(model.getBallSpeed()));
+                        view1.setMultiplierTextField(String.valueOf(model.getMultiplier()));
                         view1.setCurrentScoreTextField(String.valueOf(currentScore));
                         view1.setTotalScoreTextField(String.valueOf(playerTotalScore));
+                        view1.setSoccerBallVisibility(model.getCoordinates()[0], model.getCoordinates()[1], true);
                     }
                     else {
                         System.out.println("Lives Left: " + model.getPlayerLives());
                         view2.setTrueSpeedTextField(String.valueOf(model.getBallSpeed()));
                         view2.updateLivesCircles(playerLives);
-                        //view2.soccerball(this.model.getCoordinates())
+                        if (speedMode) {
+                            model.generateRandomSpeedRange();
+                            view2.setTargetSpeedTextField(model.getRandomSpeedInterval()[0] + " - " + model.getRandomSpeedInterval()[1]);
+                        }
+
                     }
                 });
 
@@ -129,6 +136,8 @@ public class Game_Controller {
                     e.printStackTrace();
                 }
             }
+
+            view1.gameOverVisibility(true);
 
             //End of Game code and UI
         });

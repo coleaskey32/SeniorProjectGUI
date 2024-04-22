@@ -196,4 +196,6 @@ public abstract class Game_Model {
     public void addToPlayerScore(int points) {
         this.players[currentPlayer - 1].addToTotalScore(points);
     }
+
+    public abstract int getMultiplier();
 }

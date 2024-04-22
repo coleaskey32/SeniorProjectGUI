@@ -35,6 +35,9 @@ public class Game1_View {
     Label playerNameTextField = new Label();
     Label roundTextField = new Label();
 
+    HBox coordIndicator = new HBox(10);// HBox to hold player circles
+
+
     public Game1_View(Stage primaryStage, Game_Model model) {
 
         this.model = model;
@@ -115,7 +118,7 @@ public class Game1_View {
         ballSpeedLabel.setStyle("-fx-font-size: 20px;"); // Increase font size
 
         // mph Label
-        Label mphLabel = new Label("mph");
+        Label mphLabel = new Label("mph   ");
         mphLabel.setStyle("-fx-font-size: 20px;"); // Increase font size
 
         ballSpeedTextField.setPrefWidth(50); // Set preferred width
@@ -148,7 +151,9 @@ public class Game1_View {
         Button highScoreButton = new Button("View High Scores");
         highScoreButton.setPrefSize(200, 50); // Set the preferred width and height
         highScoreButton.setStyle("-fx-font-size: 20px;"); // Increase font size
-        highScoreButton.setOnAction(e -> { model.openHighScoreWindow(); });
+        highScoreButton.setOnAction(e -> {
+            model.openHighScoreWindow();
+        });
 
         HBox highScoreBox = new HBox(40);
         // Add button to HBox
@@ -178,14 +183,52 @@ public class Game1_View {
         // Add colored rectangles to the GridPane
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 6; col++) {
+
+                Label outOfBounds = new Label(); // Label indicating player lives
+                outOfBounds.setAlignment(Pos.CENTER); // Align the components to the center
+                outOfBounds.setStyle("-fx-font-size: 100px;"); // Set font size for the label
+                outOfBounds.setText("  Out of bounds!");
+
+                Label gameOver = new Label(); // Label indicating player lives
+                gameOver.setAlignment(Pos.CENTER); // Align the components to the center
+                gameOver.setStyle("-fx-font-size: 100px;"); // Set font size for the label
+                gameOver.setText("  Game Over!");
+
                 Label scores = new Label(); // Label indicating player lives
                 scores.setStyle("-fx-font-size: 30px;"); // Set font size for the label
 
+                HBox coordIndicator = new HBox(10);// HBox to hold player circles
+                coordIndicator.setAlignment(Pos.CENTER); // Align the components to the center
+                // Clear previous nodes
+                coordIndicator.getChildren().clear();
+
+                // Base URL for random soccer ball images from Unsplash
+                String baseUrl = "ball.png";
+
+                // Create nodes for each life
+
+                Image image2 = new Image(baseUrl);
+                ImageView imageView2 = new ImageView(image2);
+                imageView2.setFitWidth(75); // Set width of image
+                imageView2.setFitHeight(75); // Set height of image
+                imageView2.setPreserveRatio(true); // Preserve aspect ratio
+                imageView2.setSmooth(true); // Enable smooth scaling
+                imageView2.setCache(true); // Cache image for performance
+                coordIndicator.getChildren().add(imageView2); // Add image view to the HBox
+
+
+                gridPane.add(coordIndicator, col, row); // Add rectangle to GridPane
 
                 Rectangle rectangle = new Rectangle(125, 100); // Size of each rectangle
                 rectangle.setFill(new Color(1.0, 0, 0, 0.5)); // Set the initial color
                 gridPane.add(rectangle, col, row); // Add rectangle to GridPane
+
                 gridPane.add(scores, col, row); // Add rectangle to GridPane
+                //gridPane.add(gameOver, col, row); // Add rectangle to GridPane
+                //gridPane.add(outOfBounds, col, row); // Add rectangle to GridPane
+
+
+
 
                 String gridposition = row + "," + col;
 
@@ -222,34 +265,34 @@ public class Game1_View {
             }
         }
 
-            // Create a StackPane
-            StackPane stackPane = new StackPane();
-            stackPane.getChildren().addAll(imageView, gridPane); // Add both image and gridPane to the stackPane
+        // Create a StackPane
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(imageView, gridPane); // Add both image and gridPane to the stackPane
 
-            // Center the ImageView within the StackPane
-            StackPane.setAlignment(gridPane, Pos.CENTER);
+        // Center the ImageView within the StackPane
+        StackPane.setAlignment(gridPane, Pos.CENTER);
 
-            Region spacer5 = new Region();
-            HBox.setHgrow(spacer5, Priority.ALWAYS);
+        Region spacer5 = new Region();
+        HBox.setHgrow(spacer5, Priority.ALWAYS);
 
-            // Add the left component, spacer, and right component
-            hlayout.getChildren().addAll(scoresBox, spacer5, stackPane, spacer2, rightSide);
+        // Add the left component, spacer, and right component
+        hlayout.getChildren().addAll(scoresBox, spacer5, stackPane, spacer2, rightSide);
 
-            VBox layoutFinal = new VBox(40); // Horizontal layout with spacing of 40
-            layoutFinal.getChildren().addAll(layout, spacer3, hlayout, spacer4, highScoreBox); // Add scoring components to the layout
+        VBox layoutFinal = new VBox(40); // Horizontal layout with spacing of 40
+        layoutFinal.getChildren().addAll(layout, spacer3, hlayout, spacer4, highScoreBox); // Add scoring components to the layout
 
-            // Get the screen dimensions
-            double screenWidth = Screen.getPrimary().getBounds().getWidth();
-            double screenHeight = Screen.getPrimary().getBounds().getHeight();
+        // Get the screen dimensions
+        double screenWidth = Screen.getPrimary().getBounds().getWidth();
+        double screenHeight = Screen.getPrimary().getBounds().getHeight();
 
 
-            Scene scene = new Scene(layoutFinal, screenWidth, screenHeight); // Set the scene size
+        Scene scene = new Scene(layoutFinal, screenWidth, screenHeight); // Set the scene size
 
-            // Set the scene on the primary stage
-            primaryStage.setScene(scene);
+        // Set the scene on the primary stage
+        primaryStage.setScene(scene);
 
-            // Show the primary stage
-            primaryStage.show();
+        // Show the primary stage
+        primaryStage.show();
 
 
     }
@@ -285,7 +328,39 @@ public class Game1_View {
         }
     }
 
-    public void setRectangleColor(int row, int col, boolean isVisible) {
+
+    public void setSoccerBallVisibility(int row, int col, boolean isVisible) {
+        //row = -1;
+        //col = -1;
+        System.out.println("Row: " + model.getCoordinates()[0] + "Col: " +  model.getCoordinates()[1]);
+        //if (row == -1 && col == -1 ) {
+           // outOfBoundsVisibility(true);}
+        //else {
+            Node node = getNodeByRowColumnIndex(row, col, gridPane);
+            if (node != null && node instanceof HBox) {
+                node.setVisible(isVisible);
+            }
+        //}
+    }
+
+    public void outOfBoundsVisibility(boolean isVisible) {
+        Node node = getNodeByRowColumnIndex(2, 3, gridPane);
+        if (node != null && node instanceof Label) {
+            node.setVisible(isVisible);
+
+        }
+    }
+
+    public void gameOverVisibility(boolean isVisible) {
+            Node node = getNodeByRowColumnIndex(2, 3, gridPane);
+            if (node != null && node instanceof Label) {
+                node.setVisible(isVisible);
+
+        }
+    }
+
+
+        public void setRectangleColor(int row, int col, boolean isVisible) {
         Node node = getNodeByRowColumnIndex(row, col, gridPane);
         if (node != null && node instanceof Rectangle) {
             Rectangle rectangle = (Rectangle) node; // Cast the Node to Rectangle
@@ -308,19 +383,33 @@ public class Game1_View {
         return result;
     }
 
+
     public void updateMultiplierDisplay() {
-        if (this.model instanceof Game1_Model) {
-            int multiplier = ((Game1_Model) this.model).updateMultiplier(); // Cast to Game1_Model to access specific methods
-            this.multiplierTextField.setText(String.valueOf(multiplier));
-        }
+        //multiplierTextField.setText(String.valueOf(Game1_Model.setMultiplier()));
     }
 
 
-    public void setBallSpeedTextField(String targetBallSpeedInterval) { this.ballSpeedTextField.setText(targetBallSpeedInterval); }
-    public void setCurrentScoreTextField(String pointsEarned) { this.currentScoreTextField.setText(pointsEarned); }
-    public void setRoundTextField(String round) { this.roundTextField.setText(round); }
-    public void setPlayerNameTextField(String name) { this.playerNameTextField.setText(name); }
-    public void setTotalScoreTextField(String score) { this.totalScoreTextField.setText(score); }
+    public void setBallSpeedTextField(String targetBallSpeedInterval) {
+        this.ballSpeedTextField.setText(targetBallSpeedInterval);
+    }
 
+    public void setMultiplierTextField(String mult) {
+        this.multiplierTextField.setText(mult);
+    }
+
+    public void setCurrentScoreTextField(String pointsEarned) {
+        this.currentScoreTextField.setText(pointsEarned);
+    }
+
+    public void setRoundTextField(String round) {
+        this.roundTextField.setText(round);
+    }
+
+    public void setPlayerNameTextField(String name) {
+        this.playerNameTextField.setText(name);
+    }
+
+    public void setTotalScoreTextField(String score) {
+        this.totalScoreTextField.setText(score);
+    }
 }
-
